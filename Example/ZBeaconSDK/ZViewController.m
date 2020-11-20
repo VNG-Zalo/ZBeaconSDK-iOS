@@ -7,6 +7,7 @@
 //
 
 #import "ZViewController.h"
+#import <ZBeaconSDK/ZBeaconSDK.h>
 
 @interface ZViewController ()
 
@@ -18,6 +19,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [ZBeaconSDK sharedInstance];
 }
 
 - (void)didReceiveMemoryWarning

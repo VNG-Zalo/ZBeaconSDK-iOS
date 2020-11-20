@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ZBeaconSDK'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of ZBeaconSDK.'
+  s.version          = '1.0.202011201013'
+  s.summary          = 'ZBeacon SDK'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,25 +18,22 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+ZBeacon SDK
                        DESC
 
-  s.homepage         = 'https://github.com/minhtoantm/ZBeaconSDK'
+  s.homepage         = 'https://github.com/VNG-Zalo/ZBeaconSDK-iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'minhtoantm' => 'minhtoan3101@gmail.com' }
-  s.source           = { :git => 'https://github.com/minhtoantm/ZBeaconSDK.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/VNG-Zalo/ZBeaconSDK-iOS.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'ZBeaconSDK/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'ZBeaconSDK' => ['ZBeaconSDK/Assets/*.png']
-  # }
+  s.subspec 'Main' do |cs|
+    cs.ios.vendored_frameworks = 'ZBeaconSDK/Frameworks/ZBeaconSDK.framework'
+  end
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.default_subspecs = 'Main'
+
 end

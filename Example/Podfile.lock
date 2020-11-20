@@ -1,0 +1,18 @@
+PODS:
+  - ZBeaconSDK (1.0.202011201013):
+    - ZBeaconSDK/Main (= 1.0.202011201013)
+  - ZBeaconSDK/Main (1.0.202011201013)
+
+DEPENDENCIES:
+  - ZBeaconSDK (from `../`)
+
+EXTERNAL SOURCES:
+  ZBeaconSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ZBeaconSDK: 4e1605b0fbd95c4e9b5ddbafc1b147a5995baf3a
+
+PODFILE CHECKSUM: be5baeba17e9167ac055a8cebb2d180b1b2b3a08
+
+COCOAPODS: 1.10.0

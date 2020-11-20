@@ -1,0 +1,30 @@
+{
+  "name": "ZBeaconSDK",
+  "version": "1.0.202011201013",
+  "summary": "ZBeacon SDK",
+  "description": "ZBeacon SDK",
+  "homepage": "https://github.com/VNG-Zalo/ZBeaconSDK-iOS",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "minhtoantm": "minhtoan3101@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/VNG-Zalo/ZBeaconSDK-iOS.git",
+    "tag": "1.0.202011201013"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "default_subspecs": "Main",
+  "subspecs": [
+    {
+      "name": "Main",
+      "ios": {
+        "vendored_frameworks": "ZBeaconSDK/Frameworks/ZBeaconSDK.framework"
+      }
+    }
+  ]
+}
