@@ -27,6 +27,7 @@
 		C0D5D907256BA6B300D88CBC /* NetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D906256BA6B300D88CBC /* NetworkHelper.m */; };
 		C0D5D924256BB29400D88CBC /* APIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D923256BB29400D88CBC /* APIResponse.m */; };
 		C0D5D929256BBC0100D88CBC /* BeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D927256BBC0100D88CBC /* BeaconModel.m */; };
+		C0D5D937256BC2C600D88CBC /* BeaconPromotion.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D935256BC2C600D88CBC /* BeaconPromotion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		C0D5D923256BB29400D88CBC /* APIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIResponse.m; sourceTree = "<group>"; };
 		C0D5D927256BBC0100D88CBC /* BeaconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconModel.m; sourceTree = "<group>"; };
 		C0D5D928256BBC0100D88CBC /* BeaconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconModel.h; sourceTree = "<group>"; };
+		C0D5D935256BC2C600D88CBC /* BeaconPromotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPromotion.m; sourceTree = "<group>"; };
+		C0D5D936256BC2C600D88CBC /* BeaconPromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconPromotion.h; sourceTree = "<group>"; };
 		CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D679C22CEFFB9121E637095B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +212,8 @@
 		C0D5D904256BA67500D88CBC /* NetworkHelper */ = {
 			isa = PBXGroup;
 			children = (
+				C0D5D936256BC2C600D88CBC /* BeaconPromotion.h */,
+				C0D5D935256BC2C600D88CBC /* BeaconPromotion.m */,
 				C0D5D928256BBC0100D88CBC /* BeaconModel.h */,
 				C0D5D927256BBC0100D88CBC /* BeaconModel.m */,
 				C0D5D922256BB29400D88CBC /* APIResponse.h */,
@@ -397,6 +402,7 @@
 				C0D5D929256BBC0100D88CBC /* BeaconModel.m in Sources */,
 				C0D5D907256BA6B300D88CBC /* NetworkHelper.m in Sources */,
 				6003F59E195388D20070C39A /* ZAppDelegate.m in Sources */,
+				C0D5D937256BC2C600D88CBC /* BeaconPromotion.m in Sources */,
 				C0D5D924256BB29400D88CBC /* APIResponse.m in Sources */,
 				6003F5A7195388D20070C39A /* ZViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

@@ -108,4 +108,34 @@
     }];
 }
 
+- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void (^)(BeaconPromotion * _Nonnull))callback {
+    NSDictionary *params = @{
+        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
+        @"av": APP_VERSION,
+        @"pl": PLATFORM,
+        @"id": uuidString
+    };
+    [_sessionManager GET:@"promotion"
+              parameters:params
+                progress:nil
+                 success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSError *error;
+        APIResponse *apiResponse = [APIResponse fromData:responseObject error:&error];
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            BeaconPromotion *promotion = nil;
+            if (apiResponse.errorCode != 0) {
+                NSLog(@"getPromotionForBeaconUUID: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
+            } else {
+                promotion = [BeaconPromotion fromJSONDictionary:apiResponse.data];
+            }
+            callback(promotion);
+        }
+    }
+                 failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"getPromotionForBeaconUUID error: %@", error);
+    }];
+}
+
 @end
