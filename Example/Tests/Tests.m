@@ -7,6 +7,7 @@
 //
 
 @import XCTest;
+#import "NetworkHelper.h"
 
 @interface Tests : XCTestCase
 
@@ -26,9 +27,17 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testGetBeaconListForMasterBeaconUUID
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
+    NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
+    __block NSArray *beaconModelList = nil;
+    [networkHelper getBeaconListForMasterBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(NSArray * _Nonnull beaconModels) {
+        beaconModelList = beaconModels;
+        [promise fulfill];
+    }];
+    XCTAssertNil(beaconModelList);
+    XCTAssertEqual(beaconModelList.count, 0);
 }
 
 @end

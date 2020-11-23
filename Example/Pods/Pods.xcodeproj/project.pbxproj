@@ -19,59 +19,205 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0ECEFC1362BAC9A838E1F5BA5B8BA361 /* Pods-ZBeaconSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2081E6A11C1C5522BD0D6D9399F8EB0C /* Pods-ZBeaconSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		02E2954BD351E7B167D8F60B13208DAF /* JSONModelError.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E03C0D70592B5ACDB865195284CDBDB /* JSONModelError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		09E2F57C3C2B897ACC8AF5C49F1E9592 /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 28ED7E268B20ADA7FE9EDA5FF9F97644 /* UIImage+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		09E785555B549DE5974C744DB8324B91 /* UIRefreshControl+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 3929AC9FA4D155C55F4EF282B00C3C49 /* UIRefreshControl+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D40EE6956924384435BBBD4B718DEC8 /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6DE872A4F7762870D9D90FF5602CD /* AFImageDownloader.m */; };
+		1071D84B6431759A11FAEBAAE29E3F32 /* JSONHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 780FA5E1D1D03B0AC2F0D90A4A5634A8 /* JSONHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		169B3FC2BD33B8FBC2D4C35A1C1DC6BF /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7146C19F8170BBBC019BEE6797F36B04 /* AFHTTPSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		17D6A066C5F987FEFF8B89D7EFDFD375 /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = BBEF35F66D20CC3127EF23A4297FE393 /* AFURLRequestSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		191126E8D5A1E26339D2B767EF3AE197 /* JSONModel+networking.h in Headers */ = {isa = PBXBuildFile; fileRef = 046A62C3234F067A0D32B99A7D7DC9E1 /* JSONModel+networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		26A3D3037A05E7E99AFF098D11427775 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4BCC19A4BBA27CC8380DF9C9DFFD05 /* JSONKeyMapper.m */; };
+		2AE1F29F045D02727E815DBBAC8C7B4F /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 45856290FBBC6B7A15759113B8523B2D /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3033C2DE9CB2085ECBB95717CFB6425A /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE9F018ADDA261E21D611F7D545C048 /* AFAutoPurgingImageCache.m */; };
+		30779EDAAAECEC1C5D5F78F87FD41EBB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 184765213831524EBBA56491EADF44BB /* MobileCoreServices.framework */; };
+		34A7C5747B4C0825465453E196E57FAA /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D635F3F83039D340BF67FA1C4B083087 /* UIButton+AFNetworking.m */; };
+		3A186F3A7711FAAB8C60562D63FF0D9F /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 71E0D0F6EDCDBF7CBF7FAB2A0E0C4075 /* UIProgressView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AEA2F22B88CD78E671F25B60DB66ADA /* JSONAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ABAED90B57BE5734C65EAFC47CFCAAF /* JSONAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BDC8FBDB7922AA1ABA2C90DBA2DBB35 /* AFNetworking-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C1875B4166AB0DA49B8EB50F50C25358 /* AFNetworking-dummy.m */; };
+		3E112DA53DD725C9A3185A54EB342EAF /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = D98194B4936A1D17061EA01104095DDC /* AFSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47FF1D17418AB1144FDE0E46427F4877 /* AFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = CB675CF5AF5F393E04C5999E69920EC0 /* AFURLResponseSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		496CE1B46F5058A0ED0BD777D7105627 /* Pods-ZBeaconSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283B2C6987C82E2B80419707A603982 /* Pods-ZBeaconSDK_Tests-dummy.m */; };
-		B6636622C59862E7ED839878B744935A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		5036C1D6D87D4DA731C972A410C17ABC /* AFNetworking-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 999EC0FC3CCE49167FE0C1A1F81ABAE2 /* AFNetworking-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59283183232C2DF3CE5004DD2E72D7DA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BD052A579739CF222ED22AD56A72D3 /* SystemConfiguration.framework */; };
+		632A5CDDEABDA1FB093AC7484D100B77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894B54DA06733FD730C8E2E26B228654 /* Foundation.framework */; };
+		6B979FE6579A5E42E1E643C888B790F6 /* Pods-ZBeaconSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6276F3F7963E5C8925998B431015F6FD /* Pods-ZBeaconSDK_Example-dummy.m */; };
+		6E4C66ABA27A0F4EFDAA3E8B21A9384F /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C692467E72CDEDC6A5C6B34E6726FF /* AFNetworkActivityIndicatorManager.m */; };
+		6F6C4414DE96E08267712DA4C17C3CBB /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = BFC5EC4B4A1D687BDDF9A99CE826090D /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FCDE0D44543F4DABF90A88E056D8199 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CAABE3ECA603E6CA212B46479C15D8 /* JSONModel.m */; };
+		75C939C90205A780AB001C84A0B90C24 /* JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E9F32A6F0CAB55F47F59E2FB6C85ADF /* JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		769B6260247C5624A11411541C0AA4E2 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 56384E0CB4F9B38A3C405949EB2D035B /* AFSecurityPolicy.m */; };
+		77876997CA63145CC72A2D6FB5758513 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B69047B5CB8085A3004BA4D7058CA9F /* AFHTTPSessionManager.m */; };
+		7F372985CE80B69B5524CC3277E1C1AF /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = B220D4DD63BB36E0343093A53133AB97 /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		856B571FA3AE9D65E81FACB19E3557F4 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F76D7AEBDB9FB2923FF9AE4CCAE52 /* AFURLSessionManager.m */; };
+		870044029B3BA449A0932AAE3A495DE9 /* AFAutoPurgingImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = AC369F802BD9F442BEC24D8F78350DFB /* AFAutoPurgingImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8957FCEAD41BB3FEE57FBDC048099BD4 /* Pods-ZBeaconSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2081E6A11C1C5522BD0D6D9399F8EB0C /* Pods-ZBeaconSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F96E82F250EE718FA3F08AC9AB58423 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = FE97849C1F910311B900E8728977EEC7 /* UIActivityIndicatorView+AFNetworking.m */; };
+		95DAE5AD46A86973A77907D38716F694 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 706FC35A48B07B854C4ABB8149FFEE35 /* AFNetworkReachabilityManager.m */; };
+		98114570DFFDF5BD81B7724B4810501D /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B90CB9EF8C64959E80B3C3B4319D1331 /* UIProgressView+AFNetworking.m */; };
+		9AFFB2CFE22FCB06F9B1F8D5B1E58E10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894B54DA06733FD730C8E2E26B228654 /* Foundation.framework */; };
+		9B41316D2DE09092FA0143B33A74B769 /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 44803E0C0FCB283B1D429E6C65C96BF7 /* UIKit+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A52DD788A5384665F425D6A2C7493AD0 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEED4A6D438BB482C9F5CA8E7E0BA30 /* JSONModelError.m */; };
+		A5D86CC71480778ECD0EE81138D48C91 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E308F570014A6CDE6505A7A2D384B2B /* AFURLResponseSerialization.m */; };
+		A9E429ECAF059D9D471F3AE5C1BAC2B0 /* AFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D88EFA8B6A276C0B425A297912825B /* AFNetworkReachabilityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEA4CF8EE7E08C13B4A71A634F9F3B5B /* UIButton+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ABA192C40B07625BAE66864A6BA5647 /* UIButton+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AECB9FD1C271F734476CBF6E84BBFC51 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DED8518A66D8677A6CBDE53EF02C5ED /* UIImageView+AFNetworking.m */; };
+		B0BA1C31A2A3AB25BC95A4B2DE0A7B5D /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2213AD56B78101D12DABA8C37609945A /* JSONValueTransformer.m */; };
+		B30E8793C8B03056D888492A5C29EFE3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BB627936995ED38ED1DBFF599BE48B /* Security.framework */; };
+		B4C7BC969594EB3E9323674B7FF7C66E /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B95EFC8A9C4290AC8A87A7764EA7EB5A /* JSONHTTPClient.m */; };
+		B5AD0B8F0F9304975A01978B2908B62F /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = E79EDF8FBE107D78476FF2075A656E22 /* UIActivityIndicatorView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B6636622C59862E7ED839878B744935A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894B54DA06733FD730C8E2E26B228654 /* Foundation.framework */; };
+		C25BD96E691172D62B98B2F5F8D7F0C7 /* JSONModelLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 54E4FF1014A73E55E0A06608F8769D34 /* JSONModelLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C64C8DE746D376EEA160794275302677 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 2651CD7EABFF34529D1FC61ECC671988 /* JSONModelClassProperty.m */; };
+		C65CBBF120A2DD097498BFA38119D466 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDDA4D6895058F3A3FDCEC51B09C198 /* JSONAPI.m */; };
+		C7850AB3F7B5FDCA4F1F47F1EC205276 /* JSONKeyMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB58A46BF811F5896E43608BBAC959F /* JSONKeyMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFD38BDDB48F8D35B9A858E957A933A2 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBC7E8C5267276C051FFA82E6783134 /* JSONModel+networking.m */; };
+		D29F2AD07AF58334781F008905C30C35 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = DB04A3855AD174E266D4F7B05CD761EB /* UIRefreshControl+AFNetworking.m */; };
+		D358BCEB69D2E10B9BC6504C93D7D14C /* JSONModelClassProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C80FB8AE7AB5AC1A8AEBA5AAAD2FADE /* JSONModelClassProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D59E2A517A48D101120EB57F90F140A5 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D33F3E11A17C8D38ED38A1020C96DEB /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC2186197E507C0C73DFB0600D54867A /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F8B5B515B135D8DC72A084F0726A1 /* UIWebView+AFNetworking.m */; };
 		DDA7D9B2E47C187D50AF0A1620BC9291 /* Pods-ZBeaconSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A0435DF9BB4E9F07EDFB9515098F643F /* Pods-ZBeaconSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E6A5388424AB02B5D83EB635E00B154A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		F44FEC881841FBD3A8EC83D2A2677B4E /* Pods-ZBeaconSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6276F3F7963E5C8925998B431015F6FD /* Pods-ZBeaconSDK_Example-dummy.m */; };
+		DFF8D80125C062F6646E6EE798E6ABA3 /* JSONModel-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5511D0D905FBF511A66F8AD39CC5D747 /* JSONModel-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E17973BC9CEAE4ED0A7492450F95ACEF /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = CC592C273936DCFDD9CD528FDD3C54FA /* AFURLRequestSerialization.m */; };
+		E261B82A0EEFE0EA897EA1A36C69C1CE /* AFImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 921AEA305EF5B73A65811EA372E62033 /* AFImageDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3886BA871A93B03E984D8BD7823D947 /* JSONValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AD10C0507E5C1ADFFCAC104D4AE24F37 /* JSONValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3D42BC4EDA52A276BE5C2996AD99AE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD797D25089E2F3B4D72A37846DF16F /* CoreGraphics.framework */; };
+		F407B4E0B40A8AA4CA7443563F105E40 /* AFCompatibilityMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DF4FCAC9A5EF54F425F15BE059C89AF /* AFCompatibilityMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F442593E37B8F49398FDB1974EDF3FD6 /* JSONModel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B734E13D8048FBD7ED14D02AFDC1F4 /* JSONModel-dummy.m */; };
+		F4FED6C37367BC46B92BB3FE18D233B8 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 3702A24130ED9ED0E81F9CA146D7DE3E /* UIWebView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7561565E8CB0A070C9FBC514F763529 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894B54DA06733FD730C8E2E26B228654 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B729715EC7649FE70F30941C5C4B070A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A10D6EBBB31A8EE4F6E41D814520B33;
-			remoteInfo = "Pods-ZBeaconSDK_Example";
-		};
-		E59DFE7F72DED6FE79489EA6AB2775C4 /* PBXContainerItemProxy */ = {
+		3EB5443259861387B656C81DA9368072 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A9FD4D67B83E23C64765CAD24773DE3A;
 			remoteInfo = ZBeaconSDK;
 		};
+		4B86B8AC2BE74B01DD859120691858CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0EAF4371C6E4B30A1779D513CB4355B;
+			remoteInfo = JSONModel;
+		};
+		4CA57D561B7E4813556117C69B2C034B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A10D6EBBB31A8EE4F6E41D814520B33;
+			remoteInfo = "Pods-ZBeaconSDK_Example";
+		};
+		A167121D1D7B203CE883B7DF0534E869 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0130B3724283586C0E9D2A112D4F2AA1;
+			remoteInfo = AFNetworking;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		046A62C3234F067A0D32B99A7D7DC9E1 /* JSONModel+networking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "JSONModel+networking.h"; path = "JSONModel/JSONModelNetworking/JSONModel+networking.h"; sourceTree = "<group>"; };
 		0A52DC4BFF2C4EA52AD1385153FC27EA /* Pods-ZBeaconSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZBeaconSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		0BB58A46BF811F5896E43608BBAC959F /* JSONKeyMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONKeyMapper.h; path = JSONModel/JSONModelTransformations/JSONKeyMapper.h; sourceTree = "<group>"; };
 		0DC6911A137AA42BFE8F638FD956E926 /* Pods-ZBeaconSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZBeaconSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0F60282E225E31BB3854F85D9F23AD9E /* Pods-ZBeaconSDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZBeaconSDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		1641F6586C1AA4D8B4373C4224D8D5B0 /* Pods-ZBeaconSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZBeaconSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		184765213831524EBBA56491EADF44BB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		189F8B5B515B135D8DC72A084F0726A1 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		1B69047B5CB8085A3004BA4D7058CA9F /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		1EEED4A6D438BB482C9F5CA8E7E0BA30 /* JSONModelError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModelError.m; path = JSONModel/JSONModel/JSONModelError.m; sourceTree = "<group>"; };
 		2081E6A11C1C5522BD0D6D9399F8EB0C /* Pods-ZBeaconSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZBeaconSDK_Example-umbrella.h"; sourceTree = "<group>"; };
-		264821033F529DF4750EC3DCE14CF3F1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		2213AD56B78101D12DABA8C37609945A /* JSONValueTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONValueTransformer.m; path = JSONModel/JSONModelTransformations/JSONValueTransformer.m; sourceTree = "<group>"; };
+		2651CD7EABFF34529D1FC61ECC671988 /* JSONModelClassProperty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModelClassProperty.m; path = JSONModel/JSONModel/JSONModelClassProperty.m; sourceTree = "<group>"; };
+		28E92F711E5AFC5A8EE55BC7447A1106 /* ZBeaconSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZBeaconSDK.framework; path = ZBeaconSDK/Frameworks/ZBeaconSDK.framework; sourceTree = "<group>"; };
+		28ED7E268B20ADA7FE9EDA5FF9F97644 /* UIImage+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+AFNetworking.h"; path = "UIKit+AFNetworking/UIImage+AFNetworking.h"; sourceTree = "<group>"; };
+		2D33F3E11A17C8D38ED38A1020C96DEB /* AFURLSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFURLSessionManager.h; sourceTree = "<group>"; };
+		2E9F32A6F0CAB55F47F59E2FB6C85ADF /* JSONModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModel.h; path = JSONModel/JSONModel/JSONModel.h; sourceTree = "<group>"; };
+		3702A24130ED9ED0E81F9CA146D7DE3E /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AFNetworking.h"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
+		3929AC9FA4D155C55F4EF282B00C3C49 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
+		3C80FB8AE7AB5AC1A8AEBA5AAAD2FADE /* JSONModelClassProperty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelClassProperty.h; path = JSONModel/JSONModel/JSONModelClassProperty.h; sourceTree = "<group>"; };
+		3D0F76D7AEBDB9FB2923FF9AE4CCAE52 /* AFURLSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLSessionManager.m; path = AFNetworking/AFURLSessionManager.m; sourceTree = "<group>"; };
+		3DE9F018ADDA261E21D611F7D545C048 /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFAutoPurgingImageCache.m; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.m"; sourceTree = "<group>"; };
+		3DF4FCAC9A5EF54F425F15BE059C89AF /* AFCompatibilityMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFCompatibilityMacros.h; path = AFNetworking/AFCompatibilityMacros.h; sourceTree = "<group>"; };
+		3E308F570014A6CDE6505A7A2D384B2B /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		44803E0C0FCB283B1D429E6C65C96BF7 /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIKit+AFNetworking.h"; path = "UIKit+AFNetworking/UIKit+AFNetworking.h"; sourceTree = "<group>"; };
+		45856290FBBC6B7A15759113B8523B2D /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
+		45958A422DB924F08D0A398FADAAAE71 /* AFNetworking-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AFNetworking-Info.plist"; sourceTree = "<group>"; };
 		459D55E1AEA1BF0CC087B5E91F7FC595 /* Pods-ZBeaconSDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZBeaconSDK_Example.modulemap"; sourceTree = "<group>"; };
 		54101BB5F93787B3BA196459BBB4A8E0 /* Pods-ZBeaconSDK_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZBeaconSDK_Example-Info.plist"; sourceTree = "<group>"; };
+		54E4FF1014A73E55E0A06608F8769D34 /* JSONModelLib.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelLib.h; path = JSONModel/JSONModelLib.h; sourceTree = "<group>"; };
+		5511D0D905FBF511A66F8AD39CC5D747 /* JSONModel-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JSONModel-umbrella.h"; sourceTree = "<group>"; };
+		560358A79B9BCE6C83A214923A0C7BFB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		56384E0CB4F9B38A3C405949EB2D035B /* AFSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = AFNetworking/AFSecurityPolicy.m; sourceTree = "<group>"; };
 		5CE1C35907D538343183409213769492 /* Pods_ZBeaconSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ZBeaconSDK_Tests.framework; path = "Pods-ZBeaconSDK_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EDDA4D6895058F3A3FDCEC51B09C198 /* JSONAPI.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONAPI.m; path = JSONModel/JSONModelNetworking/JSONAPI.m; sourceTree = "<group>"; };
 		6276F3F7963E5C8925998B431015F6FD /* Pods-ZBeaconSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZBeaconSDK_Example-dummy.m"; sourceTree = "<group>"; };
 		65A5385558489EB50941DC54DD1A164C /* Pods_ZBeaconSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ZBeaconSDK_Example.framework; path = "Pods-ZBeaconSDK_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		78E34BA1F1A498A29EE45441BABA2E34 /* ZBeaconSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZBeaconSDK.release.xcconfig; sourceTree = "<group>"; };
-		7D71FA6D54C0A2386DC39CC51F7F6954 /* ZBeaconSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZBeaconSDK.debug.xcconfig; sourceTree = "<group>"; };
-		80D4087E1E25DE611D8BC7AE69789AC2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		6ABA192C40B07625BAE66864A6BA5647 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
+		6ABAED90B57BE5734C65EAFC47CFCAAF /* JSONAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONAPI.h; path = JSONModel/JSONModelNetworking/JSONAPI.h; sourceTree = "<group>"; };
+		6BBC7E8C5267276C051FFA82E6783134 /* JSONModel+networking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "JSONModel+networking.m"; path = "JSONModel/JSONModelNetworking/JSONModel+networking.m"; sourceTree = "<group>"; };
+		6DED8518A66D8677A6CBDE53EF02C5ED /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		706FC35A48B07B854C4ABB8149FFEE35 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		7146C19F8170BBBC019BEE6797F36B04 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		71E0D0F6EDCDBF7CBF7FAB2A0E0C4075 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIProgressView+AFNetworking.h"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
+		73CAABE3ECA603E6CA212B46479C15D8 /* JSONModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModel.m; path = JSONModel/JSONModel/JSONModel.m; sourceTree = "<group>"; };
+		780FA5E1D1D03B0AC2F0D90A4A5634A8 /* JSONHTTPClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONHTTPClient.h; path = JSONModel/JSONModelNetworking/JSONHTTPClient.h; sourceTree = "<group>"; };
+		7E03C0D70592B5ACDB865195284CDBDB /* JSONModelError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelError.h; path = JSONModel/JSONModel/JSONModelError.h; sourceTree = "<group>"; };
+		81B734E13D8048FBD7ED14D02AFDC1F4 /* JSONModel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JSONModel-dummy.m"; sourceTree = "<group>"; };
+		82C692467E72CDEDC6A5C6B34E6726FF /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
+		83BD052A579739CF222ED22AD56A72D3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		86DFE82DC0E3C6E4910803C4A60F651B /* JSONModel-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "JSONModel-Info.plist"; sourceTree = "<group>"; };
+		894B54DA06733FD730C8E2E26B228654 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		921AEA305EF5B73A65811EA372E62033 /* AFImageDownloader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFImageDownloader.h; path = "UIKit+AFNetworking/AFImageDownloader.h"; sourceTree = "<group>"; };
 		9283B2C6987C82E2B80419707A603982 /* Pods-ZBeaconSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZBeaconSDK_Tests-dummy.m"; sourceTree = "<group>"; };
+		92BEB04139A0D16B88C69DD95232BFA4 /* ZBeaconSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZBeaconSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94C42FF03ECDA134839F3E279C11F1B1 /* AFNetworking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.debug.xcconfig; sourceTree = "<group>"; };
+		9612529221593795D50BAA5CBDBD629B /* JSONModel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JSONModel-prefix.pch"; sourceTree = "<group>"; };
 		97F0A7731DBE8EEADB7E749353DFC52E /* Pods-ZBeaconSDK_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZBeaconSDK_Tests-Info.plist"; sourceTree = "<group>"; };
+		98BB627936995ED38ED1DBFF599BE48B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		999EC0FC3CCE49167FE0C1A1F81ABAE2 /* AFNetworking-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AFNetworking-umbrella.h"; sourceTree = "<group>"; };
+		99F2EB107B1682A61E3A3B9153F28788 /* JSONModel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JSONModel.release.xcconfig; sourceTree = "<group>"; };
+		9C1E210D5F34EA6D874A0B84A696EF23 /* AFNetworking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.release.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A0435DF9BB4E9F07EDFB9515098F643F /* Pods-ZBeaconSDK_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZBeaconSDK_Tests-umbrella.h"; sourceTree = "<group>"; };
+		A133B3155B56A605D5C23D4B40677D06 /* AFNetworking.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AFNetworking.modulemap; sourceTree = "<group>"; };
+		A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AFNetworking.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6F1C5786B6E852D480722D6FC65D745 /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		ACCFFCFFDDA948F07E9062FCA80A855D /* ZBeaconSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZBeaconSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		ACD1E348713CE1913E278662D49906BC /* ZBeaconSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZBeaconSDK.framework; path = ZBeaconSDK/Frameworks/ZBeaconSDK.framework; sourceTree = "<group>"; };
+		A9D88EFA8B6A276C0B425A297912825B /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		AC369F802BD9F442BEC24D8F78350DFB /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFAutoPurgingImageCache.h; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.h"; sourceTree = "<group>"; };
+		AD10C0507E5C1ADFFCAC104D4AE24F37 /* JSONValueTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONValueTransformer.h; path = JSONModel/JSONModelTransformations/JSONValueTransformer.h; sourceTree = "<group>"; };
+		B220D4DD63BB36E0343093A53133AB97 /* AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = AFNetworking/AFNetworking.h; sourceTree = "<group>"; };
+		B8D6DE872A4F7762870D9D90FF5602CD /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
+		B90CB9EF8C64959E80B3C3B4319D1331 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIProgressView+AFNetworking.m"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
+		B95EFC8A9C4290AC8A87A7764EA7EB5A /* JSONHTTPClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONHTTPClient.m; path = JSONModel/JSONModelNetworking/JSONHTTPClient.m; sourceTree = "<group>"; };
+		BAACA1BF7AB3DD28402C4F9A7C2FD104 /* JSONModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = JSONModel.framework; path = JSONModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB4C32190E398FEC83EEA25F58DD82A1 /* AFNetworking-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AFNetworking-prefix.pch"; sourceTree = "<group>"; };
 		BB6706FB10FB566B5A97E50703DF663E /* Pods-ZBeaconSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZBeaconSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
 		BBA9B37AEB3183C5E2BEDCE1DB168AD1 /* Pods-ZBeaconSDK_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZBeaconSDK_Tests.modulemap"; sourceTree = "<group>"; };
+		BBEF35F66D20CC3127EF23A4297FE393 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
 		BD5B6D57F026D8A7499AC112A63311F7 /* Pods-ZBeaconSDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZBeaconSDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BFC5EC4B4A1D687BDDF9A99CE826090D /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		C1875B4166AB0DA49B8EB50F50C25358 /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
+		C2067E7FE3B5921D6A863E86D53F9418 /* JSONModel.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = JSONModel.modulemap; sourceTree = "<group>"; };
 		CA10E98DCD63B7829F71D0DAD7F7A919 /* Pods-ZBeaconSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZBeaconSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		CB675CF5AF5F393E04C5999E69920EC0 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		CC1E05E80134B7B664B0141E5C2CB786 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		CC592C273936DCFDD9CD528FDD3C54FA /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = AFNetworking/AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		D635F3F83039D340BF67FA1C4B083087 /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+AFNetworking.m"; path = "UIKit+AFNetworking/UIButton+AFNetworking.m"; sourceTree = "<group>"; };
+		D98194B4936A1D17061EA01104095DDC /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
+		DB04A3855AD174E266D4F7B05CD761EB /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+AFNetworking.m"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
+		DDD797D25089E2F3B4D72A37846DF16F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		E33ED7ECA7EDB642F3677AF95B0B0321 /* JSONModel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JSONModel.debug.xcconfig; sourceTree = "<group>"; };
+		E79EDF8FBE107D78476FF2075A656E22 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
+		EB4BCC19A4BBA27CC8380DF9C9DFFD05 /* JSONKeyMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONKeyMapper.m; path = JSONModel/JSONModelTransformations/JSONKeyMapper.m; sourceTree = "<group>"; };
+		ED73244B888BABCCE004518E4FADB79F /* ZBeaconSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZBeaconSDK.release.xcconfig; sourceTree = "<group>"; };
+		FB7C798966086DCC743A86D8C95D64BB /* ZBeaconSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZBeaconSDK.debug.xcconfig; sourceTree = "<group>"; };
 		FC282145097F7412B56A3C6D41669CB4 /* Pods-ZBeaconSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZBeaconSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		FE97849C1F910311B900E8728977EEC7 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,50 +229,113 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DFE7F5EF5AADF24B6ACCDB6C5B298CC9 /* Frameworks */ = {
+		886E050E05F79FD43F2409BED7E67F73 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6A5388424AB02B5D83EB635E00B154A /* Foundation.framework in Frameworks */,
+				632A5CDDEABDA1FB093AC7484D100B77 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99296CB2AAE82C49C9B4A74A8F4D8341 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3D42BC4EDA52A276BE5C2996AD99AE8 /* CoreGraphics.framework in Frameworks */,
+				9AFFB2CFE22FCB06F9B1F8D5B1E58E10 /* Foundation.framework in Frameworks */,
+				30779EDAAAECEC1C5D5F78F87FD41EBB /* MobileCoreServices.framework in Frameworks */,
+				B30E8793C8B03056D888492A5C29EFE3 /* Security.framework in Frameworks */,
+				59283183232C2DF3CE5004DD2E72D7DA /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA828F4A016DEA870A1B3E500428A3CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7561565E8CB0A070C9FBC514F763529 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		14B541984CC167339FE8A0353B173D85 /* Products */ = {
+		0D34398EC71B6D3AA5C206BEEDCCB54A /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				65A5385558489EB50941DC54DD1A164C /* Pods_ZBeaconSDK_Example.framework */,
-				5CE1C35907D538343183409213769492 /* Pods_ZBeaconSDK_Tests.framework */,
+				B220D4DD63BB36E0343093A53133AB97 /* AFNetworking.h */,
+				EF13D913935B13D112F88F4C0084BE87 /* NSURLSession */,
+				A85B1FBCF3E2B656FE0B9135B438CB0E /* Reachability */,
+				C540723ED53377D8AD7F1F0DDDD9B290 /* Security */,
+				A1F51480B52FB0D62E1B70BEE52911D2 /* Serialization */,
+				7D7E960AF935AA570E05291D14AA0C05 /* Support Files */,
+				F6028289959012E9F145CBF3F1B82044 /* UIKit */,
 			);
-			name = Products;
+			name = AFNetworking;
+			path = AFNetworking;
 			sourceTree = "<group>";
 		};
-		240A92B72189F9CCC9CB7083522DBD73 /* Frameworks */ = {
+		235F041C34907BACD96254FC56EAB1D0 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				ACD1E348713CE1913E278662D49906BC /* ZBeaconSDK.framework */,
+				DDD797D25089E2F3B4D72A37846DF16F /* CoreGraphics.framework */,
+				894B54DA06733FD730C8E2E26B228654 /* Foundation.framework */,
+				184765213831524EBBA56491EADF44BB /* MobileCoreServices.framework */,
+				98BB627936995ED38ED1DBFF599BE48B /* Security.framework */,
+				83BD052A579739CF222ED22AD56A72D3 /* SystemConfiguration.framework */,
 			);
-			name = Frameworks;
+			name = iOS;
 			sourceTree = "<group>";
 		};
-		2B2AE77803430D97CF6C9FC5785A4D84 /* Support Files */ = {
+		37AEB50810A040A7290B19A7C96E3388 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7D71FA6D54C0A2386DC39CC51F7F6954 /* ZBeaconSDK.debug.xcconfig */,
-				78E34BA1F1A498A29EE45441BABA2E34 /* ZBeaconSDK.release.xcconfig */,
+				FB7C798966086DCC743A86D8C95D64BB /* ZBeaconSDK.debug.xcconfig */,
+				ED73244B888BABCCE004518E4FADB79F /* ZBeaconSDK.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/ZBeaconSDK";
 			sourceTree = "<group>";
 		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+		3948091CAA9B4038F44F7EB7C72262E1 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+				C2067E7FE3B5921D6A863E86D53F9418 /* JSONModel.modulemap */,
+				81B734E13D8048FBD7ED14D02AFDC1F4 /* JSONModel-dummy.m */,
+				86DFE82DC0E3C6E4910803C4A60F651B /* JSONModel-Info.plist */,
+				9612529221593795D50BAA5CBDBD629B /* JSONModel-prefix.pch */,
+				5511D0D905FBF511A66F8AD39CC5D747 /* JSONModel-umbrella.h */,
+				E33ED7ECA7EDB642F3677AF95B0B0321 /* JSONModel.debug.xcconfig */,
+				99F2EB107B1682A61E3A3B9153F28788 /* JSONModel.release.xcconfig */,
 			);
-			name = iOS;
+			name = "Support Files";
+			path = "../Target Support Files/JSONModel";
+			sourceTree = "<group>";
+		};
+		518CE419F21E21E96FC6A42B44FFEA6C /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				6ABAED90B57BE5734C65EAFC47CFCAAF /* JSONAPI.h */,
+				5EDDA4D6895058F3A3FDCEC51B09C198 /* JSONAPI.m */,
+				780FA5E1D1D03B0AC2F0D90A4A5634A8 /* JSONHTTPClient.h */,
+				B95EFC8A9C4290AC8A87A7764EA7EB5A /* JSONHTTPClient.m */,
+				0BB58A46BF811F5896E43608BBAC959F /* JSONKeyMapper.h */,
+				EB4BCC19A4BBA27CC8380DF9C9DFFD05 /* JSONKeyMapper.m */,
+				2E9F32A6F0CAB55F47F59E2FB6C85ADF /* JSONModel.h */,
+				73CAABE3ECA603E6CA212B46479C15D8 /* JSONModel.m */,
+				046A62C3234F067A0D32B99A7D7DC9E1 /* JSONModel+networking.h */,
+				6BBC7E8C5267276C051FFA82E6783134 /* JSONModel+networking.m */,
+				3C80FB8AE7AB5AC1A8AEBA5AAAD2FADE /* JSONModelClassProperty.h */,
+				2651CD7EABFF34529D1FC61ECC671988 /* JSONModelClassProperty.m */,
+				7E03C0D70592B5ACDB865195284CDBDB /* JSONModelError.h */,
+				1EEED4A6D438BB482C9F5CA8E7E0BA30 /* JSONModelError.m */,
+				54E4FF1014A73E55E0A06608F8769D34 /* JSONModelLib.h */,
+				AD10C0507E5C1ADFFCAC104D4AE24F37 /* JSONValueTransformer.h */,
+				2213AD56B78101D12DABA8C37609945A /* JSONValueTransformer.m */,
+				3948091CAA9B4038F44F7EB7C72262E1 /* Support Files */,
+			);
+			name = JSONModel;
+			path = JSONModel;
 			sourceTree = "<group>";
 		};
 		6C57861206E8B32B989B045D582185F4 /* Pods-ZBeaconSDK_Example */ = {
@@ -146,41 +355,85 @@
 			path = "Target Support Files/Pods-ZBeaconSDK_Example";
 			sourceTree = "<group>";
 		};
-		7AAD765C97440CE3F7EC191F71EE6CCF /* ZBeaconSDK */ = {
+		70ECA306636B3760E86D164B2B8BE532 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				CAF4AF49D4CD3C223F98BA1E24AEBC36 /* Main */,
-				CB45125F33B54C0D082DA6924FFEC106 /* Pod */,
-				2B2AE77803430D97CF6C9FC5785A4D84 /* Support Files */,
+				CC1E05E80134B7B664B0141E5C2CB786 /* LICENSE */,
+				560358A79B9BCE6C83A214923A0C7BFB /* README.md */,
+				92BEB04139A0D16B88C69DD95232BFA4 /* ZBeaconSDK.podspec */,
 			);
-			name = ZBeaconSDK;
-			path = ../..;
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		7D7E960AF935AA570E05291D14AA0C05 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A133B3155B56A605D5C23D4B40677D06 /* AFNetworking.modulemap */,
+				C1875B4166AB0DA49B8EB50F50C25358 /* AFNetworking-dummy.m */,
+				45958A422DB924F08D0A398FADAAAE71 /* AFNetworking-Info.plist */,
+				BB4C32190E398FEC83EEA25F58DD82A1 /* AFNetworking-prefix.pch */,
+				999EC0FC3CCE49167FE0C1A1F81ABAE2 /* AFNetworking-umbrella.h */,
+				94C42FF03ECDA134839F3E279C11F1B1 /* AFNetworking.debug.xcconfig */,
+				9C1E210D5F34EA6D874A0B84A696EF23 /* AFNetworking.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AFNetworking";
 			sourceTree = "<group>";
 		};
 		80AF74470745EECEA4E1F0C255ED914B /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7AAD765C97440CE3F7EC191F71EE6CCF /* ZBeaconSDK */,
+				EF30C51A3BC0FE610C88D8F20984A314 /* ZBeaconSDK */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		CAF4AF49D4CD3C223F98BA1E24AEBC36 /* Main */ = {
+		A1F51480B52FB0D62E1B70BEE52911D2 /* Serialization */ = {
 			isa = PBXGroup;
 			children = (
-				240A92B72189F9CCC9CB7083522DBD73 /* Frameworks */,
+				BBEF35F66D20CC3127EF23A4297FE393 /* AFURLRequestSerialization.h */,
+				CC592C273936DCFDD9CD528FDD3C54FA /* AFURLRequestSerialization.m */,
+				CB675CF5AF5F393E04C5999E69920EC0 /* AFURLResponseSerialization.h */,
+				3E308F570014A6CDE6505A7A2D384B2B /* AFURLResponseSerialization.m */,
 			);
-			name = Main;
+			name = Serialization;
 			sourceTree = "<group>";
 		};
-		CB45125F33B54C0D082DA6924FFEC106 /* Pod */ = {
+		A85B1FBCF3E2B656FE0B9135B438CB0E /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				264821033F529DF4750EC3DCE14CF3F1 /* LICENSE */,
-				80D4087E1E25DE611D8BC7AE69789AC2 /* README.md */,
-				ACCFFCFFDDA948F07E9062FCA80A855D /* ZBeaconSDK.podspec */,
+				A9D88EFA8B6A276C0B425A297912825B /* AFNetworkReachabilityManager.h */,
+				706FC35A48B07B854C4ABB8149FFEE35 /* AFNetworkReachabilityManager.m */,
 			);
-			name = Pod;
+			name = Reachability;
+			sourceTree = "<group>";
+		};
+		B94D7768568A9992200DB461E8CF687F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				235F041C34907BACD96254FC56EAB1D0 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C2F596CBBDD74620383B3DD6059707E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */,
+				BAACA1BF7AB3DD28402C4F9A7C2FD104 /* JSONModel.framework */,
+				65A5385558489EB50941DC54DD1A164C /* Pods_ZBeaconSDK_Example.framework */,
+				5CE1C35907D538343183409213769492 /* Pods_ZBeaconSDK_Tests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C540723ED53377D8AD7F1F0DDDD9B290 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				D98194B4936A1D17061EA01104095DDC /* AFSecurityPolicy.h */,
+				56384E0CB4F9B38A3C405949EB2D035B /* AFSecurityPolicy.m */,
+			);
+			name = Security;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -188,16 +441,17 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				80AF74470745EECEA4E1F0C255ED914B /* Development Pods */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				14B541984CC167339FE8A0353B173D85 /* Products */,
+				B94D7768568A9992200DB461E8CF687F /* Frameworks */,
+				DCC8A56913F72BC1C6E315C28A6BDE10 /* Pods */,
+				C2F596CBBDD74620383B3DD6059707E3 /* Products */,
 				DAE6594A55F39E4F5FBECD29FC938D11 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		D0B39597D380F24A139619CE4EA3DEBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
+				28E92F711E5AFC5A8EE55BC7447A1106 /* ZBeaconSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -209,6 +463,15 @@
 				E3CBB5734B21E52AEBE07D75351AA452 /* Pods-ZBeaconSDK_Tests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		DCC8A56913F72BC1C6E315C28A6BDE10 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0D34398EC71B6D3AA5C206BEEDCCB54A /* AFNetworking */,
+				518CE419F21E21E96FC6A42B44FFEA6C /* JSONModel */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		E3CBB5734B21E52AEBE07D75351AA452 /* Pods-ZBeaconSDK_Tests */ = {
@@ -227,14 +490,73 @@
 			path = "Target Support Files/Pods-ZBeaconSDK_Tests";
 			sourceTree = "<group>";
 		};
+		EF13D913935B13D112F88F4C0084BE87 /* NSURLSession */ = {
+			isa = PBXGroup;
+			children = (
+				3DF4FCAC9A5EF54F425F15BE059C89AF /* AFCompatibilityMacros.h */,
+				7146C19F8170BBBC019BEE6797F36B04 /* AFHTTPSessionManager.h */,
+				1B69047B5CB8085A3004BA4D7058CA9F /* AFHTTPSessionManager.m */,
+				2D33F3E11A17C8D38ED38A1020C96DEB /* AFURLSessionManager.h */,
+				3D0F76D7AEBDB9FB2923FF9AE4CCAE52 /* AFURLSessionManager.m */,
+			);
+			name = NSURLSession;
+			sourceTree = "<group>";
+		};
+		EF30C51A3BC0FE610C88D8F20984A314 /* ZBeaconSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D0B39597D380F24A139619CE4EA3DEBD /* Frameworks */,
+				70ECA306636B3760E86D164B2B8BE532 /* Pod */,
+				37AEB50810A040A7290B19A7C96E3388 /* Support Files */,
+			);
+			name = ZBeaconSDK;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		F6028289959012E9F145CBF3F1B82044 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				AC369F802BD9F442BEC24D8F78350DFB /* AFAutoPurgingImageCache.h */,
+				3DE9F018ADDA261E21D611F7D545C048 /* AFAutoPurgingImageCache.m */,
+				921AEA305EF5B73A65811EA372E62033 /* AFImageDownloader.h */,
+				B8D6DE872A4F7762870D9D90FF5602CD /* AFImageDownloader.m */,
+				45856290FBBC6B7A15759113B8523B2D /* AFNetworkActivityIndicatorManager.h */,
+				82C692467E72CDEDC6A5C6B34E6726FF /* AFNetworkActivityIndicatorManager.m */,
+				E79EDF8FBE107D78476FF2075A656E22 /* UIActivityIndicatorView+AFNetworking.h */,
+				FE97849C1F910311B900E8728977EEC7 /* UIActivityIndicatorView+AFNetworking.m */,
+				6ABA192C40B07625BAE66864A6BA5647 /* UIButton+AFNetworking.h */,
+				D635F3F83039D340BF67FA1C4B083087 /* UIButton+AFNetworking.m */,
+				28ED7E268B20ADA7FE9EDA5FF9F97644 /* UIImage+AFNetworking.h */,
+				BFC5EC4B4A1D687BDDF9A99CE826090D /* UIImageView+AFNetworking.h */,
+				6DED8518A66D8677A6CBDE53EF02C5ED /* UIImageView+AFNetworking.m */,
+				44803E0C0FCB283B1D429E6C65C96BF7 /* UIKit+AFNetworking.h */,
+				71E0D0F6EDCDBF7CBF7FAB2A0E0C4075 /* UIProgressView+AFNetworking.h */,
+				B90CB9EF8C64959E80B3C3B4319D1331 /* UIProgressView+AFNetworking.m */,
+				3929AC9FA4D155C55F4EF282B00C3C49 /* UIRefreshControl+AFNetworking.h */,
+				DB04A3855AD174E266D4F7B05CD761EB /* UIRefreshControl+AFNetworking.m */,
+				3702A24130ED9ED0E81F9CA146D7DE3E /* UIWebView+AFNetworking.h */,
+				189F8B5B515B135D8DC72A084F0726A1 /* UIWebView+AFNetworking.m */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4BA034FF9B0879601BCD310AC76A6A44 /* Headers */ = {
+		C10AE64316B9C31B3BB6170AF9933749 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ECEFC1362BAC9A838E1F5BA5B8BA361 /* Pods-ZBeaconSDK_Example-umbrella.h in Headers */,
+				3AEA2F22B88CD78E671F25B60DB66ADA /* JSONAPI.h in Headers */,
+				1071D84B6431759A11FAEBAAE29E3F32 /* JSONHTTPClient.h in Headers */,
+				C7850AB3F7B5FDCA4F1F47F1EC205276 /* JSONKeyMapper.h in Headers */,
+				191126E8D5A1E26339D2B767EF3AE197 /* JSONModel+networking.h in Headers */,
+				DFF8D80125C062F6646E6EE798E6ABA3 /* JSONModel-umbrella.h in Headers */,
+				75C939C90205A780AB001C84A0B90C24 /* JSONModel.h in Headers */,
+				D358BCEB69D2E10B9BC6504C93D7D14C /* JSONModelClassProperty.h in Headers */,
+				02E2954BD351E7B167D8F60B13208DAF /* JSONModelError.h in Headers */,
+				C25BD96E691172D62B98B2F5F8D7F0C7 /* JSONModelLib.h in Headers */,
+				E3886BA871A93B03E984D8BD7823D947 /* JSONValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,22 +568,77 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5F3954755BD8248E767F716DA24E14F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				870044029B3BA449A0932AAE3A495DE9 /* AFAutoPurgingImageCache.h in Headers */,
+				F407B4E0B40A8AA4CA7443563F105E40 /* AFCompatibilityMacros.h in Headers */,
+				169B3FC2BD33B8FBC2D4C35A1C1DC6BF /* AFHTTPSessionManager.h in Headers */,
+				E261B82A0EEFE0EA897EA1A36C69C1CE /* AFImageDownloader.h in Headers */,
+				2AE1F29F045D02727E815DBBAC8C7B4F /* AFNetworkActivityIndicatorManager.h in Headers */,
+				5036C1D6D87D4DA731C972A410C17ABC /* AFNetworking-umbrella.h in Headers */,
+				7F372985CE80B69B5524CC3277E1C1AF /* AFNetworking.h in Headers */,
+				A9E429ECAF059D9D471F3AE5C1BAC2B0 /* AFNetworkReachabilityManager.h in Headers */,
+				3E112DA53DD725C9A3185A54EB342EAF /* AFSecurityPolicy.h in Headers */,
+				17D6A066C5F987FEFF8B89D7EFDFD375 /* AFURLRequestSerialization.h in Headers */,
+				47FF1D17418AB1144FDE0E46427F4877 /* AFURLResponseSerialization.h in Headers */,
+				D59E2A517A48D101120EB57F90F140A5 /* AFURLSessionManager.h in Headers */,
+				B5AD0B8F0F9304975A01978B2908B62F /* UIActivityIndicatorView+AFNetworking.h in Headers */,
+				AEA4CF8EE7E08C13B4A71A634F9F3B5B /* UIButton+AFNetworking.h in Headers */,
+				09E2F57C3C2B897ACC8AF5C49F1E9592 /* UIImage+AFNetworking.h in Headers */,
+				6F6C4414DE96E08267712DA4C17C3CBB /* UIImageView+AFNetworking.h in Headers */,
+				9B41316D2DE09092FA0143B33A74B769 /* UIKit+AFNetworking.h in Headers */,
+				3A186F3A7711FAAB8C60562D63FF0D9F /* UIProgressView+AFNetworking.h in Headers */,
+				09E785555B549DE5974C744DB8324B91 /* UIRefreshControl+AFNetworking.h in Headers */,
+				F4FED6C37367BC46B92BB3FE18D233B8 /* UIWebView+AFNetworking.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9AB6616FAB52CD93789164D98C758A1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8957FCEAD41BB3FEE57FBDC048099BD4 /* Pods-ZBeaconSDK_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9A10D6EBBB31A8EE4F6E41D814520B33 /* Pods-ZBeaconSDK_Example */ = {
+		0130B3724283586C0E9D2A112D4F2AA1 /* AFNetworking */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5A39453FC87E0A56125FBE574971C06 /* Build configuration list for PBXNativeTarget "Pods-ZBeaconSDK_Example" */;
+			buildConfigurationList = 41D6DFBE997E173748D09E9A11D890A3 /* Build configuration list for PBXNativeTarget "AFNetworking" */;
 			buildPhases = (
-				4BA034FF9B0879601BCD310AC76A6A44 /* Headers */,
-				3504BE2DB91CEC7EE3F8A1A0BBF67C34 /* Sources */,
-				DFE7F5EF5AADF24B6ACCDB6C5B298CC9 /* Frameworks */,
-				67600455902596D6D57D5B25DFA788F6 /* Resources */,
+				F5F3954755BD8248E767F716DA24E14F /* Headers */,
+				E16D45883ACDDBE532CC4EABBA7C6196 /* Sources */,
+				99296CB2AAE82C49C9B4A74A8F4D8341 /* Frameworks */,
+				51B338009A28492821105E82A3A3C869 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AF13157F95CAF145A9C21A2772EEA7B3 /* PBXTargetDependency */,
+			);
+			name = AFNetworking;
+			productName = AFNetworking;
+			productReference = A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9A10D6EBBB31A8EE4F6E41D814520B33 /* Pods-ZBeaconSDK_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00C40B54C585CFFA87C812CE4974F525 /* Build configuration list for PBXNativeTarget "Pods-ZBeaconSDK_Example" */;
+			buildPhases = (
+				F9AB6616FAB52CD93789164D98C758A1 /* Headers */,
+				140BE07FFA4D351E1697FD09B7BC623D /* Sources */,
+				BA828F4A016DEA870A1B3E500428A3CE /* Frameworks */,
+				32C61EE50369E08A4E769F305370E5D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				58D43C452548FA92742D63FA7F1BD1DD /* PBXTargetDependency */,
+				EDA500728079BCB4490BD98AFEEF8AB9 /* PBXTargetDependency */,
+				2A0F536753CD0BD3CDB3E25414AAAE88 /* PBXTargetDependency */,
 			);
 			name = "Pods-ZBeaconSDK_Example";
 			productName = "Pods-ZBeaconSDK_Example";
@@ -280,11 +657,29 @@
 			buildRules = (
 			);
 			dependencies = (
-				7E33B6963F07247D0A3119C7E9607B16 /* PBXTargetDependency */,
+				9B299B98963822F080C7A9ECF99DD61C /* PBXTargetDependency */,
 			);
 			name = "Pods-ZBeaconSDK_Tests";
 			productName = "Pods-ZBeaconSDK_Tests";
 			productReference = 5CE1C35907D538343183409213769492 /* Pods_ZBeaconSDK_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E0EAF4371C6E4B30A1779D513CB4355B /* JSONModel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 864246C4794538189B6310F839B9CD50 /* Build configuration list for PBXNativeTarget "JSONModel" */;
+			buildPhases = (
+				C10AE64316B9C31B3BB6170AF9933749 /* Headers */,
+				9110B95813C4D6328D3D0802138CFDE0 /* Sources */,
+				886E050E05F79FD43F2409BED7E67F73 /* Frameworks */,
+				33431436401EBC85BE0A907D9728DA1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSONModel;
+			productName = JSONModel;
+			productReference = BAACA1BF7AB3DD28402C4F9A7C2FD104 /* JSONModel.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -305,10 +700,12 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 14B541984CC167339FE8A0353B173D85 /* Products */;
+			productRefGroup = C2F596CBBDD74620383B3DD6059707E3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				0130B3724283586C0E9D2A112D4F2AA1 /* AFNetworking */,
+				E0EAF4371C6E4B30A1779D513CB4355B /* JSONModel */,
 				9A10D6EBBB31A8EE4F6E41D814520B33 /* Pods-ZBeaconSDK_Example */,
 				B233EC611CB9D90158A94D7DE27D0001 /* Pods-ZBeaconSDK_Tests */,
 				A9FD4D67B83E23C64765CAD24773DE3A /* ZBeaconSDK */,
@@ -324,7 +721,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		67600455902596D6D57D5B25DFA788F6 /* Resources */ = {
+		32C61EE50369E08A4E769F305370E5D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		33431436401EBC85BE0A907D9728DA1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51B338009A28492821105E82A3A3C869 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -334,11 +745,50 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3504BE2DB91CEC7EE3F8A1A0BBF67C34 /* Sources */ = {
+		140BE07FFA4D351E1697FD09B7BC623D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44FEC881841FBD3A8EC83D2A2677B4E /* Pods-ZBeaconSDK_Example-dummy.m in Sources */,
+				6B979FE6579A5E42E1E643C888B790F6 /* Pods-ZBeaconSDK_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9110B95813C4D6328D3D0802138CFDE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C65CBBF120A2DD097498BFA38119D466 /* JSONAPI.m in Sources */,
+				B4C7BC969594EB3E9323674B7FF7C66E /* JSONHTTPClient.m in Sources */,
+				26A3D3037A05E7E99AFF098D11427775 /* JSONKeyMapper.m in Sources */,
+				CFD38BDDB48F8D35B9A858E957A933A2 /* JSONModel+networking.m in Sources */,
+				F442593E37B8F49398FDB1974EDF3FD6 /* JSONModel-dummy.m in Sources */,
+				6FCDE0D44543F4DABF90A88E056D8199 /* JSONModel.m in Sources */,
+				C64C8DE746D376EEA160794275302677 /* JSONModelClassProperty.m in Sources */,
+				A52DD788A5384665F425D6A2C7493AD0 /* JSONModelError.m in Sources */,
+				B0BA1C31A2A3AB25BC95A4B2DE0A7B5D /* JSONValueTransformer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E16D45883ACDDBE532CC4EABBA7C6196 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3033C2DE9CB2085ECBB95717CFB6425A /* AFAutoPurgingImageCache.m in Sources */,
+				77876997CA63145CC72A2D6FB5758513 /* AFHTTPSessionManager.m in Sources */,
+				0D40EE6956924384435BBBD4B718DEC8 /* AFImageDownloader.m in Sources */,
+				6E4C66ABA27A0F4EFDAA3E8B21A9384F /* AFNetworkActivityIndicatorManager.m in Sources */,
+				3BDC8FBDB7922AA1ABA2C90DBA2DBB35 /* AFNetworking-dummy.m in Sources */,
+				95DAE5AD46A86973A77907D38716F694 /* AFNetworkReachabilityManager.m in Sources */,
+				769B6260247C5624A11411541C0AA4E2 /* AFSecurityPolicy.m in Sources */,
+				E17973BC9CEAE4ED0A7492450F95ACEF /* AFURLRequestSerialization.m in Sources */,
+				A5D86CC71480778ECD0EE81138D48C91 /* AFURLResponseSerialization.m in Sources */,
+				856B571FA3AE9D65E81FACB19E3557F4 /* AFURLSessionManager.m in Sources */,
+				8F96E82F250EE718FA3F08AC9AB58423 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				34A7C5747B4C0825465453E196E57FAA /* UIButton+AFNetworking.m in Sources */,
+				AECB9FD1C271F734476CBF6E84BBFC51 /* UIImageView+AFNetworking.m in Sources */,
+				98114570DFFDF5BD81B7724B4810501D /* UIProgressView+AFNetworking.m in Sources */,
+				D29F2AD07AF58334781F008905C30C35 /* UIRefreshControl+AFNetworking.m in Sources */,
+				DC2186197E507C0C73DFB0600D54867A /* UIWebView+AFNetworking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,24 +803,67 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7E33B6963F07247D0A3119C7E9607B16 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-ZBeaconSDK_Example";
-			target = 9A10D6EBBB31A8EE4F6E41D814520B33 /* Pods-ZBeaconSDK_Example */;
-			targetProxy = B729715EC7649FE70F30941C5C4B070A /* PBXContainerItemProxy */;
-		};
-		AF13157F95CAF145A9C21A2772EEA7B3 /* PBXTargetDependency */ = {
+		2A0F536753CD0BD3CDB3E25414AAAE88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ZBeaconSDK;
 			target = A9FD4D67B83E23C64765CAD24773DE3A /* ZBeaconSDK */;
-			targetProxy = E59DFE7F72DED6FE79489EA6AB2775C4 /* PBXContainerItemProxy */;
+			targetProxy = 3EB5443259861387B656C81DA9368072 /* PBXContainerItemProxy */;
+		};
+		58D43C452548FA92742D63FA7F1BD1DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AFNetworking;
+			target = 0130B3724283586C0E9D2A112D4F2AA1 /* AFNetworking */;
+			targetProxy = A167121D1D7B203CE883B7DF0534E869 /* PBXContainerItemProxy */;
+		};
+		9B299B98963822F080C7A9ECF99DD61C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-ZBeaconSDK_Example";
+			target = 9A10D6EBBB31A8EE4F6E41D814520B33 /* Pods-ZBeaconSDK_Example */;
+			targetProxy = 4CA57D561B7E4813556117C69B2C034B /* PBXContainerItemProxy */;
+		};
+		EDA500728079BCB4490BD98AFEEF8AB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JSONModel;
+			target = E0EAF4371C6E4B30A1779D513CB4355B /* JSONModel */;
+			targetProxy = 4B86B8AC2BE74B01DD859120691858CB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		04AB28622A25F24EBC088F83E410F3C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C1E210D5F34EA6D874A0B84A696EF23 /* AFNetworking.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AFNetworking/AFNetworking-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AFNetworking/AFNetworking-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AFNetworking/AFNetworking.modulemap";
+				PRODUCT_MODULE_NAME = AFNetworking;
+				PRODUCT_NAME = AFNetworking;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		1A1DD781E397D1B329D1FA21947964A9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78E34BA1F1A498A29EE45441BABA2E34 /* ZBeaconSDK.release.xcconfig */;
+			baseConfigurationReference = ED73244B888BABCCE004518E4FADB79F /* ZBeaconSDK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -384,7 +877,7 @@
 		};
 		32A05369224D4EFE0A08B72665127AAC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D71FA6D54C0A2386DC39CC51F7F6954 /* ZBeaconSDK.debug.xcconfig */;
+			baseConfigurationReference = FB7C798966086DCC743A86D8C95D64BB /* ZBeaconSDK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -395,11 +888,10 @@
 			};
 			name = Debug;
 		};
-		34D937485C2A18F62403763922863684 /* Release */ = {
+		4AD4A8202FD314B997CCB1989806D260 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC282145097F7412B56A3C6D41669CB4 /* Pods-ZBeaconSDK_Example.release.xcconfig */;
+			baseConfigurationReference = E33ED7ECA7EDB642F3677AF95B0B0321 /* JSONModel.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -408,25 +900,53 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/JSONModel/JSONModel-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/JSONModel/JSONModel-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/JSONModel/JSONModel.modulemap";
+				PRODUCT_MODULE_NAME = JSONModel;
+				PRODUCT_NAME = JSONModel;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
+		};
+		562C9B96519273C107EBCD7DDB5C2553 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94C42FF03ECDA134839F3E279C11F1B1 /* AFNetworking.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AFNetworking/AFNetworking-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AFNetworking/AFNetworking-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AFNetworking/AFNetworking.modulemap";
+				PRODUCT_MODULE_NAME = AFNetworking;
+				PRODUCT_NAME = AFNetworking;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		6D42DC62C4F2E194221DF89C48496C98 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -490,6 +1010,70 @@
 			};
 			name = Release;
 		};
+		7892A578737F246230960535FE016F5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC282145097F7412B56A3C6D41669CB4 /* Pods-ZBeaconSDK_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8C2FCD88DF1F96EA70FF762C21DB833A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99F2EB107B1682A61E3A3B9153F28788 /* JSONModel.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/JSONModel/JSONModel-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/JSONModel/JSONModel-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/JSONModel/JSONModel.modulemap";
+				PRODUCT_MODULE_NAME = JSONModel;
+				PRODUCT_NAME = JSONModel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		8FA8DD359E02045E88436BB7DBFAC6FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0DC6911A137AA42BFE8F638FD956E926 /* Pods-ZBeaconSDK_Tests.release.xcconfig */;
@@ -542,6 +1126,38 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ZBeaconSDK_Tests/Pods-ZBeaconSDK_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B97F61E2B81B1727F5CF5544715349C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6F1C5786B6E852D480722D6FC65D745 /* Pods-ZBeaconSDK_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -621,46 +1237,41 @@
 			};
 			name = Debug;
 		};
-		F1429EF29B54EAED65DA64CE8FCC3E3A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6F1C5786B6E852D480722D6FC65D745 /* Pods-ZBeaconSDK_Example.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		00C40B54C585CFFA87C812CE4974F525 /* Build configuration list for PBXNativeTarget "Pods-ZBeaconSDK_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B97F61E2B81B1727F5CF5544715349C7 /* Debug */,
+				7892A578737F246230960535FE016F5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DFBE997E173748D09E9A11D890A3 /* Build configuration list for PBXNativeTarget "AFNetworking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				562C9B96519273C107EBCD7DDB5C2553 /* Debug */,
+				04AB28622A25F24EBC088F83E410F3C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4D0D44B090D4284607EBBC4E71A96C1 /* Debug */,
 				6D42DC62C4F2E194221DF89C48496C98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		864246C4794538189B6310F839B9CD50 /* Build configuration list for PBXNativeTarget "JSONModel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4AD4A8202FD314B997CCB1989806D260 /* Debug */,
+				8C2FCD88DF1F96EA70FF762C21DB833A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -679,15 +1290,6 @@
 			buildConfigurations = (
 				32A05369224D4EFE0A08B72665127AAC /* Debug */,
 				1A1DD781E397D1B329D1FA21947964A9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D5A39453FC87E0A56125FBE574971C06 /* Build configuration list for PBXNativeTarget "Pods-ZBeaconSDK_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F1429EF29B54EAED65DA64CE8FCC3E3A /* Debug */,
-				34D937485C2A18F62403763922863684 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

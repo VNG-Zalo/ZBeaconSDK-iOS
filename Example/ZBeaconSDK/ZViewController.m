@@ -8,6 +8,7 @@
 
 #import "ZViewController.h"
 #import <ZBeaconSDK/ZBeaconSDK.h>
+#import "NetworkHelper.h"
 
 @interface ZViewController ()
 
@@ -26,6 +27,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)buttonStartAPIPressed:(id)sender {
+    
+    [[NetworkHelper sharedInstance] getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nonnull uuids) {
+        NSLog(@"Master UUID: %@", [uuids debugDescription]);
+    }];
+    
+    
 }
 
 @end

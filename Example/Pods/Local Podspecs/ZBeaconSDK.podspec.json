@@ -18,13 +18,7 @@
   "platforms": {
     "ios": "8.0"
   },
-  "default_subspecs": "Main",
-  "subspecs": [
-    {
-      "name": "Main",
-      "ios": {
-        "vendored_frameworks": "ZBeaconSDK/Frameworks/ZBeaconSDK.framework"
-      }
-    }
-  ]
+  "ios": {
+    "vendored_frameworks": "ZBeaconSDK/Frameworks/ZBeaconSDK.framework"
+  }
 }

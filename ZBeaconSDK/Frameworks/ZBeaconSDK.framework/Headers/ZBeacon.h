@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBeacon : NSObject
+@interface ZBeacon : NSObject {
+    
+}
 
 @property (readonly, nonatomic, copy) NSUUID *UUID;
 @property (readonly, nonatomic, copy) NSNumber *major;
@@ -18,10 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) CLProximity proximity;
 @property (readonly, nonatomic) CLLocationAccuracy accuracy;
 @property (readonly, nonatomic) NSInteger rssi;
+@property (readonly, nonatomic, copy) NSDate *lastTimeReceiveSignal;
 
 - (NSString* )locationString;
 - (NSString* )nameForProximity;
 - (NSString* )debugDescription;
+
+- (NSString*)beaconAdress;
 
 @end
 

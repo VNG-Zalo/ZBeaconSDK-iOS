@@ -30,10 +30,6 @@ ZBeacon SDK
 
   s.ios.deployment_target = '8.0'
 
-  s.subspec 'Main' do |cs|
-    cs.ios.vendored_frameworks = 'ZBeaconSDK/Frameworks/ZBeaconSDK.framework'
-  end
-
-  s.default_subspecs = 'Main'
+  s.ios.vendored_frameworks = 'ZBeaconSDK/Frameworks/ZBeaconSDK.framework'
 
 end

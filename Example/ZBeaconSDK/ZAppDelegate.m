@@ -7,12 +7,14 @@
 //
 
 #import "ZAppDelegate.h"
+#import <ZBeaconSDK/ZBeaconSDK.h>
 
 @implementation ZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    NSLog(@"ZBeaconSDK version: %@", [[ZBeaconSDK sharedInstance] getVersion]);
+    
     return YES;
 }
 

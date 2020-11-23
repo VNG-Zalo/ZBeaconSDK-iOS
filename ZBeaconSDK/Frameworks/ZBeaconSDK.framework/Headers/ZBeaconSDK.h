@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(weak, nonatomic, nullable) id<ZBeaconSDKDelegate> delegate;
 
+- (NSString *)getVersion;
 - (void)setListBeacons:(NSArray<NSString*> *) beacons;
 - (void)startBeaconsWithCompletion:(void(^)(void))callback;
 - (void)stopBeacons;

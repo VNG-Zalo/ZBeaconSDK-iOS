@@ -1,18 +1,41 @@
 PODS:
-  - ZBeaconSDK (1.0.202011201013):
-    - ZBeaconSDK/Main (= 1.0.202011201013)
-  - ZBeaconSDK/Main (1.0.202011201013)
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - JSONModel (1.8.0)
+  - ZBeaconSDK (1.0.202011201013)
 
 DEPENDENCIES:
+  - AFNetworking
+  - JSONModel
   - ZBeaconSDK (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - JSONModel
 
 EXTERNAL SOURCES:
   ZBeaconSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ZBeaconSDK: 4e1605b0fbd95c4e9b5ddbafc1b147a5995baf3a
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
+  ZBeaconSDK: 8cb03da1f4a38d5662f1b02db0e0578efe46b1dc
 
-PODFILE CHECKSUM: be5baeba17e9167ac055a8cebb2d180b1b2b3a08
+PODFILE CHECKSUM: e8584c0460d2f56d7c37ec923d79129ed94435ba
 
 COCOAPODS: 1.10.0
