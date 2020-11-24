@@ -6,13 +6,13 @@
 #import <Foundation/Foundation.h>
 #import <JSONModel/JSONModel.h>
 
-@class APIResponse;
+@class APIResponseModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Object interfaces
 
-@interface APIResponse : JSONModel
+@interface APIResponseModel : JSONModel
 
 @property (nonatomic) NSInteger errorCode;
 @property (nonatomic) NSString *errorMessage;

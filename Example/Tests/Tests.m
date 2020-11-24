@@ -59,8 +59,8 @@
 {
     XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
-    __block BeaconPromotion *beaconPromotion = nil;
-    [networkHelper getPromotionForBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(BeaconPromotion * _Nonnull promotion) {
+    __block PromotionModel *beaconPromotion = nil;
+    [networkHelper getPromotionForBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(PromotionModel * _Nonnull promotion) {
         beaconPromotion = promotion;
         [promise fulfill];
     }];

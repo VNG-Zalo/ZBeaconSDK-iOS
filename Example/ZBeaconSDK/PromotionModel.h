@@ -6,13 +6,13 @@
 #import <Foundation/Foundation.h>
 #import <JSONModel/JSONModel.h>
 
-@class BeaconPromotion;
+@class PromotionModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Object interfaces
 
-@interface BeaconPromotion : JSONModel
+@interface PromotionModel : JSONModel
 @property (nonatomic) NSString *link;
 @property (nonatomic) NSString *banner;
 @property (nonatomic) NSString *theDescription;

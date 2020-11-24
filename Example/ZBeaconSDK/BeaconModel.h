@@ -7,7 +7,7 @@
 #import <JSONModel/JSONModel.h>
 
 @class BeaconModel;
-@class Monitor;
+@class MonitorModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,11 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSString *identifier;
 @property (nonatomic) double distance;
-@property (nonatomic) Monitor *monitor;
+@property (nonatomic) MonitorModel *monitor;
 
 @end
 
-@interface Monitor : JSONModel
+@interface MonitorModel : JSONModel
 
 @property (nonatomic) BOOL isEnable;
 @property (nonatomic) double movingRange;

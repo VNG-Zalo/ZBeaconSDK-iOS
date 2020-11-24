@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BeaconPromotion.h"
+#import "PromotionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getMasterBeaconUUIDList:(void(^)(NSArray<NSString *> *_Nullable uuids))callback;
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString callback:(void(^)(NSArray *_Nullable beaconModels)) callback;
-- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void(^)(BeaconPromotion *_Nullable beaconPromotion)) callback;
+- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void(^)(PromotionModel *_Nullable beaconPromotion)) callback;
 - (void)submitConnectedBeacons:(NSArray *)beacons callback:(void(^)(NSError *_Nullable error)) callback;
 - (void)submitConnectedAndMonitorBeacons:(NSArray *)beacons callback:(void(^)(NSError *_Nullable error)) callback;
 

@@ -9,7 +9,7 @@
 #import "NetworkHelper.h"
 #import <AFNetworking/AFNetworking.h>
 #import <ZBeaconSDK/ZBeaconSDK.h>
-#import "APIResponse.h"
+#import "APIResponseModel.h"
 #import "BeaconModel.h"
 
 #define APP_VERSION     @"123"
@@ -56,7 +56,7 @@
                 progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         NSArray *uuids = nil;
         if (error) {
             NSLog(@"error: %@", error);
@@ -86,7 +86,7 @@
                 progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         NSMutableArray *beaconModels = nil;
         if (error) {
             NSLog(@"error: %@", error);
@@ -111,7 +111,7 @@
     }];
 }
 
-- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void (^)(BeaconPromotion * _Nullable))callback {
+- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void (^)(PromotionModel * _Nullable))callback {
     NSDictionary *params = @{
         @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
         @"av": APP_VERSION,
@@ -123,8 +123,8 @@
                 progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
-        BeaconPromotion *promotion = nil;
+        APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
+        PromotionModel *promotion = nil;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
@@ -132,7 +132,7 @@
                 NSLog(@"getPromotionForBeaconUUID: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
             } else {
                 NSError *error;
-                promotion = [[BeaconPromotion alloc] initWithDictionary:apiResponse.data error:&error];
+                promotion = [[PromotionModel alloc] initWithDictionary:apiResponse.data error:&error];
                 NSLog(@"getPromotionForBeaconUUID error: %@", error);
             }
         }
@@ -158,7 +158,7 @@
                parameters:params
                  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         if (error) {
             NSLog(@"error: %@", error);
         } else {
@@ -192,7 +192,7 @@
                parameters:params
                  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         if (error) {
             NSLog(@"error: %@", error);
         } else {

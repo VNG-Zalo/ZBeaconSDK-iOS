@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation Monitor
+@implementation MonitorModel
 
 + (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{

@@ -1,13 +1,12 @@
-#import "APIResponse.h"
+#import "PromotionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation APIResponse
+@implementation PromotionModel
 
 + (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
-        @"errorCode": @"error_code",
-        @"errorMessage": @"error_message",
+        @"theDescription": @"description"
     }];
 }
 
