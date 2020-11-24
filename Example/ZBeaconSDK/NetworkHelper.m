@@ -74,9 +74,10 @@
 
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString callback:(void (^)(NSArray * _Nonnull))callback {
     NSDictionary *params = @{
-        @"viewerkey": uuidString,
+        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
         @"av": APP_VERSION,
-        @"pl": PLATFORM
+        @"pl": PLATFORM,
+        @"bcid": uuidString
     };
     [_sessionManager GET:@"getAroundHere"
               parameters:params
