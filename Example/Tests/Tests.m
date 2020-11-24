@@ -8,6 +8,7 @@
 
 @import XCTest;
 #import "NetworkHelper.h"
+#import <ZBeaconSDK/ZBeaconSDK.h>
 
 @interface Tests : XCTestCase
 
@@ -66,6 +67,34 @@
     
     [self waitForExpectations:@[promise] timeout:30];
     XCTAssertNotNil(beaconPromotion);
+}
+
+- (void)testSubmitConnectedBeacons {
+    XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"error not nil"];
+    NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
+    __block NSError *error = nil;
+    
+    ZBeacon *beacon = [[ZBeacon alloc] init];
+    [networkHelper submitConnectedBeacons:@[beacon] callback:^(NSError * _Nullable e) {
+        error = e;
+        [promise fulfill];
+    }];
+    [self waitForExpectations:@[promise] timeout:30];
+    XCTAssertNil(error);
+}
+
+- (void)testSubmitConnectedAndMonitorBeacons {
+    XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"error not nil"];
+    NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
+    __block NSError *error = nil;
+    
+    ZBeacon *beacon = [[ZBeacon alloc] init];
+    [networkHelper submitConnectedAndMonitorBeacons:@[beacon] callback:^(NSError * _Nullable e) {
+        error = e;
+        [promise fulfill];
+    }];
+    [self waitForExpectations:@[promise] timeout:30];
+    XCTAssertNil(error);
 }
 
 @end

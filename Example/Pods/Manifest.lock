@@ -1,4 +1,6 @@
 PODS:
+  - AFNetworkActivityLogger (3.0.0):
+    - AFNetworking/NSURLSession (~> 3.0)
   - AFNetworking (3.2.1):
     - AFNetworking/NSURLSession (= 3.2.1)
     - AFNetworking/Reachability (= 3.2.1)
@@ -18,12 +20,14 @@ PODS:
   - ZBeaconSDK (1.0.202011201013)
 
 DEPENDENCIES:
+  - AFNetworkActivityLogger
   - AFNetworking
   - JSONModel
   - ZBeaconSDK (from `../`)
 
 SPEC REPOS:
   trunk:
+    - AFNetworkActivityLogger
     - AFNetworking
     - JSONModel
 
@@ -32,10 +36,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  AFNetworkActivityLogger: e77f68d014becb33c4306a23f56a64906ff72670
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   ZBeaconSDK: 8cb03da1f4a38d5662f1b02db0e0578efe46b1dc
 
-PODFILE CHECKSUM: e8584c0460d2f56d7c37ec923d79129ed94435ba
+PODFILE CHECKSUM: ad95756b8d464406bef11b8364331e0b3499bfad
 
 COCOAPODS: 1.10.0

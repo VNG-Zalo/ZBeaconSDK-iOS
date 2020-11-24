@@ -8,6 +8,7 @@
 
 #import "NetworkHelper.h"
 #import <AFNetworking/AFNetworking.h>
+#import <ZBeaconSDK/ZBeaconSDK.h>
 #import "APIResponse.h"
 #import "BeaconModel.h"
 
@@ -38,6 +39,8 @@
     if (self) {
          NSURL *baseURL = [NSURL URLWithString:@"https://dev-zbeacon.zapps.vn"];
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+        [_sessionManager.requestSerializer setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+
     }
     return self;
 }
@@ -65,8 +68,7 @@
             }
         }
         callback(uuids);
-    }
-                 failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getMasterBeaconUUIDList error: %@", error);
         callback(nil);
     }];
@@ -96,13 +98,15 @@
                 NSInteger expired = [apiResponse.data[@"expire"] intValue];
                 NSLog(@"getBeaconListForMasterBeaconUUID: monitorInterval=%ld expired=%ld", (long)monitorInterval, (long)expired);
                 NSArray *items = apiResponse.data[@"items"];
-                beaconModels = [BeaconModel arrayOfModelsFromDictionaries:items];
+                beaconModels = [BeaconModel arrayOfModelsFromDictionaries:items error:&error];
+                if (error) {
+                    NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
+                }
             }
         }
         callback(beaconModels);
-    }
-                 failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@" getBeaconListForMasterBeaconUUID error: %@", error);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
         callback(nil);
     }];
 }
@@ -129,14 +133,111 @@
             } else {
                 NSError *error;
                 promotion = [[BeaconPromotion alloc] initWithDictionary:apiResponse.data error:&error];
+                NSLog(@"getPromotionForBeaconUUID error: %@", error);
             }
         }
         callback(promotion);
-    }
-                 failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getPromotionForBeaconUUID error: %@", error);
         callback(nil);
     }];
+}
+
+- (void)submitConnectedBeacons:(NSArray *)beacons callback:(void (^)(NSError * _Nullable))callback {
+    
+    NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
+    
+    NSDictionary *params = @{
+        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
+        @"av": APP_VERSION,
+        @"pl": PLATFORM,
+        @"items": jsonString
+    };
+    
+    [_sessionManager POST:@"submit"
+               parameters:params
+                 progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSError *error;
+        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            if (apiResponse.errorCode == 0) {
+                error = nil;
+            } else {
+                error = [NSError errorWithDomain:@"submitConnectedBeacons"
+                                            code:apiResponse.errorCode
+                                        userInfo:@{NSLocalizedDescriptionKey:apiResponse.errorMessage}];
+            }
+        }
+        callback(error);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%s: %@", __func__, error);
+        callback(error);
+    }];
+    
+}
+
+- (void)submitConnectedAndMonitorBeacons:(NSArray *)beacons callback:(void (^)(NSError * _Nullable))callback {
+    NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
+    
+    NSDictionary *params = @{
+        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
+        @"av": APP_VERSION,
+        @"pl": PLATFORM,
+        @"items": jsonString
+    };
+    
+    [_sessionManager POST:@"submitMonitor"
+               parameters:params
+                 progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSError *error;
+        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            if (apiResponse.errorCode == 0) {
+                error = nil;
+            } else {
+                error = [NSError errorWithDomain:@"submitConnectedBeacons"
+                                            code:apiResponse.errorCode
+                                        userInfo:@{NSLocalizedDescriptionKey:apiResponse.errorMessage}];
+            }
+        }
+        callback(error);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%s: %@", __func__, error);
+        callback(error);
+    }];
+}
+
+- (NSString *)convertZBeaconArrayToJsonString:(NSArray <ZBeacon*> *) beacons {
+    NSString *ret = @"[]";
+    
+    do {
+        if (beacons == nil || beacons.count == 0) {
+            break;
+        }
+        NSMutableArray *items = [NSMutableArray new];
+        for (ZBeacon *beacon in beacons) {
+            if (beacon.UUID == nil) {
+                continue;
+            }
+            [items addObject:@{
+                @"id": beacon.UUID.UUIDString,
+                @"distance": @(beacon.distance)
+            }];
+        }
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:items options:0 error:&error];
+        if (error) {
+            NSLog(@"%s: %@", __func__, error);
+            break;
+        }
+        ret = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    } while (NO);
+    
+    return ret;
 }
 
 @end

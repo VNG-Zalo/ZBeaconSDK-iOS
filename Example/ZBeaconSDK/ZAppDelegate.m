@@ -8,12 +8,16 @@
 
 #import "ZAppDelegate.h"
 #import <ZBeaconSDK/ZBeaconSDK.h>
+#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 
 @implementation ZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"ZBeaconSDK version: %@", [[ZBeaconSDK sharedInstance] getVersion]);
+    
+    [[AFNetworkActivityLogger sharedLogger] setLogLevel:AFLoggerLevelDebug];
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
     
     return YES;
 }

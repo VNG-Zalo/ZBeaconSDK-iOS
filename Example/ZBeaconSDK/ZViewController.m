@@ -30,8 +30,8 @@
 }
 - (IBAction)buttonStartAPIPressed:(id)sender {
     
-    [[NetworkHelper sharedInstance] getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nonnull uuids) {
-        NSLog(@"Master UUID: %@", [uuids debugDescription]);
+    [[NetworkHelper sharedInstance] submitConnectedBeacons:@[] callback:^(NSError * _Nullable error) {
+        NSLog(@"%@", error);
     }];
     
     

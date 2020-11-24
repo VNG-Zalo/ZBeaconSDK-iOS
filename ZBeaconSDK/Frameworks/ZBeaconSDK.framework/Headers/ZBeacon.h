@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, copy) NSNumber *minor;
 @property (readonly, nonatomic) CLProximity proximity;
 @property (readonly, nonatomic) CLLocationAccuracy accuracy;
+@property (readonly, nonatomic) double distance;
 @property (readonly, nonatomic) NSInteger rssi;
 @property (readonly, nonatomic, copy) NSDate *lastTimeReceiveSignal;
 

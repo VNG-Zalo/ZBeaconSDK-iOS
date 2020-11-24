@@ -5,6 +5,7 @@ platform :ios, '8.0'
 target 'ZBeaconSDK_Example' do
   pod 'ZBeaconSDK', :path => '../'
   pod 'AFNetworking'
+  pod 'AFNetworkActivityLogger'
   pod 'JSONModel'
 
   target 'ZBeaconSDK_Tests' do
