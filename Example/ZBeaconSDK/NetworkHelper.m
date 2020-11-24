@@ -38,12 +38,11 @@
     if (self) {
          NSURL *baseURL = [NSURL URLWithString:@"https://dev-zbeacon.zapps.vn"];
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
-        _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
     return self;
 }
 
-- (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nonnull))callback {
+- (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nullable))callback {
     NSDictionary *params = @{
         @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
         @"av": APP_VERSION,
@@ -54,25 +53,26 @@
                 progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [APIResponse fromData:responseObject error:&error];
+        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        NSArray *uuids = nil;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            NSArray *uuids = [NSArray new];
             if (apiResponse.errorCode != 0) {
                 NSLog(@"getMasterBeaconUUIDList: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
             } else {
                 uuids = [((NSDictionary *)apiResponse.data) objectForKey:@"items"];
             }
-            callback(uuids);
         }
+        callback(uuids);
     }
                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getMasterBeaconUUIDList error: %@", error);
+        callback(nil);
     }];
 }
 
-- (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString callback:(void (^)(NSArray * _Nonnull))callback {
+- (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString callback:(void (^)(NSArray * _Nullable))callback {
     NSDictionary *params = @{
         @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
         @"av": APP_VERSION,
@@ -84,11 +84,11 @@
                 progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [APIResponse fromData:responseObject error:&error];
+        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        NSMutableArray *beaconModels = nil;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            NSMutableArray *beaconModels = [NSMutableArray new];
             if (apiResponse.errorCode != 0) {
                 NSLog(@"getBeaconListForMasterBeaconUUID: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
             } else {
@@ -96,20 +96,18 @@
                 NSInteger expired = [apiResponse.data[@"expire"] intValue];
                 NSLog(@"getBeaconListForMasterBeaconUUID: monitorInterval=%ld expired=%ld", (long)monitorInterval, (long)expired);
                 NSArray *items = apiResponse.data[@"items"];
-                for (NSDictionary *item in items) {
-                    BeaconModel *model = [BeaconModel fromJSONDictionary:item];
-                    [beaconModels addObject:model];
-                }
+                beaconModels = [BeaconModel arrayOfModelsFromDictionaries:items];
             }
-            callback(beaconModels);
         }
+        callback(beaconModels);
     }
                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@" getBeaconListForMasterBeaconUUID error: %@", error);
+        callback(nil);
     }];
 }
 
-- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void (^)(BeaconPromotion * _Nonnull))callback {
+- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void (^)(BeaconPromotion * _Nullable))callback {
     NSDictionary *params = @{
         @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
         @"av": APP_VERSION,
@@ -121,21 +119,23 @@
                 progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
-        APIResponse *apiResponse = [APIResponse fromData:responseObject error:&error];
+        APIResponse *apiResponse = [[APIResponse alloc] initWithDictionary:responseObject error:&error];
+        BeaconPromotion *promotion = nil;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
-            BeaconPromotion *promotion = nil;
             if (apiResponse.errorCode != 0) {
                 NSLog(@"getPromotionForBeaconUUID: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
             } else {
-                promotion = [BeaconPromotion fromJSONDictionary:apiResponse.data];
+                NSError *error;
+                promotion = [[BeaconPromotion alloc] initWithDictionary:apiResponse.data error:&error];
             }
-            callback(promotion);
         }
+        callback(promotion);
     }
                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getPromotionForBeaconUUID error: %@", error);
+        callback(nil);
     }];
 }
 

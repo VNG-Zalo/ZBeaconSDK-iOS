@@ -4,6 +4,7 @@
 //   APIBeaconModel *beaconModel = [APIBeaconModel fromJSON:json encoding:NSUTF8Encoding error:&error];
 
 #import <Foundation/Foundation.h>
+#import <JSONModel/JSONModel.h>
 
 @class BeaconModel;
 @class Monitor;
@@ -12,21 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Object interfaces
 
-@interface BeaconModel : NSObject
-@property (nonatomic, copy)   NSString *identifier;
-@property (nonatomic, assign) double distance;
-@property (nonatomic, strong) Monitor *monitor;
+@interface BeaconModel : JSONModel
 
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
-- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
-- (NSData *_Nullable)toData:(NSError *_Nullable *)error;
+@property (nonatomic) NSString *identifier;
+@property (nonatomic) double distance;
+@property (nonatomic) Monitor *monitor;
+
 @end
 
-@interface Monitor : NSObject
-@property (nonatomic, assign) BOOL isEnable;
-@property (nonatomic, assign) double movingRange;
+@interface Monitor : JSONModel
+
+@property (nonatomic) BOOL isEnable;
+@property (nonatomic) double movingRange;
+
 @end
 
 NS_ASSUME_NONNULL_END

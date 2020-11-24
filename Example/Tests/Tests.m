@@ -27,6 +27,19 @@
     [super tearDown];
 }
 
+- (void)testGetMasterBeaconUUID {
+    XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
+    NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
+    __block NSArray *uuidList = nil;
+    [networkHelper getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nonnull uuids) {
+        uuidList = uuids;
+        [promise fulfill];
+    }];
+    [self waitForExpectations:@[promise] timeout:30];
+    XCTAssertNotNil(uuidList);
+    XCTAssertNotEqual(uuidList.count, 0);
+}
+
 - (void)testGetBeaconListForMasterBeaconUUID
 {
     XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
@@ -36,8 +49,9 @@
         beaconModelList = beaconModels;
         [promise fulfill];
     }];
-    XCTAssertNil(beaconModelList);
-    XCTAssertEqual(beaconModelList.count, 0);
+    [self waitForExpectations:@[promise] timeout:30];
+    XCTAssertNotNil(beaconModelList);
+    XCTAssertNotEqual(beaconModelList.count, 0);
 }
 
 - (void)testGetPromotionForBeaconUUID
@@ -49,7 +63,9 @@
         beaconPromotion = promotion;
         [promise fulfill];
     }];
-    XCTAssertNil(beaconPromotion);
+    
+    [self waitForExpectations:@[promise] timeout:30];
+    XCTAssertNotNil(beaconPromotion);
 }
 
 @end
