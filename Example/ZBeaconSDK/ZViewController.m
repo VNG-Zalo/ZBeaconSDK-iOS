@@ -7,6 +7,7 @@
 //
 
 #import "ZViewController.h"
+#import <UserNotifications/UserNotifications.h>
 #import <ZBeaconSDK/ZBeaconSDK.h>
 #import "NetworkHelper.h"
 #import "NSDate+Extension.h"
@@ -62,6 +63,22 @@
     self.txtLogging.text = [NSString stringWithFormat:@"%@\n%@", currentLog, appendLog];
 }
 
+- (void)createNotificationWithZBeacon:(ZBeacon *)beacon promotionModel:(PromotionModel*)promotionModel {
+    UNMutableNotificationContent *content = [UNMutableNotificationContent new];
+    content.title = promotionModel.banner;
+    content.body = promotionModel.theDescription;
+    content.sound = UNNotificationSound.defaultSound;
+    
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:beacon.UUID.UUIDString content:content trigger:nil];
+    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Add notification for %@ fail", beacon.UUID.UUIDString);
+        } else {
+            NSLog(@"Add notification for %@ success", beacon.UUID.UUIDString);
+        }
+    }];
+}
+
 #pragma mark Flow Methods
 - (void)handleMasterBeaconUUIDs:(NSArray *) uuids {
     _masterUUIDs = uuids;
@@ -96,7 +113,14 @@
 
 - (void)handleConnectedClientBeacon:(ZBeacon *)beacon {
     NSLog(@"%s: %@", __func__, [beacon debugDescription]);
-    
+    [[NetworkHelper sharedInstance] getPromotionForBeaconUUID:beacon.UUID.UUIDString
+                                                     callback:^(PromotionModel * _Nullable promotionModel, NSError * _Nullable error) {
+        if (promotionModel) {
+            [self createNotificationWithZBeacon:beacon promotionModel:promotionModel];
+        } else {
+            [self addLog:[NSString stringWithFormat:@"Get promotion for beacon %@ error: %@", beacon.UUID.UUIDString, error]];
+        }
+    }];
 }
 
 #pragma mark ZBeaconSDKDelegate
@@ -117,7 +141,7 @@
 }
 
 - (void)onRangeBeacons:(NSArray<ZBeacon *> *)beacons {
-    NSLog(@"%s: %@", __func__, [beacons debugDescription]);
+//    NSLog(@"%s: %@", __func__, [beacons debugDescription]);
 }
 
 @end

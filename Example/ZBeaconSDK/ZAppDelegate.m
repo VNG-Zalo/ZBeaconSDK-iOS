@@ -9,11 +9,18 @@
 #import "ZAppDelegate.h"
 #import <ZBeaconSDK/ZBeaconSDK.h>
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
+#import <UserNotifications/UserNotifications.h>
 
 @implementation ZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    UNAuthorizationOptions options = UNAuthorizationOptionAlert+UNAuthorizationOptionSound;
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+    }];
+    
     [ZBeaconSDK setLogLevel:ZDKLogDebug];
     NSLog(@"ZBeaconSDK version: %@", [[ZBeaconSDK sharedInstance] getVersion]);
     
