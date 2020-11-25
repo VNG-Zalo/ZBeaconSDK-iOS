@@ -19,6 +19,8 @@
 
 @property (strong, nonatomic) ZBeaconSDK *zBeaconSDK;
 @property (strong, nonatomic) NSArray *masterUUIDs;
+@property (strong, nonatomic) ZBeacon *currentMasterBeacon;
+@property (strong, nonatomic) NSMutableArray *activeClientBeacons;
 
 @end
 
@@ -32,14 +34,7 @@
     [_zBeaconSDK stopBeacons];
     _zBeaconSDK.delegate = self;
     
-    [self addLog:@"Start get master beacon uuid from API"];
-    [[NetworkHelper sharedInstance] getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nullable uuids, NSError * _Nullable error) {
-        if (uuids == nil || uuids.count == 0) {
-            [self addLog: [NSString stringWithFormat:@"ERROR: master beacon UUIDs empty with error %@", error]];
-        } else {
-            [self handleMasterBeaconUUIDs: uuids];
-        }
-    }];
+    [self getMasterBeaconUUIDsFromAPI];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,6 +53,7 @@
 
 #pragma mark Private Utils Methods
 - (void)addLog:(NSString *)log {
+    NSLog(@"%@", log);
     NSString *currentLog = self.txtLogging.text;
     NSString *appendLog = [NSString stringWithFormat:@"%@: %@", [[NSDate date] toLocalTime], log];
     self.txtLogging.text = [NSString stringWithFormat:@"%@\n%@", currentLog, appendLog];
@@ -80,6 +76,17 @@
 }
 
 #pragma mark Flow Methods
+- (void)getMasterBeaconUUIDsFromAPI {
+    [self addLog:@"Start get master beacon uuid from API"];
+    [[NetworkHelper sharedInstance] getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nullable uuids, NSError * _Nullable error) {
+        if (uuids == nil || uuids.count == 0) {
+            [self addLog: [NSString stringWithFormat:@"ERROR: master beacon UUIDs empty with error %@", error]];
+        } else {
+            [self handleMasterBeaconUUIDs: uuids];
+        }
+    }];
+}
+
 - (void)handleMasterBeaconUUIDs:(NSArray *) uuids {
     _masterUUIDs = uuids;
     [self addLog:[NSString stringWithFormat:@"Start init master beacon uuids: \n     %@", uuids]];
@@ -91,6 +98,7 @@
 
 - (void)handleConnectedMasterBeacon:(ZBeacon *)beacon {
     NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    _currentMasterBeacon = beacon;
     [[NetworkHelper sharedInstance] getBeaconListForMasterBeaconUUID:beacon.UUID.UUIDString
                                                             callback:^(NSArray * _Nullable beaconModels, NSError * _Nullable error) {
         if (beaconModels == nil || beaconModels.count == 0) {
@@ -101,6 +109,9 @@
             for (BeaconModel *beaconModel in beaconModels) {
                 [clientUUIDs addObject:beaconModel.identifier];
             }
+            // Add master to ranging
+            [clientUUIDs addObject:_currentMasterBeacon.UUID.UUIDString];
+            
             [_zBeaconSDK stopBeacons];
             [self addLog:@"Stop master beacons\nStart init client beacons."];
             [_zBeaconSDK setListBeacons:clientUUIDs];
@@ -113,6 +124,10 @@
 
 - (void)handleConnectedClientBeacon:(ZBeacon *)beacon {
     NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    if (_activeClientBeacons == nil) {
+        _activeClientBeacons = [NSMutableArray new];
+    }
+    [_activeClientBeacons addObject:beacon];
     [[NetworkHelper sharedInstance] getPromotionForBeaconUUID:beacon.UUID.UUIDString
                                                      callback:^(PromotionModel * _Nullable promotionModel, NSError * _Nullable error) {
         if (promotionModel) {
@@ -123,9 +138,41 @@
     }];
 }
 
+- (void)handleDisconnectedMasterBeacon:(ZBeacon *)beacon {
+    if (_currentMasterBeacon != beacon) {
+        NSLog(@"%s: currentMasterBeacon %@ is different, do nothing with %@", __func__, [_currentMasterBeacon debugDescription], [beacon debugDescription]);
+        return;
+    }
+    NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    [_zBeaconSDK stopBeacons];
+    if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
+        [self handleMasterBeaconUUIDs:_masterUUIDs];
+    } else {
+        [self getMasterBeaconUUIDsFromAPI];
+    }
+}
+
+- (void)handleDisconnectedClientBeacon:(ZBeacon *)beacon {
+    NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    if (_activeClientBeacons) {
+        [_activeClientBeacons removeObject:beacon];
+    }
+    // Out of all client beacons, restart master beacon
+    if (_activeClientBeacons.count == 0) {
+        [_zBeaconSDK stopBeacons];
+        if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
+            [self handleMasterBeaconUUIDs:_masterUUIDs];
+        } else {
+            [self getMasterBeaconUUIDsFromAPI];
+        }
+    }
+}
+
 #pragma mark ZBeaconSDKDelegate
 
 - (void)onBeaconConnected:(ZBeacon *)beacon {
+    NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    
     // Check beacon is in master uuids
     if ([_masterUUIDs containsObject:beacon.UUID.UUIDString]) {
         [self addLog:[NSString stringWithFormat:@"Connected to master beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
@@ -138,6 +185,15 @@
 
 - (void)onBeaconDisconnected:(ZBeacon *)beacon {
     NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    
+    // Check beacon is in master uuids
+    if ([_masterUUIDs containsObject:beacon.UUID.UUIDString]) {
+        [self addLog:[NSString stringWithFormat:@"Disconnected to master beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
+        [self handleDisconnectedMasterBeacon: beacon];
+    } else {
+        [self addLog:[NSString stringWithFormat:@"Disconnected to client beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
+        [self handleDisconnectedClientBeacon: beacon];
+    }
 }
 
 - (void)onRangeBeacons:(NSArray<ZBeacon *> *)beacons {

@@ -149,13 +149,12 @@
 			children = (
 				C0D5D958256DFC4E00D88CBC /* Extensions */,
 				C0D5D904256BA67500D88CBC /* NetworkHelper */,
+				C0D5D978256E5AF900D88CBC /* ViewControllers */,
 				6003F59C195388D20070C39A /* ZAppDelegate.h */,
 				6003F59D195388D20070C39A /* ZAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* ZViewController.h */,
-				6003F5A6195388D20070C39A /* ZViewController.m */,
-				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
+				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for ZBeaconSDK";
@@ -235,6 +234,15 @@
 				C0D5D95A256DFC7700D88CBC /* NSDate+Extension.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C0D5D978256E5AF900D88CBC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6003F5A5195388D20070C39A /* ZViewController.h */,
+				6003F5A6195388D20070C39A /* ZViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
