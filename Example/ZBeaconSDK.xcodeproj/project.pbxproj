@@ -28,6 +28,7 @@
 		C0D5D924256BB29400D88CBC /* APIResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D923256BB29400D88CBC /* APIResponseModel.m */; };
 		C0D5D929256BBC0100D88CBC /* BeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D927256BBC0100D88CBC /* BeaconModel.m */; };
 		C0D5D937256BC2C600D88CBC /* PromotionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D935256BC2C600D88CBC /* PromotionModel.m */; };
+		C0D5D95B256DFC7700D88CBC /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D95A256DFC7700D88CBC /* NSDate+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		C0D5D928256BBC0100D88CBC /* BeaconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconModel.h; sourceTree = "<group>"; };
 		C0D5D935256BC2C600D88CBC /* PromotionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionModel.m; sourceTree = "<group>"; };
 		C0D5D936256BC2C600D88CBC /* PromotionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionModel.h; sourceTree = "<group>"; };
+		C0D5D959256DFC7700D88CBC /* NSDate+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDate+Extension.h"; path = "Extensions/NSDate+Extension.h"; sourceTree = "<group>"; };
+		C0D5D95A256DFC7700D88CBC /* NSDate+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Extension.m"; path = "Extensions/NSDate+Extension.m"; sourceTree = "<group>"; };
 		CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D679C22CEFFB9121E637095B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +147,7 @@
 		6003F593195388D20070C39A /* Example for ZBeaconSDK */ = {
 			isa = PBXGroup;
 			children = (
+				C0D5D958256DFC4E00D88CBC /* Extensions */,
 				C0D5D904256BA67500D88CBC /* NetworkHelper */,
 				6003F59C195388D20070C39A /* ZAppDelegate.h */,
 				6003F59D195388D20070C39A /* ZAppDelegate.m */,
@@ -222,6 +226,15 @@
 				C0D5D906256BA6B300D88CBC /* NetworkHelper.m */,
 			);
 			name = NetworkHelper;
+			sourceTree = "<group>";
+		};
+		C0D5D958256DFC4E00D88CBC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C0D5D959256DFC7700D88CBC /* NSDate+Extension.h */,
+				C0D5D95A256DFC7700D88CBC /* NSDate+Extension.m */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +418,7 @@
 				C0D5D907256BA6B300D88CBC /* NetworkHelper.m in Sources */,
 				6003F59E195388D20070C39A /* ZAppDelegate.m in Sources */,
 				C0D5D937256BC2C600D88CBC /* PromotionModel.m in Sources */,
+				C0D5D95B256DFC7700D88CBC /* NSDate+Extension.m in Sources */,
 				C0D5D924256BB29400D88CBC /* APIResponseModel.m in Sources */,
 				6003F5A7195388D20070C39A /* ZViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

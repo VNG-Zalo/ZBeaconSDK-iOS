@@ -14,9 +14,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [ZBeaconSDK setLogLevel:ZDKLogDebug];
     NSLog(@"ZBeaconSDK version: %@", [[ZBeaconSDK sharedInstance] getVersion]);
     
-    [[AFNetworkActivityLogger sharedLogger] setLogLevel:AFLoggerLevelDebug];
+    [[AFNetworkActivityLogger sharedLogger] setLogLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
     
     return YES;

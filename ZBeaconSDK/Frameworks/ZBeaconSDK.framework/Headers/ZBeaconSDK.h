@@ -8,11 +8,14 @@
 #import <Foundation/Foundation.h>
 #import "ZBeaconSDKDelegate.h"
 #import "ZBeacon.h"
+#import "ZDKLogManager.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBeaconSDK : NSObject
 
++ (void) setLogLevel: (ZDKLogLevel) logLevel;
 +(instancetype)sharedInstance;
 
 @property(weak, nonatomic, nullable) id<ZBeaconSDKDelegate> delegate;

@@ -12,12 +12,13 @@
 #import "APIResponseModel.h"
 #import "BeaconModel.h"
 
-#define APP_VERSION     @"123"
-#define PLATFORM        @"1"
+#define PLATFORM        @"2" // 1: android; 2: ios
+#define VIEWER_KEY      @"1251521352rwfvrbksjpofdwjpge"
 
 @interface NetworkHelper ()
 
 @property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
+@property (strong, nonatomic) NSString* appVersion;
 
 @end
 
@@ -40,15 +41,23 @@
          NSURL *baseURL = [NSURL URLWithString:@"https://dev-zbeacon.zapps.vn"];
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
         [_sessionManager.requestSerializer setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+        
+        _appVersion = [self getAppVersion];
 
     }
     return self;
 }
 
-- (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nullable))callback {
+- (NSString *)getAppVersion {
+    NSDictionary* infoDict = [[NSBundle bundleForClass:[self class]] infoDictionary];
+    NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    return version;
+}
+
+- (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
-        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
-        @"av": APP_VERSION,
+        @"viewerkey": VIEWER_KEY,
+        @"av": _appVersion,
         @"pl": PLATFORM
     };
     [_sessionManager GET:@"getMasterBeacon"
@@ -67,17 +76,18 @@
                 uuids = [((NSDictionary *)apiResponse.data) objectForKey:@"items"];
             }
         }
-        callback(uuids);
+        callback(uuids, error);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getMasterBeaconUUIDList error: %@", error);
-        callback(nil);
+        callback(nil, error);
     }];
 }
 
-- (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString callback:(void (^)(NSArray * _Nullable))callback {
+- (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
+                                callback:(void (^)(NSArray * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
-        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
-        @"av": APP_VERSION,
+        @"viewerkey": VIEWER_KEY,
+        @"av": _appVersion,
         @"pl": PLATFORM,
         @"bcid": uuidString
     };
@@ -104,17 +114,18 @@
                 }
             }
         }
-        callback(beaconModels);
+        callback(beaconModels, error);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
-        callback(nil);
+        callback(nil, error);
     }];
 }
 
-- (void)getPromotionForBeaconUUID:(NSString *)uuidString callback:(void (^)(PromotionModel * _Nullable))callback {
+- (void)getPromotionForBeaconUUID:(NSString *)uuidString
+                         callback:(void (^)(PromotionModel * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
-        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
-        @"av": APP_VERSION,
+        @"viewerkey": VIEWER_KEY,
+        @"av": _appVersion,
         @"pl": PLATFORM,
         @"id": uuidString
     };
@@ -133,13 +144,15 @@
             } else {
                 NSError *error;
                 promotion = [[PromotionModel alloc] initWithDictionary:apiResponse.data error:&error];
-                NSLog(@"getPromotionForBeaconUUID error: %@", error);
+                if (error) {
+                    NSLog(@"getPromotionForBeaconUUID error: %@", error);
+                }
             }
         }
-        callback(promotion);
+        callback(promotion, error);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getPromotionForBeaconUUID error: %@", error);
-        callback(nil);
+        callback(nil, error);
     }];
 }
 
@@ -148,8 +161,8 @@
     NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
     
     NSDictionary *params = @{
-        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
-        @"av": APP_VERSION,
+        @"viewerkey": VIEWER_KEY,
+        @"av": _appVersion,
         @"pl": PLATFORM,
         @"items": jsonString
     };
@@ -182,8 +195,8 @@
     NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
     
     NSDictionary *params = @{
-        @"viewerkey": @"1251521352rwfvrbksjpofdwjpge",
-        @"av": APP_VERSION,
+        @"viewerkey": VIEWER_KEY,
+        @"av": _appVersion,
         @"pl": PLATFORM,
         @"items": jsonString
     };
