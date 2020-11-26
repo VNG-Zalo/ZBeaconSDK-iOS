@@ -13,7 +13,7 @@
 #import "BeaconModel.h"
 
 #define PLATFORM        @"2" // 1: android; 2: ios
-#define VIEWER_KEY      @"1251521352rwfvrbksjpofdwjpge"
+#define VIEWER_KEY      @"866775211783397205.1606211643448.017ae60a7162487afa61514ec63adf66"
 
 @interface NetworkHelper ()
 

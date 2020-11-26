@@ -143,7 +143,7 @@
         NSLog(@"%s: currentMasterBeacon %@ is different, do nothing with %@", __func__, [_currentMasterBeacon debugDescription], [beacon debugDescription]);
         return;
     }
-    NSLog(@"%s: %@", __func__, [beacon debugDescription]);
+    NSLog(@"Disconnected to master beacon → Stop all client beacon and restart master beacon. Master beacon:%@", [beacon debugDescription]);
     [_zBeaconSDK stopBeacons];
     if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
         [self handleMasterBeaconUUIDs:_masterUUIDs];
@@ -153,18 +153,20 @@
 }
 
 - (void)handleDisconnectedClientBeacon:(ZBeacon *)beacon {
-    NSLog(@"%s: %@", __func__, [beacon debugDescription]);
     if (_activeClientBeacons) {
         [_activeClientBeacons removeObject:beacon];
     }
     // Out of all client beacons, restart master beacon
     if (_activeClientBeacons.count == 0) {
+        NSLog(@"Disconnected to client beacon. All of client beacon is disconnected → Stop all client beacon and restart master beacons. Master beacon:%@", [beacon debugDescription]);
         [_zBeaconSDK stopBeacons];
         if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
             [self handleMasterBeaconUUIDs:_masterUUIDs];
         } else {
             [self getMasterBeaconUUIDsFromAPI];
         }
+    } else {
+        NSLog(@"Disconnected to client beacon. But still %ld active client beacons → Do nothing .Client beacon:%@", (long)_activeClientBeacons.count, [beacon debugDescription]);
     }
 }
 

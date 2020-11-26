@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Object interfaces
 
 @interface PromotionModel : JSONModel
-@property (nonatomic) NSString *link;
+@property (nonatomic) NSString <Optional> *link;
 @property (nonatomic) NSString *banner;
 @property (nonatomic) NSString *theDescription;
 
