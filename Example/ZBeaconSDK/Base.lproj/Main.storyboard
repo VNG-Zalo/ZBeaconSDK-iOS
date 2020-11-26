@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rw7-5c-lsS">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -8,6 +8,50 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="9eL-27-cRf">
+            <objects>
+                <viewController id="imt-j4-lqH" customClass="LoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BRR-Iz-pFf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lx2-Yl-bZh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SP3-TZ-O1t">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwH-YP-UCU">
+                                <rect key="frame" x="135.5" y="318.5" width="104" height="30"/>
+                                <state key="normal" title="Login with Zalo"/>
+                                <connections>
+                                    <action selector="btnLogin:" destination="dan-jq-CtF" eventType="touchUpInside" id="qv7-c7-bVt"/>
+                                    <action selector="buttonLoginPressed:" destination="imt-j4-lqH" eventType="touchUpInside" id="HXG-NJ-IMr"/>
+                                    <action selector="buttonLoginPressed:" destination="dan-jq-CtF" eventType="touchUpInside" id="zOG-oE-vkY"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vgd-9d-Vc9">
+                                <rect key="frame" x="177" y="271" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fwH-YP-UCU" firstAttribute="centerY" secondItem="SP3-TZ-O1t" secondAttribute="centerY" id="VpT-Wv-bjf"/>
+                            <constraint firstItem="fwH-YP-UCU" firstAttribute="centerX" secondItem="SP3-TZ-O1t" secondAttribute="centerX" id="vlQ-jJ-FzX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="FzS-gv-bEJ"/>
+                    <connections>
+                        <outlet property="btnLogin" destination="fwH-YP-UCU" id="ZzD-FY-wzq"/>
+                        <outlet property="loadingIndicator" destination="vgd-9d-Vc9" id="VJz-Cj-HVf"/>
+                        <segue destination="whP-gf-Uak" kind="custom" identifier="showMainController" customClass="ClearNavigationStackSegue" id="0nl-l9-zmt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="txV-U5-bxY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="dan-jq-CtF" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="476" y="431.33433283358323"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="wQg-tq-qST">
             <objects>
@@ -42,7 +86,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="304.80000000000001" y="432.23388305847078"/>
+            <point key="canvasLocation" x="1244" y="432.23388305847078"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hjk-hU-JTP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rw7-5c-lsS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kCx-1s-1nF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="imt-j4-lqH" kind="relationship" relationship="rootViewController" id="fp6-N0-nTk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I8L-d8-Xwh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-463.19999999999999" y="431.33433283358323"/>
         </scene>
     </scenes>
     <resources>

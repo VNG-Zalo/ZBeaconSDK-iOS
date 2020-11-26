@@ -10,6 +10,9 @@
 #import <ZBeaconSDK/ZBeaconSDK.h>
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 #import <UserNotifications/UserNotifications.h>
+#import <ZaloSDK/ZaloSDK.h>
+
+#define ZALO_APP_ID @"453673175111169071"
 
 @implementation ZAppDelegate
 
@@ -26,6 +29,8 @@
     
     [[AFNetworkActivityLogger sharedLogger] setLogLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
+    
+    [[ZaloSDK sharedInstance] initializeWithAppId:ZALO_APP_ID];
     
     return YES;
 }
@@ -55,6 +60,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [[ZDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
 }
 
 @end

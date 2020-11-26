@@ -11,9 +11,9 @@
 #import <ZBeaconSDK/ZBeaconSDK.h>
 #import "APIResponseModel.h"
 #import "BeaconModel.h"
+#import <ZaloSDK/ZaloSDK.h>
 
 #define PLATFORM        @"2" // 1: android; 2: ios
-#define VIEWER_KEY      @"866775211783397205.1606211643448.017ae60a7162487afa61514ec63adf66"
 
 @interface NetworkHelper ()
 
@@ -56,7 +56,7 @@
 
 - (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
-        @"viewerkey": VIEWER_KEY,
+        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
         @"pl": PLATFORM
     };
@@ -86,7 +86,7 @@
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
                                 callback:(void (^)(NSArray * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
-        @"viewerkey": VIEWER_KEY,
+        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
         @"pl": PLATFORM,
         @"bcid": uuidString
@@ -124,7 +124,7 @@
 - (void)getPromotionForBeaconUUID:(NSString *)uuidString
                          callback:(void (^)(PromotionModel * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
-        @"viewerkey": VIEWER_KEY,
+        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
         @"pl": PLATFORM,
         @"id": uuidString
@@ -161,7 +161,7 @@
     NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
     
     NSDictionary *params = @{
-        @"viewerkey": VIEWER_KEY,
+        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
         @"pl": PLATFORM,
         @"items": jsonString
@@ -195,7 +195,7 @@
     NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
     
     NSDictionary *params = @{
-        @"viewerkey": VIEWER_KEY,
+        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
         @"pl": PLATFORM,
         @"items": jsonString
