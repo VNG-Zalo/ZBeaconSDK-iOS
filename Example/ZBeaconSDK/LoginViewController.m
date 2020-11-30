@@ -3,7 +3,7 @@
 //  ZBeaconSDK_Example
 //
 //  Created by ToanTM on 26/11/2020.
-//  Copyright © 2020 minhtoantm. All rights reserved.
+//  Copyright © 2020 VNG. All rights reserved.
 //
 
 #import "LoginViewController.h"

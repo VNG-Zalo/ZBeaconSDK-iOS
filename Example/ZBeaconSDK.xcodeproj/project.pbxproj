@@ -31,6 +31,7 @@
 		C0D5D95B256DFC7700D88CBC /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D95A256DFC7700D88CBC /* NSDate+Extension.m */; };
 		C0D5D98F256F591900D88CBC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D98E256F591900D88CBC /* LoginViewController.m */; };
 		C0D5D994256F61D800D88CBC /* ClearNavigationStackSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D993256F61D800D88CBC /* ClearNavigationStackSegue.m */; };
+		C0D5DA342574DB9A00D88CBC /* UIDevice+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DA332574DB9A00D88CBC /* UIDevice+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		C0D5D98E256F591900D88CBC /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C0D5D992256F61D800D88CBC /* ClearNavigationStackSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClearNavigationStackSegue.h; sourceTree = "<group>"; };
 		C0D5D993256F61D800D88CBC /* ClearNavigationStackSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClearNavigationStackSegue.m; sourceTree = "<group>"; };
+		C0D5DA322574DB9A00D88CBC /* UIDevice+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIDevice+Extension.h"; path = "Extensions/UIDevice+Extension.h"; sourceTree = "<group>"; };
+		C0D5DA332574DB9A00D88CBC /* UIDevice+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+Extension.m"; path = "Extensions/UIDevice+Extension.m"; sourceTree = "<group>"; };
 		CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D679C22CEFFB9121E637095B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,6 +243,8 @@
 				C0D5D95A256DFC7700D88CBC /* NSDate+Extension.m */,
 				C0D5D992256F61D800D88CBC /* ClearNavigationStackSegue.h */,
 				C0D5D993256F61D800D88CBC /* ClearNavigationStackSegue.m */,
+				C0D5DA322574DB9A00D88CBC /* UIDevice+Extension.h */,
+				C0D5DA332574DB9A00D88CBC /* UIDevice+Extension.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -305,7 +310,7 @@
 			attributes = {
 				CLASSPREFIX = Z;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = minhtoantm;
+				ORGANIZATIONNAME = VNG;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = CVB6BX97VM;
@@ -458,6 +463,7 @@
 				C0D5D95B256DFC7700D88CBC /* NSDate+Extension.m in Sources */,
 				C0D5D98F256F591900D88CBC /* LoginViewController.m in Sources */,
 				C0D5D924256BB29400D88CBC /* APIResponseModel.m in Sources */,
+				C0D5DA342574DB9A00D88CBC /* UIDevice+Extension.m in Sources */,
 				6003F5A7195388D20070C39A /* ZViewController.m in Sources */,
 				C0D5D994256F61D800D88CBC /* ClearNavigationStackSegue.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

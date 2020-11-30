@@ -3,7 +3,7 @@
 //  ZBeaconSDK_Example
 //
 //  Created by ToanTM on 23/11/2020.
-//  Copyright © 2020 minhtoantm. All rights reserved.
+//  Copyright © 2020 VNG. All rights reserved.
 //
 
 #import "NetworkHelper.h"
@@ -12,6 +12,7 @@
 #import "APIResponseModel.h"
 #import "BeaconModel.h"
 #import <ZaloSDK/ZaloSDK.h>
+#import "UIDevice+Extension.h"
 
 #define PLATFORM        @"2" // 1: android; 2: ios
 
@@ -50,11 +51,9 @@
 
 #pragma mark Public Methods
 - (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nullable, NSError * _Nullable))callback {
-    NSDictionary *params = @{
-        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
-        @"av": _appVersion,
-        @"pl": PLATFORM
-    };
+    
+    NSDictionary *params = [self getBaseParams];
+    
     [_sessionManager GET:@"getMasterBeacon"
               parameters:params
                 progress:nil
@@ -80,12 +79,10 @@
 
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
                                 callback:(void (^)(NSArray * _Nullable, NSError * _Nullable))callback {
-    NSDictionary *params = @{
-        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
-        @"av": _appVersion,
-        @"pl": PLATFORM,
-        @"bcid": uuidString
-    };
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
+    params[@"bcid"] = uuidString;
+    
     [_sessionManager GET:@"getAroundHere"
               parameters:params
                 progress:nil
@@ -118,12 +115,8 @@
 
 - (void)getPromotionForBeaconUUID:(NSString *)uuidString
                          callback:(void (^)(PromotionModel * _Nullable, NSError * _Nullable))callback {
-    NSDictionary *params = @{
-        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
-        @"av": _appVersion,
-        @"pl": PLATFORM,
-        @"id": uuidString
-    };
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
+    params[@"id"] = uuidString;
     [_sessionManager GET:@"promotion"
               parameters:params
                 progress:nil
@@ -155,11 +148,7 @@
     
     NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
     
-    NSDictionary *params = @{
-        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
-        @"av": _appVersion,
-        @"pl": PLATFORM,
-    };
+    NSDictionary *params = [self getBaseParams];
     NSString *path = [self addQueryStringToUrl:@"submit" params:params];
     [_sessionManager POST:path
                parameters:@{@"items": jsonString}
@@ -263,6 +252,18 @@
     components.queryItems = queryItems;
     NSURL *url = components.URL;
     return url.absoluteString;
+}
+
+- (NSDictionary *)getBaseParams {
+    UIDevice * device = [UIDevice currentDevice];
+    NSDictionary *params = @{
+        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
+        @"av": _appVersion,
+        @"pl": PLATFORM,
+        @"nw": [device connectionType],
+        @"cell": [device mobileNetworkCode]
+    };
+    return params;
 }
 
 @end

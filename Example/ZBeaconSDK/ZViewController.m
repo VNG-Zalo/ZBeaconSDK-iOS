@@ -18,9 +18,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *txtLogging;
 
 @property (strong, nonatomic) ZBeaconSDK *zBeaconSDK;
-@property (strong, nonatomic) NSArray *masterUUIDs;
+@property (strong, nonatomic) NSArray<NSString*> *masterUUIDs;
 @property (strong, nonatomic) ZBeacon *currentMasterBeacon;
-@property (strong, nonatomic) NSMutableArray *activeClientBeacons;
+@property (strong, nonatomic) NSMutableArray<ZBeacon*> *activeClientBeacons;
+@property (strong, nonatomic) NSArray<BeaconModel*> *beaconModels;
 
 @end
 
@@ -104,12 +105,14 @@
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     [networkHelper getBeaconListForMasterBeaconUUID:_currentMasterBeacon.UUID.UUIDString
                                                             callback:^(NSArray * _Nullable beaconModels, NSError * _Nullable error) {
-        if (beaconModels == nil || beaconModels.count == 0) {
+        _beaconModels = beaconModels;
+        if (_beaconModels == nil || _beaconModels.count == 0) {
             [self addLog: [NSString stringWithFormat:@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentMasterBeacon.UUID.UUIDString, error]];
         } else {
-            [self addLog:[NSString stringWithFormat:@"Receive from API %ld client beacons of master %@", (long)beaconModels.count, _currentMasterBeacon.UUID.UUIDString]];
+            
+            [self addLog:[NSString stringWithFormat:@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentMasterBeacon.UUID.UUIDString]];
             NSMutableArray *clientUUIDs = [NSMutableArray new];
-            for (BeaconModel *beaconModel in beaconModels) {
+            for (BeaconModel *beaconModel in _beaconModels) {
                 [clientUUIDs addObject:beaconModel.identifier];
             }
             // Add master to ranging
@@ -140,12 +143,46 @@
         _activeClientBeacons = [NSMutableArray new];
     }
     [_activeClientBeacons addObject:beacon];
-    [[NetworkHelper sharedInstance] getPromotionForBeaconUUID:beacon.UUID.UUIDString
-                                                     callback:^(PromotionModel * _Nullable promotionModel, NSError * _Nullable error) {
+    
+    [self showPromotionForBeacon:beacon];
+    
+    [self handleLogForClientBeacon:beacon];
+}
+
+- (void) handleLogForClientBeacon:(ZBeacon *) beacon {
+    NSString *uuidString = beacon.UUID.UUIDString;
+    NSArray *filteredArray = [_beaconModels filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(BeaconModel *beaconModel, NSDictionary *bindings) {
+        return [beaconModel.identifier isEqual:uuidString];
+    }]];
+    BeaconModel *beaconModel = filteredArray.firstObject;
+    if (beaconModel == nil) {
+        return;
+    }
+    
+    if (beaconModel.monitor.isEnable == NO) {
+        // monitor.enable = NO, submit only
+        [[NetworkHelper sharedInstance] submitConnectedBeacons:@[beacon]
+                                                      callback:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%s: error %@", __func__, error);
+            } else {
+                NSLog(@"%s: success", __func__);
+            }
+        }];
+        return;
+    }
+    
+    // monitor.enable = YES, add to log
+}
+
+- (void)showPromotionForBeacon:(ZBeacon *) beacon {
+    NSString *uuidString = beacon.UUID.UUIDString;
+    [[NetworkHelper sharedInstance] getPromotionForBeaconUUID:uuidString
+                                    callback:^(PromotionModel * _Nullable promotionModel, NSError * _Nullable error) {
         if (promotionModel) {
             [self createNotificationWithZBeacon:beacon promotionModel:promotionModel];
         } else {
-            [self addLog:[NSString stringWithFormat:@"Get promotion for beacon %@ error: %@", beacon.UUID.UUIDString, error]];
+            [self addLog:[NSString stringWithFormat:@"Get promotion for beacon %@ error: %@", uuidString, error]];
         }
     }];
 }
