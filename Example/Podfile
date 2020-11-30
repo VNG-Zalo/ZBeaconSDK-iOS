@@ -11,6 +11,7 @@ target 'ZBeaconSDK_Example' do
 
   target 'ZBeaconSDK_Tests' do
     inherit! :search_paths
+    pod 'OCMock'
 
     
   end

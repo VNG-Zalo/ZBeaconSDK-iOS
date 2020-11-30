@@ -9,6 +9,7 @@
 @import XCTest;
 #import "NetworkHelper.h"
 #import <ZBeaconSDK/ZBeaconSDK.h>
+#import <OCMock/OCMock.h>
 
 @interface Tests : XCTestCase
 
@@ -32,7 +33,7 @@
     XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     __block NSArray *uuidList = nil;
-    [networkHelper getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nonnull uuids) {
+    [networkHelper getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nullable uuids, NSError * _Nullable error) {
         uuidList = uuids;
         [promise fulfill];
     }];
@@ -46,7 +47,7 @@
     XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     __block NSArray *beaconModelList = nil;
-    [networkHelper getBeaconListForMasterBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(NSArray * _Nonnull beaconModels) {
+    [networkHelper getBeaconListForMasterBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(NSArray * _Nullable beaconModels, NSError * _Nullable error) {
         beaconModelList = beaconModels;
         [promise fulfill];
     }];
@@ -60,8 +61,8 @@
     XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     __block PromotionModel *beaconPromotion = nil;
-    [networkHelper getPromotionForBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(PromotionModel * _Nonnull promotion) {
-        beaconPromotion = promotion;
+    [networkHelper getPromotionForBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(PromotionModel * _Nullable promotionModel, NSError * _Nullable error) {
+        beaconPromotion = promotionModel;
         [promise fulfill];
     }];
     
@@ -75,6 +76,10 @@
     __block NSError *error = nil;
     
     ZBeacon *beacon = [[ZBeacon alloc] init];
+    id objectMock = OCMPartialMock(beacon);
+    OCMStub([objectMock distance])._andReturn(@15);
+    OCMStub([objectMock UUIDString]).andReturn(@"D3720B9D-8B53-4B6D-975B-CB65D82161B0");
+
     [networkHelper submitConnectedBeacons:@[beacon] callback:^(NSError * _Nullable e) {
         error = e;
         [promise fulfill];
@@ -89,6 +94,10 @@
     __block NSError *error = nil;
     
     ZBeacon *beacon = [[ZBeacon alloc] init];
+    id objectMock = OCMPartialMock(beacon);
+    OCMStub([objectMock distance])._andReturn(@15);
+    OCMStub([objectMock UUID]).andReturn([NSUUID UUID]);
+    
     [networkHelper submitConnectedAndMonitorBeacons:@[beacon] callback:^(NSError * _Nullable e) {
         error = e;
         [promise fulfill];

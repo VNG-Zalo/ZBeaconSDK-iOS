@@ -24,10 +24,10 @@
         
     }];
     
-    [ZBeaconSDK setLogLevel:ZDKLogDebug];
+    [ZBeaconSDK setLogLevel:ZBeaconLogDebug];
     NSLog(@"ZBeaconSDK version: %@", [[ZBeaconSDK sharedInstance] getVersion]);
     
-    [[AFNetworkActivityLogger sharedLogger] setLogLevel:AFLoggerLevelInfo];
+    [[AFNetworkActivityLogger sharedLogger] setLogLevel:AFLoggerLevelDebug];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
     
     [[ZaloSDK sharedInstance] initializeWithAppId:ZALO_APP_ID];

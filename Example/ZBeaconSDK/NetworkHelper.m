@@ -48,12 +48,7 @@
     return self;
 }
 
-- (NSString *)getAppVersion {
-    NSDictionary* infoDict = [[NSBundle bundleForClass:[self class]] infoDictionary];
-    NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
-    return version;
-}
-
+#pragma mark Public Methods
 - (void)getMasterBeaconUUIDList:(void (^)(NSArray<NSString *> * _Nullable, NSError * _Nullable))callback {
     NSDictionary *params = @{
         @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
@@ -164,11 +159,10 @@
         @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
         @"pl": PLATFORM,
-        @"items": jsonString
     };
-    
-    [_sessionManager POST:@"submit"
-               parameters:params
+    NSString *path = [self addQueryStringToUrl:@"submit" params:params];
+    [_sessionManager POST:path
+               parameters:@{@"items": jsonString}
                  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
@@ -197,12 +191,11 @@
     NSDictionary *params = @{
         @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
         @"av": _appVersion,
-        @"pl": PLATFORM,
-        @"items": jsonString
+        @"pl": PLATFORM
     };
-    
-    [_sessionManager POST:@"submitMonitor"
-               parameters:params
+    NSString *path = [self addQueryStringToUrl:@"submitMonitor" params:params];
+    [_sessionManager POST:path
+               parameters:@{@"items": jsonString}
                  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
@@ -224,6 +217,7 @@
     }];
 }
 
+#pragma mark Private methods
 - (NSString *)convertZBeaconArrayToJsonString:(NSArray <ZBeacon*> *) beacons {
     NSString *ret = @"[]";
     
@@ -233,12 +227,13 @@
         }
         NSMutableArray *items = [NSMutableArray new];
         for (ZBeacon *beacon in beacons) {
-            if (beacon.UUID == nil) {
+            NSString *uuidString = [beacon UUIDString];
+            if (uuidString == nil || uuidString.length == 0) {
                 continue;
             }
             [items addObject:@{
-                @"id": beacon.UUID.UUIDString,
-                @"distance": @(beacon.distance)
+                @"id": uuidString,
+                @"distance": @([beacon distance])
             }];
         }
         NSError *error;
@@ -251,6 +246,23 @@
     } while (NO);
     
     return ret;
+}
+
+- (NSString *)getAppVersion {
+    NSDictionary* infoDict = [[NSBundle bundleForClass:[self class]] infoDictionary];
+    NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    return version;
+}
+
+- (NSString*)addQueryStringToUrl:(NSString *)urlString params:(NSDictionary *)params {
+    NSURLComponents *components = [NSURLComponents componentsWithString:urlString];
+    NSMutableArray *queryItems = [NSMutableArray array];
+    for (NSString *key in params) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:params[key]]];
+    }
+    components.queryItems = queryItems;
+    NSURL *url = components.URL;
+    return url.absoluteString;
 }
 
 @end
