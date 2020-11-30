@@ -99,12 +99,15 @@
 - (void)handleConnectedMasterBeacon:(ZBeacon *)beacon {
     NSLog(@"%s: %@", __func__, [beacon debugDescription]);
     _currentMasterBeacon = beacon;
-    [[NetworkHelper sharedInstance] getBeaconListForMasterBeaconUUID:beacon.UUID.UUIDString
+    
+    // Get client beacon list
+    NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
+    [networkHelper getBeaconListForMasterBeaconUUID:_currentMasterBeacon.UUID.UUIDString
                                                             callback:^(NSArray * _Nullable beaconModels, NSError * _Nullable error) {
         if (beaconModels == nil || beaconModels.count == 0) {
-            [self addLog: [NSString stringWithFormat:@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", beacon.UUID.UUIDString, error]];
+            [self addLog: [NSString stringWithFormat:@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentMasterBeacon.UUID.UUIDString, error]];
         } else {
-            [self addLog:[NSString stringWithFormat:@"Receive from API %ld client beacons of master %@", (long)beaconModels.count, beacon.UUID.UUIDString]];
+            [self addLog:[NSString stringWithFormat:@"Receive from API %ld client beacons of master %@", (long)beaconModels.count, _currentMasterBeacon.UUID.UUIDString]];
             NSMutableArray *clientUUIDs = [NSMutableArray new];
             for (BeaconModel *beaconModel in beaconModels) {
                 [clientUUIDs addObject:beaconModel.identifier];
@@ -118,6 +121,15 @@
             [_zBeaconSDK startBeaconsWithCompletion:^{
                 [self addLog:@"Init client beacons DONE"];
             }];
+        }
+    }];
+    
+    [networkHelper submitConnectedBeacons:@[_currentMasterBeacon]
+                                 callback:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%s: error %@", __func__, error);
+        } else {
+            NSLog(@"%s: success", __func__);
         }
     }];
 }

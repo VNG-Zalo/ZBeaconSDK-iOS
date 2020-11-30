@@ -78,7 +78,7 @@
     ZBeacon *beacon = [[ZBeacon alloc] init];
     id objectMock = OCMPartialMock(beacon);
     OCMStub([objectMock distance])._andReturn(@15);
-    OCMStub([objectMock UUIDString]).andReturn(@"D3720B9D-8B53-4B6D-975B-CB65D82161B0");
+    OCMStub([objectMock UUID]).andReturn([NSUUID UUID]);
 
     [networkHelper submitConnectedBeacons:@[beacon] callback:^(NSError * _Nullable e) {
         error = e;

@@ -227,12 +227,12 @@
         }
         NSMutableArray *items = [NSMutableArray new];
         for (ZBeacon *beacon in beacons) {
-            NSString *uuidString = [beacon UUIDString];
-            if (uuidString == nil || uuidString.length == 0) {
+            NSUUID *uuid = beacon.UUID;
+            if (uuid == nil) {
                 continue;
             }
             [items addObject:@{
-                @"id": uuidString,
+                @"id": uuid.UUIDString,
                 @"distance": @([beacon distance])
             }];
         }
