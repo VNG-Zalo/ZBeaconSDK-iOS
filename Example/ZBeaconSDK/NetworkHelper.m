@@ -78,7 +78,7 @@
 }
 
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
-                                callback:(void (^)(NSArray * _Nullable, NSError * _Nullable))callback {
+                                callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSError * _Nullable))callback {
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
     params[@"bcid"] = uuidString;
@@ -174,8 +174,8 @@
     
 }
 
-- (void)submitConnectedAndMonitorBeacons:(NSArray *)beacons callback:(void (^)(NSError * _Nullable))callback {
-    NSString *jsonString = [self convertZBeaconArrayToJsonString:beacons];
+- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict callback:(void (^)(NSError * _Nullable))callback {
+    NSString *jsonString = [self convertDistanceDictionaryToJsonString:distanceDict];
     
     NSDictionary *params = @{
         @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
@@ -207,6 +207,39 @@
 }
 
 #pragma mark Private methods
+- (NSString *)convertNSArrayToJsonString:(NSArray *)data {
+    NSString *ret = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+    if (error) {
+        NSLog(@"%s: %@", __func__, error);
+        ret = @"[]";
+    } else {
+        ret = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return ret;
+}
+
+- (NSString *)convertDistanceDictionaryToJsonString:(NSDictionary *) dict {
+    NSString *ret = @"[]";
+    
+    do {
+        if (dict == nil || dict.count == 0) {
+            break;
+        }
+        NSMutableArray *items = [NSMutableArray new];
+        for (NSString *key in dict) {
+            [items addObject:@{
+                @"id": key,
+                @"distance": dict[key]
+            }];
+        }
+        ret = [self convertNSArrayToJsonString:items];
+    } while (NO);
+    
+    return ret;
+}
+
 - (NSString *)convertZBeaconArrayToJsonString:(NSArray <ZBeacon*> *) beacons {
     NSString *ret = @"[]";
     
@@ -225,13 +258,7 @@
                 @"distance": @([beacon distance])
             }];
         }
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:items options:0 error:&error];
-        if (error) {
-            NSLog(@"%s: %@", __func__, error);
-            break;
-        }
-        ret = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        ret = [self convertNSArrayToJsonString:items];
     } while (NO);
     
     return ret;

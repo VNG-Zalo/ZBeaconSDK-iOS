@@ -13,6 +13,8 @@
 #import "NSDate+Extension.h"
 #import "BeaconModel.h"
 
+#define TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS 5
+
 @interface ZViewController ()<ZBeaconSDKDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *txtLogging;
@@ -22,6 +24,11 @@
 @property (strong, nonatomic) ZBeacon *currentConnectedMasterBeacon;
 @property (strong, nonatomic) NSMutableArray<ZBeacon*> *activeClientBeacons;
 @property (strong, nonatomic) NSArray<BeaconModel*> *beaconModels;
+@property (strong, nonatomic) NSTimer *collectClientBeaconsForTheFirstTimeConnectedTimer;
+@property (strong, nonatomic) NSTimer *intervalSubmitMonitorBeaconToServerTimer;
+@property (assign, nonatomic) NSTimeInterval submitMonitorBeaconsToServerInterval;
+@property (strong, nonatomic) NSMutableDictionary *monitorBeaconsTracker;
+@property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
 
 @end
 
@@ -150,11 +157,8 @@
 }
 
 - (void) handleLogForClientBeacon:(ZBeacon *) beacon {
-    NSString *uuidString = beacon.UUID.UUIDString;
-    NSArray *filteredArray = [_beaconModels filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(BeaconModel *beaconModel, NSDictionary *bindings) {
-        return [beaconModel.identifier isEqual:uuidString];
-    }]];
-    BeaconModel *beaconModel = filteredArray.firstObject;
+    
+    BeaconModel *beaconModel = [self findBeaconModelAdaptiveWithZBeacon:beacon];
     if (beaconModel == nil) {
         return;
     }
@@ -173,6 +177,95 @@
     }
     
     // monitor.enable = YES, add to log
+    [self addBeaconToTracker: beacon];
+    
+    if (_activeClientBeacons.count == _beaconModels.count) {
+        [self submitClientBeaconsForTheFirstTime];
+    } else if (_collectClientBeaconsForTheFirstTimeConnectedTimer == nil) {
+        _collectClientBeaconsForTheFirstTimeConnectedTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS
+                                                                                              target:self
+                                                                                            selector:@selector(submitClientBeaconsForTheFirstTime)
+                                                                                            userInfo:nil
+                                                                                             repeats:NO];
+    }
+}
+
+- (BeaconModel*)findBeaconModelAdaptiveWithZBeacon:(ZBeacon*)beacon {
+    NSString *uuidString = beacon.UUID.UUIDString;
+    NSArray *filteredArray = [_beaconModels filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(BeaconModel *beaconModel, NSDictionary *bindings) {
+        return [beaconModel.identifier isEqual:uuidString];
+    }]];
+    BeaconModel *beaconModel = filteredArray.firstObject;
+    return beaconModel;
+}
+
+- (void)submitClientBeaconsForTheFirstTime {
+    [self submitMonitorBeaconsToServer:^{
+        [self startTimerIntervalToSubmitMonitorBeacons];
+    }];
+}
+
+- (void)startTimerIntervalToSubmitMonitorBeacons {
+    if (_intervalSubmitMonitorBeaconToServerTimer) {
+        [_intervalSubmitMonitorBeaconToServerTimer invalidate];
+    }
+    
+    _intervalSubmitMonitorBeaconToServerTimer = [NSTimer scheduledTimerWithTimeInterval:_submitMonitorBeaconsToServerInterval
+                                                                                 target:self
+                                                                               selector:@selector(submitMonitorBeaconsToServer:)
+                                                                               userInfo:nil
+                                                                                repeats:YES];
+}
+
+- (void)submitMonitorBeaconsToServer: (void(^)(void)) callback {
+    if (_monitorBeaconsTracker == nil || _monitorBeaconsTracker.count == 0) {
+        NSLog(@"%s: tracker empty", __func__);
+        return;
+    }
+    if (_isSubmitingMonitorBeaconsToServer) {
+        NSLog(@"%s: submiting", __func__);
+        return;
+    }
+    _isSubmitingMonitorBeaconsToServer = YES;
+    NSMutableDictionary *jsonDict = [NSMutableDictionary new];
+    for (NSString *key in _monitorBeaconsTracker) {
+        NSArray *distance = _monitorBeaconsTracker[key];
+        NSNumber *average = [distance valueForKeyPath:@"@avg.self"];
+        jsonDict[key] = average;
+    }
+    NSDictionary *backup = [NSDictionary dictionaryWithDictionary:_monitorBeaconsTracker];
+    [_monitorBeaconsTracker removeAllObjects];
+    [[NetworkHelper sharedInstance] submitConnectedAndMonitorBeacons:jsonDict callback:^(NSError * _Nullable error) {
+        _isSubmitingMonitorBeaconsToServer = NO;
+        if (error) {
+            NSLog(@"%s: error %@", __func__, error);
+            // Restore backup
+            for (NSString *key in backup) {
+                NSMutableArray *distances = _monitorBeaconsTracker[key];
+                if (distances == nil) {
+                    distances = backup[key];
+                } else {
+                    [distances addObjectsFromArray:backup[key]];
+                }
+                _monitorBeaconsTracker[key] = distances;
+            }
+        }
+        callback();
+    }];
+}
+
+#warning TODO: check condition
+- (void)addBeaconToTracker:(ZBeacon*) beacon {
+    if (!_monitorBeaconsTracker) {
+        _monitorBeaconsTracker = [NSMutableDictionary new];
+    }
+    NSString *key = beacon.UUID.UUIDString;
+    NSMutableArray *distances = [_monitorBeaconsTracker objectForKey:key];
+    if (!distances) {
+        distances = [NSMutableArray new];
+    }
+    [distances addObject:@(beacon.distance)];
+    _monitorBeaconsTracker[key] = distances;
 }
 
 - (void)showPromotionForBeacon:(ZBeacon *) beacon {
@@ -264,7 +357,9 @@
 }
 
 - (void)onRangeBeacons:(NSArray<ZBeacon *> *)beacons {
-//    NSLog(@"%s: %@", __func__, [beacons debugDescription]);
+    for (ZBeacon *beacon in beacons) {
+        [self addBeaconToTracker: beacon];
+    }
 }
 
 @end

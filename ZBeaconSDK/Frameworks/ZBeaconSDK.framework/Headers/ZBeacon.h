@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString* )debugDescription;
 
 - (NSString*)beaconAdress;
+-(NSString *)asKey;
 
 @end
 

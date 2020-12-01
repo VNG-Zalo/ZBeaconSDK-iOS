@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PromotionModel.h"
+#import <ZBeaconSDK/ZBeaconSDK.h>
+#import "BeaconModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,11 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getMasterBeaconUUIDList:(void(^)(NSArray<NSString *> *_Nullable uuids, NSError *_Nullable error))callback;
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
-                                callback:(void(^)(NSArray *_Nullable beaconModels, NSError *_Nullable error)) callback;
+                                callback:(void(^)(NSArray<BeaconModel*> *_Nullable beaconModels, NSError *_Nullable error)) callback;
 - (void)getPromotionForBeaconUUID:(NSString *)uuidString
                          callback:(void(^)(PromotionModel *_Nullable promotionModel, NSError *_Nullable error)) callback;
-- (void)submitConnectedBeacons:(NSArray *)beacons callback:(void(^)(NSError *_Nullable error)) callback;
-- (void)submitConnectedAndMonitorBeacons:(NSArray *)beacons callback:(void(^)(NSError *_Nullable error)) callback;
+- (void)submitConnectedBeacons:(NSArray<ZBeacon*> *)beacons callback:(void(^)(NSError *_Nullable error)) callback;
+- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict callback:(void(^)(NSError *_Nullable error)) callback;
 
 @end
 
