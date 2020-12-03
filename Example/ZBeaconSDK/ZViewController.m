@@ -13,6 +13,7 @@
 #import "NSDate+Extension.h"
 #import "BeaconModel.h"
 #import "ItemCell.h"
+#import <ZaloSDK/ZaloSDK.h>
 
 #define TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS 5
 
@@ -26,7 +27,7 @@
 @property (strong, nonatomic) NSMutableArray<ZBeacon*> *activeClientBeacons;
 @property (strong, nonatomic) NSArray<BeaconModel*> *beaconModels;
 @property (strong, nonatomic) NSTimer *collectClientBeaconsForTheFirstTimeConnectedTimer;
-@property (strong, nonatomic) NSTimer *intervalSubmitMonitorBeaconToServerTimer;
+@property (strong, nonatomic) NSTimer *submitMonitorBeaconToServerTimer;
 @property (assign, nonatomic) NSTimeInterval submitMonitorBeaconsToServerInterval;
 @property (strong, nonatomic) NSMutableDictionary *monitorBeaconsTracker;
 @property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
@@ -47,9 +48,22 @@
     _zBeaconSDK = [ZBeaconSDK sharedInstance];
     [_zBeaconSDK stopBeacons];
     _zBeaconSDK.delegate = self;
+    _zBeaconSDK.enableExtendBackgroundRunningTime = YES;
     
     [self getMasterBeaconUUIDsFromAPI];
+    
+    [self initNavigationBar];
 
+}
+
+- (void)initNavigationBar {
+    UIBarButtonItem *logoutBtn = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = logoutBtn;
+}
+
+- (void)logoutButtonPressed:(id)sender {
+    [[ZaloSDK sharedInstance] unauthenticate];
+    [self performSegueWithIdentifier:@"showLoginController" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,17 +86,25 @@
 }
 
 - (void)createNotificationWithZBeacon:(ZBeacon *)beacon promotionModel:(PromotionModel*)promotionModel {
+    [self createNotificatonWithIdentifier:beacon.UUID.UUIDString
+                                    title:promotionModel.banner
+                                  message:promotionModel.theDescription];
+}
+
+- (void)createNotificatonWithIdentifier:(NSString*)identifier
+                                  title:(NSString*)title
+                                message:(NSString*)message {
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
-    content.title = promotionModel.banner;
-    content.body = promotionModel.theDescription;
+    content.title = title;
+    content.body = message;
     content.sound = UNNotificationSound.defaultSound;
     
-    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:beacon.UUID.UUIDString content:content trigger:nil];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:nil];
     [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         if (error) {
-            NSLog(@"Add notification for %@ fail", beacon.UUID.UUIDString);
+            NSLog(@"Add notification for %@ fail", identifier);
         } else {
-            NSLog(@"Add notification for %@ success", beacon.UUID.UUIDString);
+            NSLog(@"Add notification for %@ success", identifier);
         }
     }];
 }
@@ -218,11 +240,11 @@
 }
 
 - (void)startTimerIntervalToSubmitMonitorBeacons {
-    if (_intervalSubmitMonitorBeaconToServerTimer) {
-        [_intervalSubmitMonitorBeaconToServerTimer invalidate];
+    if (_submitMonitorBeaconToServerTimer) {
+        [_submitMonitorBeaconToServerTimer invalidate];
     }
     
-    _intervalSubmitMonitorBeaconToServerTimer = [NSTimer scheduledTimerWithTimeInterval:_submitMonitorBeaconsToServerInterval
+    _submitMonitorBeaconToServerTimer = [NSTimer scheduledTimerWithTimeInterval:_submitMonitorBeaconsToServerInterval
                                                                                  target:self
                                                                                selector:@selector(submitMonitorBeaconsToServer:)
                                                                                userInfo:nil
@@ -249,7 +271,9 @@
     }
     NSDictionary *backup = [NSDictionary dictionaryWithDictionary:_monitorBeaconsTracker];
     [_monitorBeaconsTracker removeAllObjects];
-    [[NetworkHelper sharedInstance] submitConnectedAndMonitorBeacons:jsonDict callback:^(NSError * _Nullable error) {
+    [[NetworkHelper sharedInstance] submitConnectedAndMonitorBeacons:jsonDict
+                                                            callback:^(NSString * _Nullable promotionMessage, NSError * _Nullable error) {
+        
         _isSubmitingMonitorBeaconsToServer = NO;
         if (error) {
             NSLog(@"%s: error %@", __func__, error);
@@ -265,6 +289,15 @@
             }
         } else {
             [self saveLastSubmitDistanceOfBeacon:jsonDict];
+            [[ZaloSDK sharedInstance] getZaloUserProfileWithCallback:^(ZOGraphResponseObject *response) {
+                if (response && response.isSucess) {
+                    NSString *identifier = [@([[NSDate date] timeIntervalSince1970]) stringValue];
+                    NSString *title = response.data[@"name"];
+                    [self createNotificatonWithIdentifier:identifier
+                                                    title:title
+                                                  message:promotionMessage];
+                }
+            }];
         }
     }];
 }

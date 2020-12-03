@@ -22,8 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
                                 callback:(void(^)(NSArray<BeaconModel*> *_Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSError *_Nullable error)) callback;
 - (void)getPromotionForBeaconUUID:(NSString *)uuidString
                          callback:(void(^)(PromotionModel *_Nullable promotionModel, NSError *_Nullable error)) callback;
-- (void)submitConnectedBeacons:(NSArray<ZBeacon*> *)beacons callback:(void(^)(NSError *_Nullable error)) callback;
-- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict callback:(void(^)(NSError *_Nullable error)) callback;
+- (void)submitConnectedBeacons:(NSArray<ZBeacon*> *)beacons
+                      callback:(void(^)(NSError *_Nullable error)) callback;
+- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict
+                                callback:(void(^)(NSString *_Nullable promotionMessage, NSError *_Nullable error)) callback;
 
 @end
 

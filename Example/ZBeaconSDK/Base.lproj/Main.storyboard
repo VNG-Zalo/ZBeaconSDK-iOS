@@ -24,9 +24,7 @@
                                 <rect key="frame" x="135.5" y="318.5" width="104" height="30"/>
                                 <state key="normal" title="Login with Zalo"/>
                                 <connections>
-                                    <action selector="btnLogin:" destination="dan-jq-CtF" eventType="touchUpInside" id="qv7-c7-bVt"/>
                                     <action selector="buttonLoginPressed:" destination="imt-j4-lqH" eventType="touchUpInside" id="HXG-NJ-IMr"/>
-                                    <action selector="buttonLoginPressed:" destination="dan-jq-CtF" eventType="touchUpInside" id="zOG-oE-vkY"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vgd-9d-Vc9">
@@ -48,7 +46,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="txV-U5-bxY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="dan-jq-CtF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="476" y="431.33433283358323"/>
         </scene>
@@ -245,6 +242,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="MsY-eF-hzA" id="xq4-a7-d1R"/>
+                        <segue destination="imt-j4-lqH" kind="custom" identifier="showLoginController" customClass="ClearNavigationStackSegue" id="fg1-Ll-jwZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -270,6 +268,9 @@
             <point key="canvasLocation" x="-463.19999999999999" y="431.33433283358323"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fg1-Ll-jwZ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

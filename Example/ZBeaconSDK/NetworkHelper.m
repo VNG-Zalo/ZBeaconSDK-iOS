@@ -176,7 +176,8 @@
     
 }
 
-- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict callback:(void (^)(NSError * _Nullable))callback {
+- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict
+                                callback:(nonnull void (^)(NSString * _Nullable, NSError * _Nullable))callback {
     NSString *jsonString = [self convertDistanceDictionaryToJsonString:distanceDict];
     
     NSDictionary *params = @{
@@ -190,12 +191,14 @@
                  progress:nil
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
+        NSString *promotionMsg = nil;
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         if (error) {
             NSLog(@"error: %@", error);
         } else {
             if (apiResponse.errorCode == 0) {
                 error = nil;
+                promotionMsg = apiResponse.data[@"mess_promotion"];
             } else {
                 error = [NSError errorWithDomain:@"submitConnectedBeacons"
                                             code:apiResponse.errorCode
@@ -203,12 +206,12 @@
             }
         }
         if (callback) {
-            callback(error);
+            callback(promotionMsg, error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%s: %@", __func__, error);
         if (callback) {
-            callback(error);
+            callback(nil, error);
         }
     }];
 }
