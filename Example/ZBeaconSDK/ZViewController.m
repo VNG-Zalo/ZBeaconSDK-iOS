@@ -292,7 +292,7 @@
             [[ZaloSDK sharedInstance] getZaloUserProfileWithCallback:^(ZOGraphResponseObject *response) {
                 if (response && response.isSucess) {
                     NSString *identifier = [@([[NSDate date] timeIntervalSince1970]) stringValue];
-                    NSString *title = response.data[@"name"];
+                    NSString *title = [NSString stringWithFormat:@"Xin chào %@", response.data[@"name"]];
                     [self createNotificatonWithIdentifier:identifier
                                                     title:title
                                                   message:promotionMessage];
