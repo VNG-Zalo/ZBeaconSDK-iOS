@@ -78,7 +78,7 @@
 }
 
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
-                                callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSError * _Nullable))callback {
+                                callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSTimeInterval, NSTimeInterval, NSError * _Nullable))callback {
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
     params[@"bcid"] = uuidString;
@@ -90,14 +90,16 @@
         NSError *error;
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         NSMutableArray *beaconModels = nil;
+        NSInteger monitorInterval = 0;
+        NSInteger expired = 0;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
             if (apiResponse.errorCode != 0) {
                 NSLog(@"getBeaconListForMasterBeaconUUID: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
             } else {
-                NSInteger monitorInterval = [apiResponse.data[@"monitor_interval"] intValue];
-                NSInteger expired = [apiResponse.data[@"expire"] intValue];
+                monitorInterval = [apiResponse.data[@"monitor_interval"] intValue];
+                expired = [apiResponse.data[@"expire"] intValue];
                 NSLog(@"getBeaconListForMasterBeaconUUID: monitorInterval=%ld expired=%ld", (long)monitorInterval, (long)expired);
                 NSArray *items = apiResponse.data[@"items"];
                 beaconModels = [BeaconModel arrayOfModelsFromDictionaries:items error:&error];
@@ -106,10 +108,10 @@
                 }
             }
         }
-        callback(beaconModels, error);
+        callback(beaconModels, monitorInterval, expired, error);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
-        callback(nil, error);
+        callback(nil, 0, 0, error);
     }];
 }
 
@@ -185,7 +187,8 @@
     NSString *path = [self addQueryStringToUrl:@"submitMonitor" params:params];
     [_sessionManager POST:path
                parameters:@{@"items": jsonString}
-                 progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                 progress:nil
+                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         if (error) {
@@ -199,10 +202,14 @@
                                         userInfo:@{NSLocalizedDescriptionKey:apiResponse.errorMessage}];
             }
         }
-        callback(error);
+        if (callback) {
+            callback(error);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%s: %@", __func__, error);
-        callback(error);
+        if (callback) {
+            callback(error);
+        }
     }];
 }
 

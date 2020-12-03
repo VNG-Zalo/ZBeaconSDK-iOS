@@ -29,6 +29,8 @@
 @property (assign, nonatomic) NSTimeInterval submitMonitorBeaconsToServerInterval;
 @property (strong, nonatomic) NSMutableDictionary *monitorBeaconsTracker;
 @property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
+@property (strong, nonatomic) NSMutableDictionary *lastSubmitDistanceOfBeacons;
+@property (assign, nonatomic) BOOL isSubmitMonitorBeaconsForTheFirstTime;
 
 @end
 
@@ -43,6 +45,7 @@
     _zBeaconSDK.delegate = self;
     
     [self getMasterBeaconUUIDsFromAPI];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,7 +114,8 @@
     // Get client beacon list
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     [networkHelper getBeaconListForMasterBeaconUUID:_currentConnectedMasterBeacon.UUID.UUIDString
-                                                            callback:^(NSArray * _Nullable beaconModels, NSError * _Nullable error) {
+                                           callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSError * _Nullable error) {
+        _submitMonitorBeaconsToServerInterval = monitorInterval;
         _beaconModels = beaconModels;
         if (_beaconModels == nil || _beaconModels.count == 0) {
             [self addLog: [NSString stringWithFormat:@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentConnectedMasterBeacon.UUID.UUIDString, error]];
@@ -127,6 +131,7 @@
             
             [_zBeaconSDK stopBeacons];
             [self addLog:@"Stop master beacons\nStart init client beacons."];
+            _isSubmitMonitorBeaconsForTheFirstTime = NO;
             [_zBeaconSDK setListBeacons:clientUUIDs];
             [_zBeaconSDK startBeaconsWithCompletion:^{
                 [self addLog:@"Init client beacons DONE"];
@@ -179,14 +184,16 @@
     // monitor.enable = YES, add to log
     [self addBeaconToTracker: beacon];
     
-    if (_activeClientBeacons.count == _beaconModels.count) {
-        [self submitClientBeaconsForTheFirstTime];
-    } else if (_collectClientBeaconsForTheFirstTimeConnectedTimer == nil) {
-        _collectClientBeaconsForTheFirstTimeConnectedTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS
-                                                                                              target:self
-                                                                                            selector:@selector(submitClientBeaconsForTheFirstTime)
-                                                                                            userInfo:nil
-                                                                                             repeats:NO];
+    if (!_isSubmitMonitorBeaconsForTheFirstTime) {
+        if (_activeClientBeacons.count == _beaconModels.count) {
+            [self submitClientBeaconsForTheFirstTime:nil];
+        } else if (_collectClientBeaconsForTheFirstTimeConnectedTimer == nil) {
+            _collectClientBeaconsForTheFirstTimeConnectedTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS
+                                                                                                  target:self
+                                                                                                selector:@selector(submitClientBeaconsForTheFirstTime:)
+                                                                                                userInfo:nil
+                                                                                                 repeats:NO];
+        }
     }
 }
 
@@ -199,10 +206,14 @@
     return beaconModel;
 }
 
-- (void)submitClientBeaconsForTheFirstTime {
-    [self submitMonitorBeaconsToServer:^{
-        [self startTimerIntervalToSubmitMonitorBeacons];
-    }];
+- (void)submitClientBeaconsForTheFirstTime:(id) sender {
+    if (_collectClientBeaconsForTheFirstTimeConnectedTimer) {
+        [_collectClientBeaconsForTheFirstTimeConnectedTimer invalidate];
+        _collectClientBeaconsForTheFirstTimeConnectedTimer = nil;
+    }
+    [self submitMonitorBeaconsToServer:nil];
+    [self startTimerIntervalToSubmitMonitorBeacons];
+    _isSubmitMonitorBeaconsForTheFirstTime = YES;
 }
 
 - (void)startTimerIntervalToSubmitMonitorBeacons {
@@ -217,7 +228,8 @@
                                                                                 repeats:YES];
 }
 
-- (void)submitMonitorBeaconsToServer: (void(^)(void)) callback {
+- (void)submitMonitorBeaconsToServer:(id) sender {
+    
     if (_monitorBeaconsTracker == nil || _monitorBeaconsTracker.count == 0) {
         NSLog(@"%s: tracker empty", __func__);
         return;
@@ -226,6 +238,7 @@
         NSLog(@"%s: submiting", __func__);
         return;
     }
+    
     _isSubmitingMonitorBeaconsToServer = YES;
     NSMutableDictionary *jsonDict = [NSMutableDictionary new];
     for (NSString *key in _monitorBeaconsTracker) {
@@ -249,13 +262,37 @@
                 }
                 _monitorBeaconsTracker[key] = distances;
             }
+        } else {
+            [self saveLastSubmitDistanceOfBeacon:jsonDict];
         }
-        callback();
     }];
 }
 
-#warning TODO: check condition
+
 - (void)addBeaconToTracker:(ZBeacon*) beacon {
+    // Check condition
+    BeaconModel *beaconModel = [self findBeaconModelAdaptiveWithZBeacon:beacon];
+    double lastSubmitDistance = [self lastSubmitDistanceOfBeacon:beacon];
+    if (beaconModel == nil
+        || beaconModel.monitor == nil
+        || beaconModel.monitor.isEnable == NO
+        || beacon.distance > beaconModel.distance
+        || (lastSubmitDistance > 0 && (beacon.distance - lastSubmitDistance) < beaconModel.monitor.movingRange)
+        ) {
+        if (beaconModel == nil) {
+            NSLog(@"%s %@: return - beaconModel == nil", __func__, beacon.UUID.UUIDString);
+        } else if (beaconModel.monitor == nil) {
+            NSLog(@"%s %@: return - beaconModel.monitor == nil", __func__, beacon.UUID.UUIDString);
+        } else if (beaconModel.monitor.isEnable == NO) {
+            NSLog(@"%s %@: return - beaconModel.monitor.isEnable == NO", __func__, beacon.UUID.UUIDString);
+        } else if (beacon.distance > beaconModel.distance) {
+            NSLog(@"%s %@: return - beacon.distance(%.3f) > beaconModel.distance(%.3f)", __func__, beacon.UUID.UUIDString, beacon.distance, beaconModel.distance);
+        } else if ((lastSubmitDistance > 0 && (beacon.distance - lastSubmitDistance) < beaconModel.monitor.movingRange)) {
+            NSLog(@"%s %@: return - beacon.distance(%.3f) - lastSubmitDistance(%.3f) < beaconModel.monitor.movingRange(%.3f)", __func__, beacon.UUID.UUIDString, beacon.distance, lastSubmitDistance, beaconModel.monitor.movingRange);
+        }
+        return;
+    }
+    
     if (!_monitorBeaconsTracker) {
         _monitorBeaconsTracker = [NSMutableDictionary new];
     }
@@ -266,6 +303,38 @@
     }
     [distances addObject:@(beacon.distance)];
     _monitorBeaconsTracker[key] = distances;
+}
+
+- (void)saveLastSubmitDistanceOfBeacon:(NSDictionary*) beacons {
+    if (beacons == nil || beacons.count == 0) {
+        return;
+    }
+    if (_lastSubmitDistanceOfBeacons == nil) {
+        _lastSubmitDistanceOfBeacons = [NSMutableDictionary new];
+    }
+    for (NSString *key in beacons) {
+        NSNumber *distance = beacons[key];
+        if (distance) {
+            _lastSubmitDistanceOfBeacons[key] = distance;
+        }
+    }
+}
+
+- (double)lastSubmitDistanceOfBeacon:(ZBeacon*)beacon {
+    double ret = 0;
+    
+    do {
+        if (_lastSubmitDistanceOfBeacons == nil) {
+            break;
+        }
+        NSNumber *distance = _lastSubmitDistanceOfBeacons[beacon.UUID.UUIDString];
+        if (distance == nil) {
+            break;
+        }
+        ret = [distance doubleValue];
+    } while (NO);
+    
+    return ret;
 }
 
 - (void)showPromotionForBeacon:(ZBeacon *) beacon {

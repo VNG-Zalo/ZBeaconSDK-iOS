@@ -97,8 +97,11 @@
     id objectMock = OCMPartialMock(beacon);
     OCMStub([objectMock distance])._andReturn(@15);
     OCMStub([objectMock UUID]).andReturn([NSUUID UUID]);
+    NSDictionary *distances = @{
+        beacon.UUID.UUIDString: @(beacon.distance)
+    };
     
-    [networkHelper submitConnectedAndMonitorBeacons:@[beacon] callback:^(NSError * _Nullable e) {
+    [networkHelper submitConnectedAndMonitorBeacons:distances callback:^(NSError * _Nullable e) {
         error = e;
         [promise fulfill];
     }];

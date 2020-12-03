@@ -187,8 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				6003F5BB195388D20070C39A /* Tests.m */,
-				6003F5B6195388D20070C39A /* Supporting Files */,
 				C0D5DA432575F72F00D88CBC /* MiscTest.m */,
+				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
