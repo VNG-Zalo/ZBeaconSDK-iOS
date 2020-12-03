@@ -12,12 +12,13 @@
 #import "NetworkHelper.h"
 #import "NSDate+Extension.h"
 #import "BeaconModel.h"
+#import "ItemCell.h"
 
 #define TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS 5
 
-@interface ZViewController ()<ZBeaconSDKDelegate>
+@interface ZViewController ()<ZBeaconSDKDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITextView *txtLogging;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) ZBeaconSDK *zBeaconSDK;
 @property (strong, nonatomic) NSArray<NSString*> *masterUUIDs;
@@ -31,6 +32,7 @@
 @property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
 @property (strong, nonatomic) NSMutableDictionary *lastSubmitDistanceOfBeacons;
 @property (assign, nonatomic) BOOL isSubmitMonitorBeaconsForTheFirstTime;
+@property (strong, nonatomic) NSMutableDictionary *promotionDict;
 
 @end
 
@@ -39,6 +41,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"ZBeacon";
 	
     _zBeaconSDK = [ZBeaconSDK sharedInstance];
     [_zBeaconSDK stopBeacons];
@@ -65,9 +69,6 @@
 #pragma mark Private Utils Methods
 - (void)addLog:(NSString *)log {
     NSLog(@"%@", log);
-    NSString *currentLog = self.txtLogging.text;
-    NSString *appendLog = [NSString stringWithFormat:@"%@: %@", [[NSDate date] toLocalTime], log];
-    self.txtLogging.text = [NSString stringWithFormat:@"%@\n%@", currentLog, appendLog];
 }
 
 - (void)createNotificationWithZBeacon:(ZBeacon *)beacon promotionModel:(PromotionModel*)promotionModel {
@@ -342,6 +343,11 @@
     [[NetworkHelper sharedInstance] getPromotionForBeaconUUID:uuidString
                                     callback:^(PromotionModel * _Nullable promotionModel, NSError * _Nullable error) {
         if (promotionModel) {
+            if (_promotionDict == nil) {
+                _promotionDict = [NSMutableDictionary new];
+            }
+            _promotionDict[beacon.UUID.UUIDString] = promotionModel;
+            [_tableView reloadData];
             [self createNotificationWithZBeacon:beacon promotionModel:promotionModel];
         } else {
             [self addLog:[NSString stringWithFormat:@"Get promotion for beacon %@ error: %@", uuidString, error]];
@@ -423,12 +429,50 @@
         [self addLog:[NSString stringWithFormat:@"Disconnected to client beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
         [self handleDisconnectedClientBeacon: beacon];
     }
+    [_tableView reloadData];
 }
 
 - (void)onRangeBeacons:(NSArray<ZBeacon *> *)beacons {
     for (ZBeacon *beacon in beacons) {
         [self addBeaconToTracker: beacon];
     }
+    [_tableView reloadData];
 }
+
+#pragma mark UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 1;
+    } else {
+        return _activeClientBeacons.count;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item" forIndexPath:indexPath];
+    if (indexPath.section == 0) {
+        ZBeacon *beacon = _currentConnectedMasterBeacon;
+        cell.beacon = beacon;
+        [cell refreshInformation];
+    } else {
+        ZBeacon *beacon = [_activeClientBeacons objectAtIndex:indexPath.row];
+        cell.beacon = beacon;
+        cell.promotionModel = [_promotionDict objectForKey:beacon.UUID.UUIDString];
+        [cell refreshInformation];
+    }
+    return  cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Master beacons";
+    } else {
+        return @"Client beacons";
+    }
+}
+
 
 @end

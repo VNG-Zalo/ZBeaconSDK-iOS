@@ -33,6 +33,7 @@
 		C0D5D994256F61D800D88CBC /* ClearNavigationStackSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5D993256F61D800D88CBC /* ClearNavigationStackSegue.m */; };
 		C0D5DA342574DB9A00D88CBC /* UIDevice+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DA332574DB9A00D88CBC /* UIDevice+Extension.m */; };
 		C0D5DA442575F73000D88CBC /* MiscTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DA432575F72F00D88CBC /* MiscTest.m */; };
+		C0D5DA4D2578DA9000D88CBC /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DA4C2578DA9000D88CBC /* ItemCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,8 @@
 		C0D5DA322574DB9A00D88CBC /* UIDevice+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIDevice+Extension.h"; path = "Extensions/UIDevice+Extension.h"; sourceTree = "<group>"; };
 		C0D5DA332574DB9A00D88CBC /* UIDevice+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+Extension.m"; path = "Extensions/UIDevice+Extension.m"; sourceTree = "<group>"; };
 		C0D5DA432575F72F00D88CBC /* MiscTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiscTest.m; sourceTree = "<group>"; };
+		C0D5DA4B2578DA9000D88CBC /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
+		C0D5DA4C2578DA9000D88CBC /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D679C22CEFFB9121E637095B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +161,7 @@
 		6003F593195388D20070C39A /* Example for ZBeaconSDK */ = {
 			isa = PBXGroup;
 			children = (
+				C0D5DA4A2578DA9000D88CBC /* CustomCells */,
 				C0D5D958256DFC4E00D88CBC /* Extensions */,
 				C0D5D904256BA67500D88CBC /* NetworkHelper */,
 				C0D5D978256E5AF900D88CBC /* ViewControllers */,
@@ -261,6 +265,15 @@
 				C0D5D98E256F591900D88CBC /* LoginViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C0D5DA4A2578DA9000D88CBC /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				C0D5DA4B2578DA9000D88CBC /* ItemCell.h */,
+				C0D5DA4C2578DA9000D88CBC /* ItemCell.m */,
+			);
+			path = CustomCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D5DA4D2578DA9000D88CBC /* ItemCell.m in Sources */,
 				C0D5D929256BBC0100D88CBC /* BeaconModel.m in Sources */,
 				C0D5D907256BA6B300D88CBC /* NetworkHelper.m in Sources */,
 				6003F59E195388D20070C39A /* ZAppDelegate.m in Sources */,
