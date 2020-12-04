@@ -33,4 +33,9 @@
     XCTAssertEqual([average doubleValue], 3.25);
 }
 
+- (void)testABS {
+    double test = fabs(1-25.2345);
+    XCTAssertEqual(test, 24.2345);
+}
+
 @end

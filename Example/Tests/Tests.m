@@ -47,7 +47,7 @@
     XCTestExpectation *promise = [[XCTestExpectation alloc] initWithDescription:@"beacon model list is not empty"];
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     __block NSArray *beaconModelList = nil;
-    [networkHelper getBeaconListForMasterBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(NSArray * _Nullable beaconModels, NSError * _Nullable error) {
+    [networkHelper getBeaconListForMasterBeaconUUID:@"A382BCAE-69F2-4C42-8C46-48FFCF222269" callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSError * _Nullable error) {
         beaconModelList = beaconModels;
         [promise fulfill];
     }];
@@ -101,7 +101,7 @@
         beacon.UUID.UUIDString: @(beacon.distance)
     };
     
-    [networkHelper submitConnectedAndMonitorBeacons:distances callback:^(NSError * _Nullable e) {
+    [networkHelper submitConnectedAndMonitorBeacons:distances callback:^(NSString * _Nullable promotionMessage, NSError * _Nullable e) {
         error = e;
         [promise fulfill];
     }];

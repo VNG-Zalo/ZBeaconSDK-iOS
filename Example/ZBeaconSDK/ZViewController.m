@@ -328,11 +328,14 @@
     // Check condition
     BeaconModel *beaconModel = [self findBeaconModelAdaptiveWithZBeacon:beacon];
     double lastSubmitDistance = [self lastSubmitDistanceOfBeacon:beacon];
+    double beaconDistance = beacon.distance;
+    double beaconModelDistance = beaconModel.distance;
     if (beaconModel == nil
         || beaconModel.monitor == nil
         || beaconModel.monitor.isEnable == NO
-        || beacon.distance > beaconModel.distance
-        || (lastSubmitDistance > 0 && (beacon.distance - lastSubmitDistance) < beaconModel.monitor.movingRange)
+        || beaconDistance <= 0
+        || beaconDistance > beaconModelDistance
+        || (lastSubmitDistance > 0 && beaconDistance > 0 && fabs(beaconDistance - lastSubmitDistance) < beaconModel.monitor.movingRange)
         ) {
         if (beaconModel == nil) {
             NSLog(@"%s %@: return - beaconModel == nil", __func__, beacon.UUID.UUIDString);
@@ -340,10 +343,12 @@
             NSLog(@"%s %@: return - beaconModel.monitor == nil", __func__, beacon.UUID.UUIDString);
         } else if (beaconModel.monitor.isEnable == NO) {
             NSLog(@"%s %@: return - beaconModel.monitor.isEnable == NO", __func__, beacon.UUID.UUIDString);
-        } else if (beacon.distance > beaconModel.distance) {
-            NSLog(@"%s %@: return - beacon.distance(%.3f) > beaconModel.distance(%.3f)", __func__, beacon.UUID.UUIDString, beacon.distance, beaconModel.distance);
-        } else if ((lastSubmitDistance > 0 && (beacon.distance - lastSubmitDistance) < beaconModel.monitor.movingRange)) {
-            NSLog(@"%s %@: return - beacon.distance(%.3f) - lastSubmitDistance(%.3f) < beaconModel.monitor.movingRange(%.3f)", __func__, beacon.UUID.UUIDString, beacon.distance, lastSubmitDistance, beaconModel.monitor.movingRange);
+        } else if (beaconDistance <= 0) {
+            NSLog(@"%s %@: return - beaconDistance <= 0", __func__, beacon.UUID.UUIDString);
+        } else if (beaconDistance > beaconModelDistance) {
+            NSLog(@"%s %@: return - beacon.distance(%.3f) > beaconModel.distance(%.3f)", __func__, beacon.UUID.UUIDString, beaconDistance, beaconModelDistance);
+        } else if ((lastSubmitDistance > 0 && beaconDistance > 0 && fabs(beaconDistance - lastSubmitDistance) < beaconModel.monitor.movingRange)) {
+            NSLog(@"%s %@: return - beacon.distance(%.3f) - lastSubmitDistance(%.3f) < beaconModel.monitor.movingRange(%.3f)", __func__, beacon.UUID.UUIDString, beaconDistance, lastSubmitDistance, beaconModel.monitor.movingRange);
         }
         return;
     }
@@ -356,8 +361,10 @@
     if (!distances) {
         distances = [NSMutableArray new];
     }
-    [distances addObject:@(beacon.distance)];
+    [distances addObject:@(beaconDistance)];
     _monitorBeaconsTracker[key] = distances;
+    
+    NSLog(@"%s %@: SUCCESS - beacon.distance(%.3f) beaconModel.distance(%.3f) lastSubmitDistance(%.3f) beaconModel.monitor.movingRange(%.3f)", __func__, beacon.UUID.UUIDString, beaconDistance, beaconModelDistance, lastSubmitDistance, beaconModel.monitor.movingRange);
 }
 
 - (void)saveLastSubmitDistanceOfBeacon:(NSDictionary*) beacons {
@@ -499,7 +506,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        return _currentConnectedMasterBeacon ? 1 : 0;
     } else {
         return _activeClientBeacons.count;
     }
