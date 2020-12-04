@@ -34,6 +34,7 @@
 @property (strong, nonatomic) NSMutableDictionary *lastSubmitDistanceOfBeacons;
 @property (assign, nonatomic) BOOL isSubmitMonitorBeaconsForTheFirstTime;
 @property (strong, nonatomic) NSMutableDictionary *promotionDict;
+@property (strong, nonatomic) NSString *userDisplayName;
 
 @end
 
@@ -53,6 +54,8 @@
     [self getMasterBeaconUUIDsFromAPI];
     
     [self initNavigationBar];
+    
+    [self getUserDisplayNameWithCallback:nil];
 
 }
 
@@ -289,17 +292,35 @@
             }
         } else {
             [self saveLastSubmitDistanceOfBeacon:jsonDict];
-            [[ZaloSDK sharedInstance] getZaloUserProfileWithCallback:^(ZOGraphResponseObject *response) {
-                if (response && response.isSucess) {
-                    NSString *identifier = [@([[NSDate date] timeIntervalSince1970]) stringValue];
-                    NSString *title = [NSString stringWithFormat:@"Xin chào %@", response.data[@"name"]];
-                    [self createNotificatonWithIdentifier:identifier
-                                                    title:title
-                                                  message:promotionMessage];
-                }
+            
+            [self getUserDisplayNameWithCallback:^(NSString * _Nullable displayName) {
+                NSString *identifier = [@([[NSDate date] timeIntervalSince1970]) stringValue];
+                NSString *title = [NSString stringWithFormat:@"Xin chào %@", _userDisplayName];
+                [self createNotificatonWithIdentifier:identifier
+                                                title:title
+                                              message:promotionMessage];
             }];
         }
     }];
+}
+
+- (void)getUserDisplayNameWithCallback:(void(^)(NSString *_Nullable displayName)) callback {
+    if (_userDisplayName && _userDisplayName.length > 0) {
+        if (callback) {
+            callback(_userDisplayName);
+        }
+    } else {
+        [[ZaloSDK sharedInstance] getZaloUserProfileWithCallback:^(ZOGraphResponseObject *response) {
+            NSString *name = nil;
+            if (response.isSucess && response.data) {
+                name = response.data[@"name"];
+                _userDisplayName = name;
+            }
+            if (callback) {
+                callback(name);
+            }
+        }];
+    }
 }
 
 
