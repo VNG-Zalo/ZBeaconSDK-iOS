@@ -27,13 +27,14 @@
                                     <action selector="buttonLoginPressed:" destination="imt-j4-lqH" eventType="touchUpInside" id="HXG-NJ-IMr"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vgd-9d-Vc9">
-                                <rect key="frame" x="177" y="271" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vgd-9d-Vc9">
+                                <rect key="frame" x="177.5" y="271" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vgd-9d-Vc9" firstAttribute="centerX" secondItem="SP3-TZ-O1t" secondAttribute="centerX" id="Qne-eB-xtY"/>
+                            <constraint firstItem="fwH-YP-UCU" firstAttribute="top" secondItem="vgd-9d-Vc9" secondAttribute="bottom" constant="27.5" id="SxC-rr-tdl"/>
                             <constraint firstItem="fwH-YP-UCU" firstAttribute="centerY" secondItem="SP3-TZ-O1t" secondAttribute="centerY" id="VpT-Wv-bjf"/>
                             <constraint firstItem="fwH-YP-UCU" firstAttribute="centerX" secondItem="SP3-TZ-O1t" secondAttribute="centerX" id="vlQ-jJ-FzX"/>
                         </constraints>
@@ -269,6 +270,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="0nl-l9-zmt"/>
         <segue reference="fg1-Ll-jwZ"/>
     </inferredMetricsTieBreakers>
     <resources>

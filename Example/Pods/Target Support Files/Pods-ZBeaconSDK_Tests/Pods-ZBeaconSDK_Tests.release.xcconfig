@@ -1,9 +1,9 @@
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworkActivityLogger" "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/JSONModel" "${PODS_CONFIGURATION_BUILD_DIR}/OCMock" "${PODS_ROOT}/../../ZBeaconSDK/Frameworks" "${PODS_ROOT}/ZaloSDK/ZaloSDK/Frameworks"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworkActivityLogger" "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/DZNEmptyDataSet" "${PODS_CONFIGURATION_BUILD_DIR}/JSONModel" "${PODS_CONFIGURATION_BUILD_DIR}/OCMock" "${PODS_ROOT}/../../ZBeaconSDK/Frameworks" "${PODS_ROOT}/ZaloSDK/ZaloSDK/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworkActivityLogger/AFNetworkActivityLogger.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/JSONModel/JSONModel.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/OCMock/OCMock.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworkActivityLogger/AFNetworkActivityLogger.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/JSONModel/JSONModel.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/OCMock/OCMock.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "AFNetworkActivityLogger" -framework "AFNetworking" -framework "CoreGraphics" -framework "JSONModel" -framework "MobileCoreServices" -framework "OCMock" -framework "Security" -framework "SystemConfiguration" -framework "ZBeaconSDK"
+OTHER_LDFLAGS = $(inherited) -framework "AFNetworkActivityLogger" -framework "AFNetworking" -framework "CoreGraphics" -framework "DZNEmptyDataSet" -framework "JSONModel" -framework "MobileCoreServices" -framework "OCMock" -framework "Security" -framework "SystemConfiguration" -framework "UIKit" -framework "ZBeaconSDK"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

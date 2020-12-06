@@ -8,6 +8,7 @@ target 'ZBeaconSDK_Example' do
   pod 'AFNetworkActivityLogger'
   pod 'JSONModel'
   pod 'ZaloSDK'
+  pod 'DZNEmptyDataSet'
 
   target 'ZBeaconSDK_Tests' do
     inherit! :search_paths

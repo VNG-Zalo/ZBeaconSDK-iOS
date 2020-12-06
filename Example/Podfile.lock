@@ -16,6 +16,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - DZNEmptyDataSet (1.8.1)
   - JSONModel (1.8.0)
   - OCMock (3.7.1)
   - ZaloSDK (2.5.1009):
@@ -29,6 +30,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworkActivityLogger
   - AFNetworking
+  - DZNEmptyDataSet
   - JSONModel
   - OCMock
   - ZaloSDK
@@ -38,6 +40,7 @@ SPEC REPOS:
   trunk:
     - AFNetworkActivityLogger
     - AFNetworking
+    - DZNEmptyDataSet
     - JSONModel
     - OCMock
     - ZaloSDK
@@ -49,11 +52,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: e77f68d014becb33c4306a23f56a64906ff72670
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   OCMock: 75fbeaa46a9b11f8c182bbb1d1f7e9a35ccc9955
   ZaloSDK: 0da456bf02a77e927bca1501d9df464d61c06d55
   ZBeaconSDK: 8cb03da1f4a38d5662f1b02db0e0578efe46b1dc
 
-PODFILE CHECKSUM: 9239e062e6f335a88a56b5671c1c2eabcc63735a
+PODFILE CHECKSUM: f95632f18f7cb1d58917978ad4936e1d49966533
 
 COCOAPODS: 1.10.0

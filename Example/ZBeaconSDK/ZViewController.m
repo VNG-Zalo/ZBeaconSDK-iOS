@@ -14,10 +14,11 @@
 #import "BeaconModel.h"
 #import "ItemCell.h"
 #import <ZaloSDK/ZaloSDK.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 #define TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS 5
 
-@interface ZViewController ()<ZBeaconSDKDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ZViewController ()<ZBeaconSDKDelegate, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -35,6 +36,7 @@
 @property (assign, nonatomic) BOOL isSubmitMonitorBeaconsForTheFirstTime;
 @property (strong, nonatomic) NSMutableDictionary *promotionDict;
 @property (strong, nonatomic) NSString *userDisplayName;
+@property (strong, nonatomic) NSString *emptyMessageForTableView;
 
 @end
 
@@ -56,7 +58,16 @@
     [self initNavigationBar];
     
     [self getUserDisplayNameWithCallback:nil];
+    
+    [self initTableView];
 
+}
+
+- (void)initTableView {
+    _emptyMessageForTableView = @"";
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)initNavigationBar {
@@ -128,6 +139,17 @@
     _masterUUIDs = uuids;
     [self addLog:[NSString stringWithFormat:@"Start init master beacon uuids: \n     %@", uuids]];
     [_zBeaconSDK setListBeacons:uuids];
+    
+    _beaconModels = nil;
+    
+    NSMutableString *message = [NSMutableString new];
+    [message appendString:@"Listening MASTER UUIDs:"];
+    for (NSString *uuidString in _masterUUIDs) {
+        [message appendFormat:@"\n%@", uuidString];
+    }
+    _emptyMessageForTableView = message;
+    [_tableView reloadData];
+    
     [_zBeaconSDK startBeaconsWithCompletion:^{
         [self addLog:@"Init master beacon uuids DONE"];
     }];
@@ -149,12 +171,17 @@
             
             [self addLog:[NSString stringWithFormat:@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentConnectedMasterBeacon.UUID.UUIDString]];
             NSMutableArray *clientUUIDs = [NSMutableArray new];
+            NSMutableString *emptyMessage = [NSMutableString new];
+            [emptyMessage appendString:@"Listening CILENT UUIDs:"];
             for (BeaconModel *beaconModel in _beaconModels) {
                 [clientUUIDs addObject:beaconModel.identifier];
+                [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
             }
             // Add master to ranging
             [clientUUIDs addObject:_currentConnectedMasterBeacon.UUID.UUIDString];
             
+            _emptyMessageForTableView = emptyMessage;
+            [_tableView reloadData];
             [_zBeaconSDK stopBeacons];
             [self addLog:@"Stop master beacons\nStart init client beacons."];
             _isSubmitMonitorBeaconsForTheFirstTime = NO;
@@ -528,12 +555,45 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (_currentConnectedMasterBeacon == nil && _activeClientBeacons.count == 0) {
+        return nil;
+    }
     if (section == 0) {
         return @"Master beacons";
-    } else {
-        return @"Client beacons";
     }
+    return @"Client beacons";
 }
 
+#pragma mark DZNEmptyDataSetSource
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor lightGrayColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+                                 
+    return [[NSAttributedString alloc] initWithString:_emptyMessageForTableView attributes:attributes];
+}
+#pragma mark DZNEmptyDataSetDelegate
+- (BOOL)emptyDataSetShouldBeForcedToDisplay:(UIScrollView *)scrollView {
+    BOOL ret = NO;
+    
+    do {
+        if (_activeClientBeacons == nil && _activeClientBeacons.count == 0) {
+            ret = YES;
+            break;
+        }
+        
+        if (_activeClientBeacons && _activeClientBeacons.count == 0) {
+            ret = YES;
+            break;
+        }
+        
+    } while (NO);
+    
+    return ret;
+}
 
 @end
