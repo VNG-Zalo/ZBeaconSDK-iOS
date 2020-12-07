@@ -137,7 +137,7 @@
 
 - (void)handleMasterBeaconUUIDs:(NSArray *) uuids {
     _masterUUIDs = uuids;
-    [self addLog:[NSString stringWithFormat:@"Start init master beacon uuids: \n     %@", uuids]];
+    NSLog(@"Start init master beacon uuids: \n     %@", uuids);
     [_zBeaconSDK setListBeacons:uuids];
     
     _beaconModels = nil;
@@ -169,7 +169,7 @@
             [self addLog: [NSString stringWithFormat:@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentConnectedMasterBeacon.UUID.UUIDString, error]];
         } else {
             
-            [self addLog:[NSString stringWithFormat:@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentConnectedMasterBeacon.UUID.UUIDString]];
+            NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentConnectedMasterBeacon.UUID.UUIDString);
             NSMutableArray *clientUUIDs = [NSMutableArray new];
             NSMutableString *emptyMessage = [NSMutableString new];
             [emptyMessage appendString:@"Listening CILENT UUIDs:"];
@@ -438,7 +438,7 @@
             [_tableView reloadData];
             [self createNotificationWithZBeacon:beacon promotionModel:promotionModel];
         } else {
-            [self addLog:[NSString stringWithFormat:@"Get promotion for beacon %@ error: %@", uuidString, error]];
+            NSLog(@"Get promotion for beacon %@ error: %@", uuidString, error);
         }
     }];
 }
@@ -498,10 +498,10 @@
     
     // Check beacon is in master uuids
     if ([_masterUUIDs containsObject:beacon.UUID.UUIDString]) {
-        [self addLog:[NSString stringWithFormat:@"Connected to master beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
+        NSLog(@"Connected to master beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor);
         [self handleConnectedMasterBeacon: beacon];
     } else {
-        [self addLog:[NSString stringWithFormat:@"Connected to client beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
+        NSLog(@"Connected to client beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor);
         [self handleConnectedClientBeacon: beacon];
     }
 }
@@ -511,10 +511,10 @@
     
     // Check beacon is in master uuids
     if ([_masterUUIDs containsObject:beacon.UUID.UUIDString]) {
-        [self addLog:[NSString stringWithFormat:@"Disconnected to master beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
+        NSLog(@"Disconnected to master beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor);
         [self handleDisconnectedMasterBeacon: beacon];
     } else {
-        [self addLog:[NSString stringWithFormat:@"Disconnected to client beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor]];
+        NSLog(@"Disconnected to client beacon: %@ major=%@ minor=%@", beacon.UUID.UUIDString, beacon.major, beacon.minor);
         [self handleDisconnectedClientBeacon: beacon];
     }
     [_tableView reloadData];
