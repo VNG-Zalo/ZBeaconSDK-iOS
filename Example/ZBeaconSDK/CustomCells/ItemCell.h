@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewDisable;
 
 @property (weak, nonatomic) ZBeacon *beacon;
-@property (strong, nonatomic) PromotionModel *promotionModel;
+@property (weak, nonatomic) PromotionModel *promotionModel;
 
 - (void)refreshInformation;
 

@@ -34,6 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic) BOOL enableExtendBackgroundRunningTime;
 
 
+/// Enable handle timeout for beacon.
+@property(assign, nonatomic) BOOL enableBeaconTimeout;
+
+/// Beacon timeout interval
+@property (nonatomic, assign) NSTimeInterval beaconTimeOutInterval;
+
 /// Get SDK version.
 - (NSString *)getVersion;
 

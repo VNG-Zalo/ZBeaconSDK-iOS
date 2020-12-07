@@ -52,6 +52,8 @@
     [_zBeaconSDK stopBeacons];
     _zBeaconSDK.delegate = self;
     _zBeaconSDK.enableExtendBackgroundRunningTime = YES;
+    _zBeaconSDK.enableBeaconTimeout = YES;
+    _zBeaconSDK.beaconTimeOutInterval = 10;
     
     [self getMasterBeaconUUIDsFromAPI];
     
@@ -544,6 +546,7 @@
     if (indexPath.section == 0) {
         ZBeacon *beacon = _currentConnectedMasterBeacon;
         cell.beacon = beacon;
+        cell.promotionModel = nil;
         [cell refreshInformation];
     } else {
         ZBeacon *beacon = [_activeClientBeacons objectAtIndex:indexPath.row];
