@@ -107,6 +107,9 @@
                 NSLog(@"getBeaconListForMasterBeaconUUID: monitorInterval=%ld expired=%ld", (long)monitorInterval, (long)expired);
                 NSArray *items = apiResponse.data[@"items"];
                 beaconModels = [BeaconModel arrayOfModelsFromDictionaries:items error:&error];
+                for (BeaconModel *beaconModel in beaconModels) {
+                    beaconModel.identifier = [beaconModel.identifier uppercaseString];
+                }
                 if (error) {
                     NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
                 }
