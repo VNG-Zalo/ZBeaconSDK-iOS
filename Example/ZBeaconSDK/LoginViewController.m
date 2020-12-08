@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import <ZaloSDK/ZaloSDK.h>
+#import <AFNetworkReachabilityManager.h>
 
 @interface LoginViewController ()
 
@@ -64,17 +65,27 @@
 }
 
 - (void)checkIsAuthenticated {
-    [_loadingIndicator startAnimating];
     _btnLogin.hidden = YES;
     
-    [[ZaloSDK sharedInstance] isAuthenticatedZaloWithCompletionHandler:^(ZOOauthCheckingResponseObject *response) {
-        [self.loadingIndicator stopAnimating];
-        if (response.isSucess) {
+    if ([[AFNetworkReachabilityManager manager] isReachable]) {
+        [_loadingIndicator startAnimating];
+        [[ZaloSDK sharedInstance] isAuthenticatedZaloWithCompletionHandler:^(ZOOauthCheckingResponseObject *response) {
+            [self.loadingIndicator stopAnimating];
+            if (response.isSucess) {
+                [self showMainController];
+            } else {
+                self.btnLogin.hidden = NO;
+            }
+        }];
+    } else {
+        BOOL isAuthenticated = [[ZaloSDK sharedInstance] isAuthenticatedZaloWithCompletionHandler:nil];
+        if (isAuthenticated) {
             [self showMainController];
         } else {
             self.btnLogin.hidden = NO;
         }
-    }];
+    };
+    
 }
 
 /*

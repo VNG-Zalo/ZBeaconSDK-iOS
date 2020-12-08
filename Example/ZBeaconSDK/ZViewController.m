@@ -15,6 +15,7 @@
 #import "ItemCell.h"
 #import <ZaloSDK/ZaloSDK.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+#import "CacheHelper.h"
 
 #define TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS 5
 
@@ -97,9 +98,6 @@
 }
 
 #pragma mark Private Utils Methods
-- (void)addLog:(NSString *)log {
-    NSLog(@"%@", log);
-}
 
 - (void)createNotificationWithZBeacon:(ZBeacon *)beacon promotionModel:(PromotionModel*)promotionModel {
     [self createNotificatonWithIdentifier:beacon.UUID.UUIDString
@@ -127,10 +125,17 @@
 
 #pragma mark Flow Methods
 - (void)getMasterBeaconUUIDsFromAPI {
-    [self addLog:@"Start get master beacon uuid from API"];
+    NSLog(@"Start get master beacon uuid from API");
     [[NetworkHelper sharedInstance] getMasterBeaconUUIDList:^(NSArray<NSString *> * _Nullable uuids, NSError * _Nullable error) {
+        
         if (uuids == nil || uuids.count == 0) {
-            [self addLog: [NSString stringWithFormat:@"ERROR: master beacon UUIDs empty with error %@", error]];
+            uuids = [[CacheHelper sharedInstance] getMasterUUIDs];
+            NSLog(@"getMasterBeaconUUIDsFromAPI error, get from cache");
+        } else {
+            [[CacheHelper sharedInstance] saveMasterUUIDs:uuids];
+        }
+        if (uuids == nil || uuids.count == 0) {
+            NSLog(@"ERROR: master beacon UUIDs empty with error %@", error);
         } else {
             [self handleMasterBeaconUUIDs: uuids];
         }
@@ -153,7 +158,7 @@
     [_tableView reloadData];
     
     [_zBeaconSDK startBeaconsWithCompletion:^{
-        [self addLog:@"Init master beacon uuids DONE"];
+        NSLog(@"Init master beacon uuids DONE");
     }];
 }
 
@@ -167,8 +172,18 @@
                                            callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSError * _Nullable error) {
         _submitMonitorBeaconsToServerInterval = monitorInterval;
         _beaconModels = beaconModels;
+        CacheHelper *cacheHelper = [CacheHelper sharedInstance];
         if (_beaconModels == nil || _beaconModels.count == 0) {
-            [self addLog: [NSString stringWithFormat:@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentConnectedMasterBeacon.UUID.UUIDString, error]];
+            _beaconModels = [cacheHelper getClientBeaconModelsOfMasterUUID:_currentConnectedMasterBeacon.UUID.UUIDString];
+            _submitMonitorBeaconsToServerInterval = [cacheHelper getMonitorInterval];
+            NSLog(@"getBeaconListForMasterBeaconUUID error, get from cache");
+        } else {
+            [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:_currentConnectedMasterBeacon.UUID.UUIDString];
+            [cacheHelper saveMonitorInterval:_submitMonitorBeaconsToServerInterval];
+            [cacheHelper saveExpiredTimeOfClientBeacon:expired];
+        }
+        if (_beaconModels == nil || _beaconModels.count == 0) {
+            NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentConnectedMasterBeacon.UUID.UUIDString, error);
         } else {
             
             NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentConnectedMasterBeacon.UUID.UUIDString);
@@ -185,11 +200,11 @@
             _emptyMessageForTableView = emptyMessage;
             [_tableView reloadData];
             [_zBeaconSDK stopBeacons];
-            [self addLog:@"Stop master beacons\nStart init client beacons."];
+            NSLog(@"Stop master beacons\nStart init client beacons.");
             _isSubmitMonitorBeaconsForTheFirstTime = NO;
             [_zBeaconSDK setListBeacons:clientUUIDs];
             [_zBeaconSDK startBeaconsWithCompletion:^{
-                [self addLog:@"Init client beacons DONE"];
+                NSLog(@"Init client beacons DONE");
             }];
         }
     }];

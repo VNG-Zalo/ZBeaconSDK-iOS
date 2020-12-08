@@ -1,0 +1,34 @@
+[
+    {
+        "id": "F06B3BB9-D8CD-4F8C-A6D8-97F8DCDE5D4E",
+        "monitor": {
+            "moving_range": 2,
+            "enable": true
+        },
+        "distance": 30
+    },
+    {
+        "id": "798B2AE4-624F-4750-86B6-C23901832322",
+        "monitor": {
+            "moving_range": 4,
+            "enable": true
+        },
+        "distance": 45
+    },
+    {
+        "id": "6AFED735-237C-4E46-B9F6-B3FBCC832A0C",
+        "monitor": {
+            "moving_range": 5,
+            "enable": true
+        },
+        "distance": 60
+    },
+    {
+        "id": "CFDF2D30-6AAA-4CA5-8DE3-2DFCFB397062",
+        "monitor": {
+            "moving_range": 3,
+            "enable": false
+        },
+        "distance": 50
+    }
+]
