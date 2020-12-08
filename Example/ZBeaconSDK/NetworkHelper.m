@@ -60,14 +60,18 @@
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSError *error;
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
-        NSArray *uuids = nil;
+        NSMutableArray *uuids = nil;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
             if (apiResponse.errorCode != 0) {
                 NSLog(@"getMasterBeaconUUIDList: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
             } else {
-                uuids = [((NSDictionary *)apiResponse.data) objectForKey:@"items"];
+                NSArray *rawUUIDs = [((NSDictionary *)apiResponse.data) objectForKey:@"items"];
+                uuids = [NSMutableArray new];
+                for (NSString *uuid in rawUUIDs) {
+                    [uuids addObject:[uuid uppercaseString]];
+                }
             }
         }
         callback(uuids, error);
