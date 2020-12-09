@@ -14,13 +14,19 @@
 
 #define ZALO_APP_ID @"453673175111169071"
 
+@interface ZAppDelegate() <UNUserNotificationCenterDelegate>
+
+@end
+
 @implementation ZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     UNAuthorizationOptions options = UNAuthorizationOptionAlert+UNAuthorizationOptionSound;
-    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
         
     }];
     
@@ -68,6 +74,11 @@
     return [[ZDKApplicationDelegate sharedInstance] application:app
                                                         openURL:url
                                                         options:options];
+}
+
+#pragma mark UNUserNotificationCenterDelegate
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 @end

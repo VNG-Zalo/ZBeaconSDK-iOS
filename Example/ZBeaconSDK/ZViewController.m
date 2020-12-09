@@ -179,20 +179,20 @@
         _beaconModels = beaconModels;
         CacheHelper *cacheHelper = [CacheHelper sharedInstance];
         if (_beaconModels == nil || _beaconModels.count == 0) {
-            _beaconModels = [cacheHelper getClientBeaconModelsOfMasterUUID:_currentConnectedMasterBeacon.UUID.UUIDString];
+            _beaconModels = [cacheHelper getClientBeaconModelsOfMasterUUID:_currentMasterUUID];
             _submitMonitorBeaconsToServerInterval = [cacheHelper getMonitorInterval];
             NSLog(@"getBeaconListForMasterBeaconUUID error, get from cache");
         } else {
-            [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:_currentConnectedMasterBeacon.UUID.UUIDString];
+            [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:_currentMasterUUID];
             [cacheHelper saveMonitorInterval:_submitMonitorBeaconsToServerInterval];
             [cacheHelper saveExpiredTimeOfClientBeacon:expired];
             [cacheHelper saveTimeOutOfClientBeacon:timeout];
         }
         if (_beaconModels == nil || _beaconModels.count == 0) {
-            NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentConnectedMasterBeacon.UUID.UUIDString, error);
+            NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentMasterUUID, error);
         } else {
             
-            NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentConnectedMasterBeacon.UUID.UUIDString);
+            NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentMasterUUID);
             NSMutableArray *clientUUIDs = [NSMutableArray new];
             NSMutableString *emptyMessage = [NSMutableString new];
             [emptyMessage appendString:@"Listening CILENT UUIDs:"];
@@ -201,7 +201,7 @@
                 [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
             }
             // Add master to ranging
-            [clientUUIDs addObject:_currentConnectedMasterBeacon.UUID.UUIDString];
+            [clientUUIDs addObject:_currentMasterUUID];
             
             _emptyMessageForTableView = emptyMessage;
             [_tableView reloadData];
@@ -598,7 +598,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (_currentConnectedMasterBeacon == nil && _activeClientBeacons.count == 0) {
+    if (_currentConnectedMasterBeacon == nil && (!_currentMasterUUID || _currentMasterUUID.length == 0) && _activeClientBeacons.count == 0) {
         return nil;
     }
     if (section == 0) {

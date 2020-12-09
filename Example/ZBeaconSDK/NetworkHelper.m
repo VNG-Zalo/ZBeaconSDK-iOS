@@ -40,12 +40,12 @@
 {
     self = [super init];
     if (self) {
-         NSURL *baseURL = [NSURL URLWithString:@"https://dev-zbeacon.zapps.vn"];
+        NSURL *baseURL = [NSURL URLWithString:@"https://dev-zbeacon.zapps.vn"];
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
         [_sessionManager.requestSerializer setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
         
         _appVersion = [self getAppVersion];
-
+        
     }
     return self;
 }
@@ -75,16 +75,20 @@
                 }
             }
         }
-        callback(uuids, error);
+        if (callback) {
+            callback(uuids, error);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getMasterBeaconUUIDList error: %@", error);
-        callback(nil, error);
+        if (callback) {
+            callback(nil, error);
+        }
     }];
 }
 
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
                                 callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSTimeInterval, NSTimeInterval, NSTimeInterval, NSError * _Nullable))callback {
-
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
     params[@"bcid"] = uuidString;
     
@@ -119,10 +123,14 @@
                 }
             }
         }
-        callback(beaconModels, monitorInterval, expired, timeout, error);
+        if (callback) {
+            callback(beaconModels, monitorInterval, expired, timeout, error);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
-        callback(nil, 0, 0, 0, error);
+        if (callback) {
+            callback(nil, 0, 0, 0, error);
+        }
     }];
 }
 
@@ -153,10 +161,14 @@
                 }
             }
         }
-        callback(promotion, error);
+        if (callback) {
+            callback(promotion, error);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getPromotionForBeaconUUID error: %@", error);
-        callback(nil, error);
+        if (callback) {
+            callback(nil, error);
+        }
     }];
 }
 
@@ -182,10 +194,14 @@
                                         userInfo:@{NSLocalizedDescriptionKey:apiResponse.errorMessage}];
             }
         }
-        callback(error);
+        if (callback) {
+            callback(error);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%s: %@", __func__, error);
-        callback(error);
+        if (callback) {
+            callback(error);
+        }
     }];
     
 }
