@@ -31,6 +31,7 @@
 @property (strong, nonatomic) NSArray<BeaconModel*> *beaconModels;
 @property (strong, nonatomic) NSTimer *collectClientBeaconsForTheFirstTimeConnectedTimer;
 @property (strong, nonatomic) NSTimer *submitMonitorBeaconToServerTimer;
+@property (strong, nonatomic) NSTimer *timeoutRestartMasterBeaconTimer;
 @property (assign, nonatomic) NSTimeInterval submitMonitorBeaconsToServerInterval;
 @property (strong, nonatomic) NSMutableDictionary *monitorBeaconsTracker;
 @property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
@@ -173,7 +174,7 @@
     // Get client beacon list
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     [networkHelper getBeaconListForMasterBeaconUUID:_currentConnectedMasterBeacon.UUID.UUIDString
-                                           callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSError * _Nullable error) {
+                                           callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSTimeInterval timeout, NSError * _Nullable error) {
         _submitMonitorBeaconsToServerInterval = monitorInterval;
         _beaconModels = beaconModels;
         CacheHelper *cacheHelper = [CacheHelper sharedInstance];
@@ -185,6 +186,7 @@
             [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:_currentConnectedMasterBeacon.UUID.UUIDString];
             [cacheHelper saveMonitorInterval:_submitMonitorBeaconsToServerInterval];
             [cacheHelper saveExpiredTimeOfClientBeacon:expired];
+            [cacheHelper saveTimeOutOfClientBeacon:timeout];
         }
         if (_beaconModels == nil || _beaconModels.count == 0) {
             NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentConnectedMasterBeacon.UUID.UUIDString, error);
@@ -477,7 +479,22 @@
         NSLog(@"Disconnected to master beacon, but active client beacons still contain %ld → Do nothing. Master beacon:%@", (long)_activeClientBeacons.count, [beacon debugDescription]);
         return;
     }
-    NSLog(@"Disconnected to master beacon → Stop all client beacon and restart master beacon. Master beacon:%@", [beacon debugDescription]);
+    NSLog(@"Disconnected to master beacon → Stop all client beacon and timeout for restart master beacon. Master beacon:%@", [beacon debugDescription]);
+    if (!_timeoutRestartMasterBeaconTimer) {
+        _timeoutRestartMasterBeaconTimer = [NSTimer scheduledTimerWithTimeInterval:[[CacheHelper sharedInstance] getTimeOutOfClientBeacon]
+                                                                            target:self
+                                                                          selector:@selector(restartMasterBeacon:)
+                                                                          userInfo:nil
+                                                                           repeats:NO];
+    }
+}
+
+- (void)restartMasterBeacon:(id) sender {
+    if (_timeoutRestartMasterBeaconTimer) {
+        [_timeoutRestartMasterBeaconTimer invalidate];
+        _timeoutRestartMasterBeaconTimer = nil;
+    }
+    NSLog(@"%s", __func__);
     [_zBeaconSDK stopBeacons];
     _currentMasterUUID = nil;
     if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
@@ -504,13 +521,13 @@
     }
     
     // Out of all client beacons, restart master beacon
-    NSLog(@"Disconnected to client beacon. All of client beacon is disconnected → Stop all client beacon and restart master beacons. Master beacon:%@", [beacon debugDescription]);
-    _currentMasterUUID = nil;
-    [_zBeaconSDK stopBeacons];
-    if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
-        [self handleMasterBeaconUUIDs:_masterUUIDs];
-    } else {
-        [self getMasterBeaconUUIDsFromAPI];
+    NSLog(@"Disconnected to client beacon. All of client beacon is disconnected → Stop all client beacon and timeout for restart master beacons. Master beacon:%@", [beacon debugDescription]);
+    if (!_timeoutRestartMasterBeaconTimer) {
+        _timeoutRestartMasterBeaconTimer = [NSTimer scheduledTimerWithTimeInterval:[[CacheHelper sharedInstance] getTimeOutOfClientBeacon]
+                                                                            target:self
+                                                                          selector:@selector(restartMasterBeacon:)
+                                                                          userInfo:nil
+                                                                           repeats:NO];
     }
 }
 

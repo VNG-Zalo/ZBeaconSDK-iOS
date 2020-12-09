@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSTimeInterval)getMonitorInterval;
 - (void)saveExpiredTimeOfClientBeacon:(NSTimeInterval) interval;
 - (NSTimeInterval)getExpiredTimeOfClientBeacon;
+- (void)saveTimeOutOfClientBeacon:(NSTimeInterval) interval;
+- (NSTimeInterval)getTimeOutOfClientBeacon;
 
 - (void)removeSubmitMonitorLog;
 - (NSArray*)getSubmitMonitorLog;
