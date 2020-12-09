@@ -12,6 +12,7 @@
 #define USER_DEFAULT_KEY_CLIENT_BEACON      @"USER_DEFAULT_KEY_CLIENT_BEACON_"
 #define USER_DEFAULT_KEY_MONITOR_INTERVAL   @"USER_DEFAULT_KEY_MONITOR_INTERVAL"
 #define USER_DEFAULT_KEY_EXPIRED_TIME_OF_CLIENT_BEACON  @"USER_DEFAULT_KEY_EXPIRED_TIME_OF_CLIENT_BEACON"
+#define USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG @"USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG"
 
 @implementation CacheHelper
 
@@ -70,6 +71,18 @@
 - (NSTimeInterval)getExpiredTimeOfClientBeacon {
     NSTimeInterval ret = [[NSUserDefaults standardUserDefaults] doubleForKey:USER_DEFAULT_KEY_EXPIRED_TIME_OF_CLIENT_BEACON];
     return ret;
+}
+
+- (void)removeSubmitMonitorLog {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG];
+}
+
+- (NSArray *)getSubmitMonitorLog {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG];
+}
+
+- (void)saveSubmitMonitorLog:(NSArray *)items {
+    [[NSUserDefaults standardUserDefaults] setObject:items forKey:USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG];
 }
 
 @end

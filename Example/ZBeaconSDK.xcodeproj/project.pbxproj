@@ -20,7 +20,7 @@
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
-		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		6003F5BC195388D20070C39A /* NetworkTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* NetworkTest.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		B894FAED66836C4462E4FA88 /* Pods_ZBeaconSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B15A7F2FC5D2F2BC4F6CD59 /* Pods_ZBeaconSDK_Example.framework */; };
@@ -37,6 +37,7 @@
 		C0D5DAA1257E281900D88CBC /* CacheHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DAA0257E281900D88CBC /* CacheHelper.m */; };
 		C0D5DAA8257E2DC600D88CBC /* CacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DAA7257E2DC600D88CBC /* CacheTest.m */; };
 		C0D5DABB257E330300D88CBC /* BeaconModels.json in Resources */ = {isa = PBXBuildFile; fileRef = C0D5DABA257E330300D88CBC /* BeaconModels.json */; };
+		C0D5DAC0257F6E9900D88CBC /* ZBeacon+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DABF257F6E9900D88CBC /* ZBeacon+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +72,7 @@
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
+		6003F5BB195388D20070C39A /* NetworkTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkTest.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86BC0D7460D62EB0C1953D77 /* Pods-ZBeaconSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +102,8 @@
 		C0D5DAA0257E281900D88CBC /* CacheHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CacheHelper.m; path = CacheHelper/CacheHelper.m; sourceTree = "<group>"; };
 		C0D5DAA7257E2DC600D88CBC /* CacheTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CacheTest.m; sourceTree = "<group>"; };
 		C0D5DABA257E330300D88CBC /* BeaconModels.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BeaconModels.json; sourceTree = "<group>"; };
+		C0D5DABE257F6E9900D88CBC /* ZBeacon+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ZBeacon+Extension.h"; path = "Extensions/ZBeacon+Extension.h"; sourceTree = "<group>"; };
+		C0D5DABF257F6E9900D88CBC /* ZBeacon+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ZBeacon+Extension.m"; path = "Extensions/ZBeacon+Extension.m"; sourceTree = "<group>"; };
 		CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D679C22CEFFB9121E637095B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,7 +201,7 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6003F5BB195388D20070C39A /* Tests.m */,
+				6003F5BB195388D20070C39A /* NetworkTest.m */,
 				C0D5DA432575F72F00D88CBC /* MiscTest.m */,
 				C0D5DAA7257E2DC600D88CBC /* CacheTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
@@ -262,6 +265,8 @@
 				C0D5D993256F61D800D88CBC /* ClearNavigationStackSegue.m */,
 				C0D5DA322574DB9A00D88CBC /* UIDevice+Extension.h */,
 				C0D5DA332574DB9A00D88CBC /* UIDevice+Extension.m */,
+				C0D5DABE257F6E9900D88CBC /* ZBeacon+Extension.h */,
+				C0D5DABF257F6E9900D88CBC /* ZBeacon+Extension.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				C0D5DAA1257E281900D88CBC /* CacheHelper.m in Sources */,
 				6003F59E195388D20070C39A /* ZAppDelegate.m in Sources */,
 				C0D5D937256BC2C600D88CBC /* PromotionModel.m in Sources */,
+				C0D5DAC0257F6E9900D88CBC /* ZBeacon+Extension.m in Sources */,
 				C0D5D95B256DFC7700D88CBC /* NSDate+Extension.m in Sources */,
 				C0D5D98F256F591900D88CBC /* LoginViewController.m in Sources */,
 				C0D5D924256BB29400D88CBC /* APIResponseModel.m in Sources */,
@@ -515,7 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+				6003F5BC195388D20070C39A /* NetworkTest.m in Sources */,
 				C0D5DAA8257E2DC600D88CBC /* CacheTest.m in Sources */,
 				C0D5DA442575F73000D88CBC /* MiscTest.m in Sources */,
 			);

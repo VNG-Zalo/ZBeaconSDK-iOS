@@ -8,6 +8,11 @@
 
 #import "ItemCell.h"
 
+@interface ItemCell()
+
+
+@end
+
 @implementation ItemCell
 
 
@@ -30,7 +35,11 @@
         _lblMajor.text = [_beacon.major stringValue];
         _lblMinor.text = [_beacon.minor stringValue];
     } else {
-        _lblUUID.text = @"N/A";
+        if (_currentBeaconUUID) {
+            _lblUUID.text = _currentBeaconUUID;
+        } else {
+            _lblUUID.text = @"N/A";
+        }
         _lblMajor.text = @"N/A";
         _lblMinor.text = @"N/A";
     }
@@ -42,7 +51,11 @@
         _lblLocation.text = [_beacon locationString];
         _lblRSSI.text = [@(_beacon.rssi) stringValue];
     } else {
-        _lblLocation.text = @"Unknown";
+        if (_currentBeaconUUID && _currentBeaconUUID.length > 0) {
+            _lblLocation.text = @"Disconnected";
+        } else {
+            _lblLocation.text = @"Unknown";
+        }
         _lblRSSI.text = @"N/A";
     }
     

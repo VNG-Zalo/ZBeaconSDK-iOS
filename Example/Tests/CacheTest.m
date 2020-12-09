@@ -61,4 +61,33 @@
     XCTAssertEqual(beaconModels.count, cachedClientBeaconModels.count);
 }
 
+- (void)testSaveCacheSubmitMonitorLog {
+    NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
+    NSArray *items = @[
+        @{
+            @"id": @"D3720B9D-8B53-4B6D-975B-CB65D82161B0",
+            @"distance": @(1),
+            @"ts": @(timestamp)
+        },
+        @{
+            @"id": @"A382BCAE-69F2-4C42-8C46-48FFCF222269",
+            @"distance": @(2),
+            @"ts": @(timestamp)
+        },
+        @{
+            @"id": @"95552F3E-E0BB-4778-80CF-9B4DB93D4665",
+            @"distance": @(3),
+            @"ts": @(timestamp)
+        },
+    ];
+    CacheHelper *cacheHelper = [CacheHelper sharedInstance];
+    [cacheHelper saveSubmitMonitorLog:items];
+    NSArray *cachedItems = [cacheHelper getSubmitMonitorLog];
+    XCTAssertEqualObjects(items, cachedItems);
+    
+    [cacheHelper removeSubmitMonitorLog];
+    cachedItems = [cacheHelper getSubmitMonitorLog];
+    XCTAssertNil(cachedItems);
+}
+
 @end

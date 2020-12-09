@@ -11,11 +11,11 @@
 #import <ZBeaconSDK/ZBeaconSDK.h>
 #import <OCMock/OCMock.h>
 
-@interface Tests : XCTestCase
+@interface NetworkTest : XCTestCase
 
 @end
 
-@implementation Tests
+@implementation NetworkTest
 
 - (void)setUp
 {
@@ -96,7 +96,7 @@
     ZBeacon *beacon = [[ZBeacon alloc] init];
     id objectMock = OCMPartialMock(beacon);
     OCMStub([objectMock distance])._andReturn(@15);
-    OCMStub([objectMock UUID]).andReturn([NSUUID UUID]);
+    OCMStub([objectMock UUID]).andReturn([[NSUUID alloc] initWithUUIDString:@"F06B3BB9-D8CD-4F8C-A6D8-97F8DCDE5D4E"]);
     NSDictionary *distances = @{
         beacon.UUID.UUIDString: @(beacon.distance)
     };

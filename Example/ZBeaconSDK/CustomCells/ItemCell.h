@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) ZBeacon *beacon;
 @property (weak, nonatomic) PromotionModel *promotionModel;
+@property (strong, nonatomic) NSString *currentBeaconUUID;
 
 - (void)refreshInformation;
 

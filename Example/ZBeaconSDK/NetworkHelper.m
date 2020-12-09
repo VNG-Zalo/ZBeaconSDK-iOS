@@ -13,6 +13,7 @@
 #import "BeaconModel.h"
 #import <ZaloSDK/ZaloSDK.h>
 #import "UIDevice+Extension.h"
+#import "CacheHelper.h"
 
 #define PLATFORM        @"2" // 1: android; 2: ios
 
@@ -138,6 +139,9 @@
         } else {
             if (apiResponse.errorCode != 0) {
                 NSLog(@"getPromotionForBeaconUUID: errorCode=%ld errorMessage=%@", (long)apiResponse.errorCode, apiResponse.errorMessage);
+                error = [NSError errorWithDomain:@"submitConnectedAndMonitorBeacons"
+                                            code:apiResponse.errorCode
+                                        userInfo:@{NSLocalizedDescriptionKey:apiResponse.errorMessage}];
             } else {
                 NSError *error;
                 promotion = [[PromotionModel alloc] initWithDictionary:apiResponse.data error:&error];
@@ -185,13 +189,19 @@
 
 - (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict
                                 callback:(nonnull void (^)(NSString * _Nullable, NSError * _Nullable))callback {
-    NSString *jsonString = [self convertDistanceDictionaryToJsonString:distanceDict];
+    NSMutableArray *items = [NSMutableArray arrayWithArray:[self convertDistanceDictionaryToArrayItems:distanceDict]];
     
-    NSDictionary *params = @{
-        @"viewerkey": [ZaloSDK sharedInstance].zaloUserId,
-        @"av": _appVersion,
-        @"pl": PLATFORM
-    };
+    NSArray *cachedItems = [[CacheHelper sharedInstance] getSubmitMonitorLog];
+    if (cachedItems) {
+        [items addObjectsFromArray:cachedItems];
+    }
+    
+    NSString *jsonString = @"[]";
+    if (items) {
+        jsonString = [self convertNSArrayToJsonString:items];
+    }
+    
+    NSDictionary *params = [self getBaseParams];
     NSString *path = [self addQueryStringToUrl:@"submitMonitor" params:params];
     [_sessionManager POST:path
                parameters:@{@"items": jsonString}
@@ -202,6 +212,7 @@
         APIResponseModel *apiResponse = [[APIResponseModel alloc] initWithDictionary:responseObject error:&error];
         if (error) {
             NSLog(@"error: %@", error);
+            [[CacheHelper sharedInstance] saveSubmitMonitorLog:items];
         } else {
             if (apiResponse.errorCode == 0) {
                 error = nil;
@@ -211,12 +222,14 @@
                                             code:apiResponse.errorCode
                                         userInfo:@{NSLocalizedDescriptionKey:apiResponse.errorMessage}];
             }
+            [[CacheHelper sharedInstance] removeSubmitMonitorLog];
         }
         if (callback) {
             callback(promotionMsg, error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%s: %@", __func__, error);
+        [[CacheHelper sharedInstance] saveSubmitMonitorLog:items];
         if (callback) {
             callback(nil, error);
         }
@@ -237,21 +250,22 @@
     return ret;
 }
 
-- (NSString *)convertDistanceDictionaryToJsonString:(NSDictionary *) dict {
-    NSString *ret = @"[]";
+- (NSArray *)convertDistanceDictionaryToArrayItems:(NSDictionary *) dict {
+    NSMutableArray *ret = nil;
     
     do {
         if (dict == nil || dict.count == 0) {
             break;
         }
-        NSMutableArray *items = [NSMutableArray new];
+        ret = [NSMutableArray new];
+        NSString *timestampString = [@([[NSDate date] timeIntervalSince1970]) stringValue];
         for (NSString *key in dict) {
-            [items addObject:@{
+            [ret addObject:@{
                 @"id": key,
-                @"distance": dict[key]
+                @"distance": dict[key],
+                @"ts": timestampString
             }];
         }
-        ret = [self convertNSArrayToJsonString:items];
     } while (NO);
     
     return ret;
@@ -265,14 +279,17 @@
             break;
         }
         NSMutableArray *items = [NSMutableArray new];
+        NSString *timestampString = [@([[NSDate date] timeIntervalSince1970]) stringValue];
         for (ZBeacon *beacon in beacons) {
             NSUUID *uuid = beacon.UUID;
             if (uuid == nil) {
                 continue;
             }
+            
             [items addObject:@{
                 @"id": uuid.UUIDString,
-                @"distance": @([beacon distance])
+                @"distance": @([beacon distance]),
+                @"ts": timestampString
             }];
         }
         ret = [self convertNSArrayToJsonString:items];
@@ -305,7 +322,8 @@
         @"av": _appVersion,
         @"pl": PLATFORM,
         @"nw": [device connectionType],
-        @"cell": [device mobileNetworkCode]
+        @"cell": [device mobileNetworkCode],
+        @"cur_ts": [@([[NSDate date] timeIntervalSince1970]) stringValue]
     };
     return params;
 }

@@ -16,6 +16,7 @@
 #import <ZaloSDK/ZaloSDK.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import "CacheHelper.h"
+#import "ZBeacon+Extension.h"
 
 #define TIME_WAITING_TO_COLLECT_ALL_CONNECTED_CLIENT_BEACONS 5
 
@@ -38,6 +39,7 @@
 @property (strong, nonatomic) NSMutableDictionary *promotionDict;
 @property (strong, nonatomic) NSString *userDisplayName;
 @property (strong, nonatomic) NSString *emptyMessageForTableView;
+@property (strong, nonatomic) NSString *currentMasterUUID;
 
 @end
 
@@ -148,6 +150,7 @@
     [_zBeaconSDK setListBeacons:uuids];
     
     _beaconModels = nil;
+    _currentMasterUUID = nil;
     
     NSMutableString *message = [NSMutableString new];
     [message appendString:@"Listening MASTER UUIDs:"];
@@ -165,6 +168,7 @@
 - (void)handleConnectedMasterBeacon:(ZBeacon *)beacon {
     NSLog(@"%s: %@", __func__, [beacon debugDescription]);
     _currentConnectedMasterBeacon = beacon;
+    _currentMasterUUID = beacon.UUID.UUIDString;
     
     // Get client beacon list
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
@@ -314,9 +318,10 @@
     for (NSString *key in _monitorBeaconsTracker) {
         NSArray *distance = _monitorBeaconsTracker[key];
         NSNumber *average = [distance valueForKeyPath:@"@avg.self"];
+        NSLog(@"submitMonitorBeaconsToServer: %@ %lu", key, (unsigned long)distance.count);
         jsonDict[key] = average;
     }
-    NSDictionary *backup = [NSDictionary dictionaryWithDictionary:_monitorBeaconsTracker];
+//    NSDictionary *backup = [NSDictionary dictionaryWithDictionary:_monitorBeaconsTracker];
     [_monitorBeaconsTracker removeAllObjects];
     [[NetworkHelper sharedInstance] submitConnectedAndMonitorBeacons:jsonDict
                                                             callback:^(NSString * _Nullable promotionMessage, NSError * _Nullable error) {
@@ -325,15 +330,15 @@
         if (error) {
             NSLog(@"%s: error %@", __func__, error);
             // Restore backup
-            for (NSString *key in backup) {
-                NSMutableArray *distances = _monitorBeaconsTracker[key];
-                if (distances == nil) {
-                    distances = backup[key];
-                } else {
-                    [distances addObjectsFromArray:backup[key]];
-                }
-                _monitorBeaconsTracker[key] = distances;
-            }
+//            for (NSString *key in backup) {
+//                NSMutableArray *distances = _monitorBeaconsTracker[key];
+//                if (distances == nil) {
+//                    distances = backup[key];
+//                } else {
+//                    [distances addObjectsFromArray:backup[key]];
+//                }
+//                _monitorBeaconsTracker[key] = distances;
+//            }
         } else {
             [self saveLastSubmitDistanceOfBeacon:jsonDict];
             
@@ -400,7 +405,7 @@
     if (!_monitorBeaconsTracker) {
         _monitorBeaconsTracker = [NSMutableDictionary new];
     }
-    NSString *key = beacon.UUID.UUIDString;
+    NSString *key = [beacon asKey];
     NSMutableArray *distances = [_monitorBeaconsTracker objectForKey:key];
     if (!distances) {
         distances = [NSMutableArray new];
@@ -474,6 +479,7 @@
     }
     NSLog(@"Disconnected to master beacon → Stop all client beacon and restart master beacon. Master beacon:%@", [beacon debugDescription]);
     [_zBeaconSDK stopBeacons];
+    _currentMasterUUID = nil;
     if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
         [self handleMasterBeaconUUIDs:_masterUUIDs];
     } else {
@@ -499,7 +505,7 @@
     
     // Out of all client beacons, restart master beacon
     NSLog(@"Disconnected to client beacon. All of client beacon is disconnected → Stop all client beacon and restart master beacons. Master beacon:%@", [beacon debugDescription]);
-    
+    _currentMasterUUID = nil;
     [_zBeaconSDK stopBeacons];
     if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
         [self handleMasterBeaconUUIDs:_masterUUIDs];
@@ -550,7 +556,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return _currentConnectedMasterBeacon ? 1 : 0;
+        return (_currentConnectedMasterBeacon || (_currentMasterUUID && _currentMasterUUID.length > 0)) ? 1 : 0;
     } else {
         return _activeClientBeacons.count;
     }
@@ -561,11 +567,13 @@
     if (indexPath.section == 0) {
         ZBeacon *beacon = _currentConnectedMasterBeacon;
         cell.beacon = beacon;
+        cell.currentBeaconUUID = _currentMasterUUID;
         cell.promotionModel = nil;
         [cell refreshInformation];
     } else {
         ZBeacon *beacon = [_activeClientBeacons objectAtIndex:indexPath.row];
         cell.beacon = beacon;
+        cell.currentBeaconUUID = beacon.UUID.UUIDString;
         cell.promotionModel = [_promotionDict objectForKey:beacon.UUID.UUIDString];
         [cell refreshInformation];
     }
