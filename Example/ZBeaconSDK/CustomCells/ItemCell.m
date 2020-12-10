@@ -59,13 +59,8 @@
         _lblRSSI.text = @"N/A";
     }
     
-    if (_promotionModel) {
-        _lblName.text = _promotionModel.banner;
-        _lblPromotion.text = _promotionModel.theDescription;
-    } else {
-        _lblName.text = @"Unknown";
-        _lblPromotion.text = @"Unknown";
-    }
+    _lblName.text = (_beaconName && _beaconName.length > 0) ? _beaconName : @"Unknown";
+    _lblPromotion.text = (_beaconPromotion && _beaconPromotion.length > 0) ? _beaconPromotion : @"Unknown";
 }
 
 @end

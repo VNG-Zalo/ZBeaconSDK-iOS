@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray*)getSubmitMonitorLog;
 - (void)saveSubmitMonitorLog:(NSArray*)items;
 
+- (NSString*)getNameOfBeaconUUID:(NSString*)uuidString;
+- (void)saveName:(NSString*)name ofBeaconUUID:(NSString*)uuidString;
+
 @end
 
 NS_ASSUME_NONNULL_END

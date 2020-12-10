@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <ZBeaconSDK/ZBeaconSDK.h>
-#import "PromotionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewDisable;
 
 @property (weak, nonatomic) ZBeacon *beacon;
-@property (weak, nonatomic) PromotionModel *promotionModel;
+@property (strong, nonatomic, nullable) NSString *beaconName;
+@property (strong, nonatomic, nullable) NSString *beaconPromotion;
 @property (strong, nonatomic) NSString *currentBeaconUUID;
 
 - (void)refreshInformation;

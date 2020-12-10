@@ -10,6 +10,7 @@
 
 #define USER_DEFAULT_KEY_MASTER_UUIDS       @"USER_DEFAULT_KEY_MASTER_UUIDS"
 #define USER_DEFAULT_KEY_CLIENT_BEACON      @"USER_DEFAULT_KEY_CLIENT_BEACON_"
+#define USER_DEFAULT_KEY_NAME_OF_BEACON_UUID      @"USER_DEFAULT_KEY_NAME_OF_BEACON_UUID_"
 #define USER_DEFAULT_KEY_MONITOR_INTERVAL   @"USER_DEFAULT_KEY_MONITOR_INTERVAL"
 #define USER_DEFAULT_KEY_EXPIRED_TIME_OF_CLIENT_BEACON  @"USER_DEFAULT_KEY_EXPIRED_TIME_OF_CLIENT_BEACON"
 #define USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG @"USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG"
@@ -93,6 +94,16 @@
 - (NSTimeInterval)getTimeOutOfClientBeacon {
     NSTimeInterval ret = [[NSUserDefaults standardUserDefaults] doubleForKey:USER_DEFAULT_KEY_EXPIRED_TIME_OF_CLIENT_BEACON];
     return ret;
+}
+
+- (NSString *)getNameOfBeaconUUID:(NSString *)uuidString {
+    NSString *key = [NSString stringWithFormat:@"%@%@", USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG, uuidString];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
+
+- (void)saveName:(NSString *)name ofBeaconUUID:(NSString *)uuidString {
+    NSString *key = [NSString stringWithFormat:@"%@%@", USER_DEFAULT_KEY_SUBMIT_MONITOR_LOG, uuidString];
+    [[NSUserDefaults standardUserDefaults] setObject:uuidString forKey:key];
 }
 
 @end

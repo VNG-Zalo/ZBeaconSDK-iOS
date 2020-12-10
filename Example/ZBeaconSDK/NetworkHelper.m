@@ -87,7 +87,7 @@
 }
 
 - (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
-                                callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSTimeInterval, NSTimeInterval, NSTimeInterval, NSError * _Nullable))callback {
+                                callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSTimeInterval, NSTimeInterval, NSTimeInterval, NSString * _Nullable, NSError * _Nullable))callback {
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
     params[@"bcid"] = uuidString;
@@ -102,6 +102,7 @@
         NSInteger monitorInterval = 0;
         NSInteger expired = 0;
         NSInteger timeout = 0;
+        NSString *nameOfMasterBeacon = nil;
         if (error) {
             NSLog(@"error: %@", error);
         } else {
@@ -111,6 +112,7 @@
                 monitorInterval = [apiResponse.data[@"monitor_interval"] intValue];
                 expired = [apiResponse.data[@"expire"] intValue];
                 timeout = [apiResponse.data[@"time_out"] intValue];
+                nameOfMasterBeacon = apiResponse.data[@"host"];
                 
                 NSLog(@"getBeaconListForMasterBeaconUUID: monitorInterval=%ld expired=%ld", (long)monitorInterval, (long)expired);
                 NSArray *items = apiResponse.data[@"items"];
@@ -124,12 +126,12 @@
             }
         }
         if (callback) {
-            callback(beaconModels, monitorInterval, expired, timeout, error);
+            callback(beaconModels, monitorInterval, expired, timeout, nameOfMasterBeacon, error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"getBeaconListForMasterBeaconUUID error: %@", error);
         if (callback) {
-            callback(nil, 0, 0, 0, error);
+            callback(nil, 0, 0, 0, nil, error);
         }
     }];
 }

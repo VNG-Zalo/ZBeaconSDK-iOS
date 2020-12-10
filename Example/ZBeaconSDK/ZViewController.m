@@ -41,6 +41,7 @@
 @property (strong, nonatomic) NSString *userDisplayName;
 @property (strong, nonatomic) NSString *emptyMessageForTableView;
 @property (strong, nonatomic) NSString *currentMasterUUID;
+@property (strong, nonatomic) NSString *currentMasterName;
 
 @end
 
@@ -152,6 +153,7 @@
     
     _beaconModels = nil;
     _currentMasterUUID = nil;
+    _currentMasterName = nil;
     
     NSMutableString *message = [NSMutableString new];
     [message appendString:@"Listening MASTER UUIDs:"];
@@ -174,19 +176,23 @@
     // Get client beacon list
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
     [networkHelper getBeaconListForMasterBeaconUUID:_currentConnectedMasterBeacon.UUID.UUIDString
-                                           callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSTimeInterval timeout, NSError * _Nullable error) {
+                                           callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSTimeInterval timeout, NSString * _Nullable nameOfMasterBeacon, NSError * _Nullable error) {
         _submitMonitorBeaconsToServerInterval = monitorInterval;
         _beaconModels = beaconModels;
+        _currentMasterName = nameOfMasterBeacon;
+        [self createNotificatonWithIdentifier:_currentMasterUUID title:[NSString stringWithFormat:@"Welcome to %@", _currentMasterName] message:nil];
         CacheHelper *cacheHelper = [CacheHelper sharedInstance];
         if (_beaconModels == nil || _beaconModels.count == 0) {
             _beaconModels = [cacheHelper getClientBeaconModelsOfMasterUUID:_currentMasterUUID];
             _submitMonitorBeaconsToServerInterval = [cacheHelper getMonitorInterval];
+            _currentMasterName = [cacheHelper getNameOfBeaconUUID:_currentMasterUUID];
             NSLog(@"getBeaconListForMasterBeaconUUID error, get from cache");
         } else {
             [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:_currentMasterUUID];
             [cacheHelper saveMonitorInterval:_submitMonitorBeaconsToServerInterval];
             [cacheHelper saveExpiredTimeOfClientBeacon:expired];
             [cacheHelper saveTimeOutOfClientBeacon:timeout];
+            [cacheHelper saveName: _currentMasterName ofBeaconUUID:_currentMasterUUID];
         }
         if (_beaconModels == nil || _beaconModels.count == 0) {
             NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentMasterUUID, error);
@@ -483,6 +489,7 @@
     NSLog(@"%s", __func__);
     [_zBeaconSDK stopBeacons];
     _currentMasterUUID = nil;
+    _currentMasterName = nil;
     if (_masterUUIDs != nil && _masterUUIDs.count > 0) {
         [self handleMasterBeaconUUIDs:_masterUUIDs];
     } else {
@@ -571,13 +578,21 @@
         ZBeacon *beacon = _currentConnectedMasterBeacon;
         cell.beacon = beacon;
         cell.currentBeaconUUID = _currentMasterUUID;
-        cell.promotionModel = nil;
+        cell.beaconName = _currentMasterName;
+        cell.beaconPromotion = nil;
         [cell refreshInformation];
     } else {
         ZBeacon *beacon = [_activeClientBeacons objectAtIndex:indexPath.row];
         cell.beacon = beacon;
         cell.currentBeaconUUID = beacon.UUID.UUIDString;
-        cell.promotionModel = [_promotionDict objectForKey:beacon.UUID.UUIDString];
+        PromotionModel *promotionModel = [_promotionDict objectForKey:beacon.UUID.UUIDString];
+        if (promotionModel) {
+            cell.beaconName = promotionModel.banner;
+            cell.beaconPromotion = promotionModel.theDescription;
+        } else {
+            cell.beaconName = nil;
+            cell.beaconPromotion = nil;
+        }
         [cell refreshInformation];
     }
     return  cell;
