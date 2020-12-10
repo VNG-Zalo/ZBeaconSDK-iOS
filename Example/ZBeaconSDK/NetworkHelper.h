@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
                          callback:(void(^)(PromotionModel *_Nullable promotionModel, NSError *_Nullable error)) callback;
 - (void)submitConnectedBeacons:(NSArray<ZBeacon*> *)beacons
                       callback:(void(^)(NSError *_Nullable error)) callback;
-- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict
+- (void)submitConnectedAndMonitorBeacons:(NSArray *)logItems
                                 callback:(void(^)(NSString *_Nullable promotionMessage, NSError *_Nullable error)) callback;
 
 @end

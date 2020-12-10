@@ -206,9 +206,9 @@
     
 }
 
-- (void)submitConnectedAndMonitorBeacons:(NSDictionary *)distanceDict
+- (void)submitConnectedAndMonitorBeacons:(NSArray *)logItems
                                 callback:(nonnull void (^)(NSString * _Nullable, NSError * _Nullable))callback {
-    NSMutableArray *items = [NSMutableArray arrayWithArray:[self convertDistanceDictionaryToArrayItems:distanceDict]];
+    NSMutableArray *items = [NSMutableArray arrayWithArray:logItems];
     
     NSArray *cachedItems = [[CacheHelper sharedInstance] getSubmitMonitorLog];
     if (cachedItems) {

@@ -33,7 +33,7 @@
 @property (strong, nonatomic) NSTimer *submitMonitorBeaconToServerTimer;
 @property (strong, nonatomic) NSTimer *timeoutRestartMasterBeaconTimer;
 @property (assign, nonatomic) NSTimeInterval submitMonitorBeaconsToServerInterval;
-@property (strong, nonatomic) NSMutableDictionary *monitorBeaconsTracker;
+@property (strong, nonatomic) NSMutableArray *monitorBeaconsTracker;
 @property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
 @property (strong, nonatomic) NSMutableDictionary *lastSubmitDistanceOfBeacons;
 @property (assign, nonatomic) BOOL isSubmitMonitorBeaconsForTheFirstTime;
@@ -316,33 +316,16 @@
     }
     
     _isSubmitingMonitorBeaconsToServer = YES;
-    NSMutableDictionary *jsonDict = [NSMutableDictionary new];
-    for (NSString *key in _monitorBeaconsTracker) {
-        NSArray *distance = _monitorBeaconsTracker[key];
-        NSNumber *average = [distance valueForKeyPath:@"@avg.self"];
-        NSLog(@"submitMonitorBeaconsToServer: %@ %lu", key, (unsigned long)distance.count);
-        jsonDict[key] = average;
-    }
-//    NSDictionary *backup = [NSDictionary dictionaryWithDictionary:_monitorBeaconsTracker];
+    NSArray *logItems = [NSArray arrayWithArray:_monitorBeaconsTracker];
     [_monitorBeaconsTracker removeAllObjects];
-    [[NetworkHelper sharedInstance] submitConnectedAndMonitorBeacons:jsonDict
+    [self saveLastSubmitDistanceOfBeacon:logItems];
+    [[NetworkHelper sharedInstance] submitConnectedAndMonitorBeacons:logItems
                                                             callback:^(NSString * _Nullable promotionMessage, NSError * _Nullable error) {
         
         _isSubmitingMonitorBeaconsToServer = NO;
         if (error) {
             NSLog(@"%s: error %@", __func__, error);
-            // Restore backup
-//            for (NSString *key in backup) {
-//                NSMutableArray *distances = _monitorBeaconsTracker[key];
-//                if (distances == nil) {
-//                    distances = backup[key];
-//                } else {
-//                    [distances addObjectsFromArray:backup[key]];
-//                }
-//                _monitorBeaconsTracker[key] = distances;
-//            }
         } else {
-            [self saveLastSubmitDistanceOfBeacon:jsonDict];
             
             [self getUserDisplayNameWithCallback:^(NSString * _Nullable displayName) {
                 NSString *identifier = [@([[NSDate date] timeIntervalSince1970]) stringValue];
@@ -405,31 +388,34 @@
     }
     
     if (!_monitorBeaconsTracker) {
-        _monitorBeaconsTracker = [NSMutableDictionary new];
+        _monitorBeaconsTracker = [NSMutableArray new];
     }
-    NSString *key = [beacon asKey];
-    NSMutableArray *distances = [_monitorBeaconsTracker objectForKey:key];
-    if (!distances) {
-        distances = [NSMutableArray new];
-    }
-    [distances addObject:@(beaconDistance)];
-    _monitorBeaconsTracker[key] = distances;
+    NSString *timestampString = [@([[NSDate date] timeIntervalSince1970]) stringValue];
+    [_monitorBeaconsTracker addObject:@{@"id": beacon.UUID.UUIDString,
+                                        @"distance": @([beacon distance]),
+                                        @"ts": timestampString}];
     
     NSLog(@"%s %@: SUCCESS - beacon.distance(%.3f) beaconModel.distance(%.3f) lastSubmitDistance(%.3f) beaconModel.monitor.movingRange(%.3f)", __func__, beacon.UUID.UUIDString, beaconDistance, beaconModelDistance, lastSubmitDistance, beaconModel.monitor.movingRange);
 }
 
-- (void)saveLastSubmitDistanceOfBeacon:(NSDictionary*) beacons {
-    if (beacons == nil || beacons.count == 0) {
+- (void)saveLastSubmitDistanceOfBeacon:(NSArray*) logItems {
+    if (logItems == nil || logItems.count == 0) {
         return;
     }
     if (_lastSubmitDistanceOfBeacons == nil) {
         _lastSubmitDistanceOfBeacons = [NSMutableDictionary new];
     }
-    for (NSString *key in beacons) {
-        NSNumber *distance = beacons[key];
-        if (distance) {
-            _lastSubmitDistanceOfBeacons[key] = distance;
+    for (NSDictionary *dict in logItems) {
+        NSString *key = dict[@"id"];
+        NSNumber *distance = dict[@"distance"];
+        
+        if (key == nil || key.length == 0 || distance == nil) {
+            continue;
         }
+        if (_lastSubmitDistanceOfBeacons[key] != nil) {
+            continue;
+        }
+        _lastSubmitDistanceOfBeacons[key] = distance;
     }
 }
 
