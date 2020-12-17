@@ -38,6 +38,7 @@
 		C0D5DAA8257E2DC600D88CBC /* CacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DAA7257E2DC600D88CBC /* CacheTest.m */; };
 		C0D5DABB257E330300D88CBC /* BeaconModels.json in Resources */ = {isa = PBXBuildFile; fileRef = C0D5DABA257E330300D88CBC /* BeaconModels.json */; };
 		C0D5DAC0257F6E9900D88CBC /* ZBeacon+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5DABF257F6E9900D88CBC /* ZBeacon+Extension.m */; };
+		C0EFB3802589A61200DF83B9 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EFB37F2589A61200DF83B9 /* TestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,8 @@
 		C0D5DABA257E330300D88CBC /* BeaconModels.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BeaconModels.json; sourceTree = "<group>"; };
 		C0D5DABE257F6E9900D88CBC /* ZBeacon+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ZBeacon+Extension.h"; path = "Extensions/ZBeacon+Extension.h"; sourceTree = "<group>"; };
 		C0D5DABF257F6E9900D88CBC /* ZBeacon+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ZBeacon+Extension.m"; path = "Extensions/ZBeacon+Extension.m"; sourceTree = "<group>"; };
+		C0EFB37E2589A61200DF83B9 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		C0EFB37F2589A61200DF83B9 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBeaconSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZBeaconSDK_Example/Pods-ZBeaconSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D679C22CEFFB9121E637095B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -278,6 +281,8 @@
 				6003F5A6195388D20070C39A /* ZViewController.m */,
 				C0D5D98D256F591900D88CBC /* LoginViewController.h */,
 				C0D5D98E256F591900D88CBC /* LoginViewController.m */,
+				C0EFB37E2589A61200DF83B9 /* TestViewController.h */,
+				C0EFB37F2589A61200DF83B9 /* TestViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				C0D5DAC0257F6E9900D88CBC /* ZBeacon+Extension.m in Sources */,
 				C0D5D95B256DFC7700D88CBC /* NSDate+Extension.m in Sources */,
 				C0D5D98F256F591900D88CBC /* LoginViewController.m in Sources */,
+				C0EFB3802589A61200DF83B9 /* TestViewController.m in Sources */,
 				C0D5D924256BB29400D88CBC /* APIResponseModel.m in Sources */,
 				C0D5DA342574DB9A00D88CBC /* UIDevice+Extension.m in Sources */,
 				6003F5A7195388D20070C39A /* ZViewController.m in Sources */,

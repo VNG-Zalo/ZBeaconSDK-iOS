@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "ZBeaconSDKDelegate.h"
 #import "ZBeacon.h"
+#import "ZBeaconData.h"
 #import "ZBeaconLogManager.h"
 
 
@@ -45,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Set UUID list.
-/// @param beacons UUID list.
-- (void)setListBeacons:(NSArray<NSString*> *) beacons;
+/// @param beacons data list.
+- (void)setListBeacons:(NSArray<ZBeaconData*> *) beacons;
 
 /// Start monitoring and ranging beacons what are created from UUID list in setListBeacons method.
 /// @param callback completed callback.

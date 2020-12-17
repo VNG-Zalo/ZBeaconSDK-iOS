@@ -149,7 +149,12 @@
 - (void)handleMasterBeaconUUIDs:(NSArray *) uuids {
     _masterUUIDs = uuids;
     NSLog(@"Start init master beacon uuids: \n     %@", uuids);
-    [_zBeaconSDK setListBeacons:uuids];
+    NSMutableArray *beaconDatas = [NSMutableArray new];
+    for (NSString *uuidString in uuids) {
+        ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
+        [beaconDatas addObject:beaconData];
+    }
+    [_zBeaconSDK setListBeacons:beaconDatas];
     
     _beaconModels = nil;
     _currentMasterUUID = nil;
@@ -199,22 +204,24 @@
         } else {
             
             NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentMasterUUID);
-            NSMutableArray *clientUUIDs = [NSMutableArray new];
+            NSMutableArray *beaconDatas = [NSMutableArray new];
             NSMutableString *emptyMessage = [NSMutableString new];
             [emptyMessage appendString:@"Listening CILENT UUIDs:"];
             for (BeaconModel *beaconModel in _beaconModels) {
-                [clientUUIDs addObject:beaconModel.identifier];
+                ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:beaconModel.identifier]];
+                [beaconDatas addObject:beaconData];
                 [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
             }
             // Add master to ranging
-            [clientUUIDs addObject:_currentMasterUUID];
+            ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:_currentMasterUUID]];
+            [beaconDatas addObject:beaconData];
             
             _emptyMessageForTableView = emptyMessage;
             [_tableView reloadData];
             [_zBeaconSDK stopBeacons];
             NSLog(@"Stop master beacons\nStart init client beacons.");
             _isSubmitMonitorBeaconsForTheFirstTime = NO;
-            [_zBeaconSDK setListBeacons:clientUUIDs];
+            [_zBeaconSDK setListBeacons:beaconDatas];
             [_zBeaconSDK startBeaconsWithCompletion:^{
                 NSLog(@"Init client beacons DONE");
             }];

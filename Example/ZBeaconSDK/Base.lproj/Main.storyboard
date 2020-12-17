@@ -268,9 +268,52 @@
             </objects>
             <point key="canvasLocation" x="-463.19999999999999" y="431.33433283358323"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="SbA-uP-7j2">
+            <objects>
+                <viewController id="3V0-x9-OoW" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ntm-iq-EtA"/>
+                        <viewControllerLayoutGuide type="bottom" id="za2-6a-cFo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xgm-hU-CeJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8aq-Yp-GdC">
+                                <rect key="frame" x="170.5" y="268.5" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="buttonStartPressed:" destination="3V0-x9-OoW" eventType="touchUpInside" id="bjJ-c0-c69"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H50-DC-jwR">
+                                <rect key="frame" x="171.5" y="318.5" width="32" height="30"/>
+                                <state key="normal" title="Stop"/>
+                                <connections>
+                                    <action selector="buttonStopPressed:" destination="3V0-x9-OoW" eventType="touchUpInside" id="HZe-Y7-kGx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="H50-DC-jwR" firstAttribute="centerX" secondItem="Xgm-hU-CeJ" secondAttribute="centerX" id="E02-Dr-9QI"/>
+                            <constraint firstItem="8aq-Yp-GdC" firstAttribute="centerX" secondItem="Xgm-hU-CeJ" secondAttribute="centerX" id="NC5-4K-A7s"/>
+                            <constraint firstItem="H50-DC-jwR" firstAttribute="top" secondItem="8aq-Yp-GdC" secondAttribute="bottom" constant="20" id="QnE-aD-J9w"/>
+                            <constraint firstItem="H50-DC-jwR" firstAttribute="centerY" secondItem="Xgm-hU-CeJ" secondAttribute="centerY" id="xkR-n4-ayV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnStart" destination="8aq-Yp-GdC" id="kMg-ZE-pLJ"/>
+                        <outlet property="btnStop" destination="H50-DC-jwR" id="Bqr-uJ-tFl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yGA-bb-mFg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-444" y="-266.71664167916043"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0nl-l9-zmt"/>
         <segue reference="fg1-Ll-jwZ"/>
     </inferredMetricsTieBreakers>
     <resources>
