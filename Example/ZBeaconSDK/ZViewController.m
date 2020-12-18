@@ -151,7 +151,7 @@
     NSLog(@"Start init master beacon uuids: \n     %@", uuids);
     NSMutableArray *beaconDatas = [NSMutableArray new];
     for (NSString *uuidString in uuids) {
-        ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
+        ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
         [beaconDatas addObject:beaconData];
     }
     [_zBeaconSDK setListBeacons:beaconDatas];
@@ -208,12 +208,12 @@
             NSMutableString *emptyMessage = [NSMutableString new];
             [emptyMessage appendString:@"Listening CILENT UUIDs:"];
             for (BeaconModel *beaconModel in _beaconModels) {
-                ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:beaconModel.identifier]];
+                ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:beaconModel.identifier]];
                 [beaconDatas addObject:beaconData];
                 [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
             }
             // Add master to ranging
-            ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:_currentMasterUUID]];
+            ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:_currentMasterUUID]];
             [beaconDatas addObject:beaconData];
             
             _emptyMessageForTableView = emptyMessage;

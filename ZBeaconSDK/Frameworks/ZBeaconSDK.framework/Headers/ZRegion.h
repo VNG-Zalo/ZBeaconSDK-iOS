@@ -1,5 +1,5 @@
 //
-//  ZBeaconData.h
+//  ZRegion.h
 //  ZBeaconSDK
 //
 //  Created by ToanTM on 17/12/2020.
@@ -10,13 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBeaconData : NSObject
+@interface ZRegion : NSObject
 
 /*
  *  initWithUUID:
  *
  *  Discussion:
- *    Initialize a ZBeaconData with a UUID. Major and minor values will be wildcarded.
+ *    Initialize a ZRegion with a UUID. Major and minor values will be wildcarded.
  *
  */
 - (instancetype)initWithUUID:(NSUUID *)uuid;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  initWithUUID:major:
  *
  *  Discussion:
- *    Initialize a ZBeaconData with a UUID and major value. Minor value will be wildcarded.
+ *    Initialize a ZRegion with a UUID and major value. Minor value will be wildcarded.
  *
  */
 - (instancetype)initWithUUID:(NSUUID *)uuid major:(NSNumber *_Nullable)major;
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  initWithUUID:major:minor:
  *
  *  Discussion:
- *    Initialize a ZBeaconData identified by a UUID, major and minor values.
+ *    Initialize a ZRegion identified by a UUID, major and minor values.
  *
  */
 - (instancetype)initWithUUID:(NSUUID *)uuid major:(NSNumber *_Nullable)major minor:(NSNumber *_Nullable)minor;

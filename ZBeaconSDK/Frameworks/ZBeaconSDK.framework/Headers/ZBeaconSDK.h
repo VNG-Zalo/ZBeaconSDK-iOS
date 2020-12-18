@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "ZBeaconSDKDelegate.h"
 #import "ZBeacon.h"
-#import "ZBeaconData.h"
+#import "ZRegion.h"
 #import "ZBeaconLogManager.h"
 
 
@@ -35,10 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic) BOOL enableExtendBackgroundRunningTime;
 
 
-/// Enable handle timeout for beacon.
+/// Enable handle timeout for beacon. Default value is NO.
 @property(assign, nonatomic) BOOL enableBeaconTimeout;
 
-/// Beacon timeout interval
+/// Beacon timeout interval. Default value is 10 seconds.
 @property (nonatomic, assign) NSTimeInterval beaconTimeOutInterval;
 
 /// Get SDK version.
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Set UUID list.
 /// @param beacons data list.
-- (void)setListBeacons:(NSArray<ZBeaconData*> *) beacons;
+- (void)setListBeacons:(NSArray<ZRegion*> *) beacons;
 
 /// Start monitoring and ranging beacons what are created from UUID list in setListBeacons method.
 /// @param callback completed callback.

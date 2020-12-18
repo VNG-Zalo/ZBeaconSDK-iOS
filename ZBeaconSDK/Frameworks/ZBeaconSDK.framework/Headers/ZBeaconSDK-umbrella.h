@@ -11,9 +11,10 @@
 #endif
 
 #import "ZBeaconSDK.h"
-#import "ZBeacon.h"
+#import "ZBeaconLogManager.h"
 #import "ZBeaconSDKDelegate.h"
-#import "ZDKLogManager.h"
+#import "ZRegion.h"
+#import "ZBeacon.h"
 
 FOUNDATION_EXPORT double ZBeaconSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char ZBeaconSDKVersionString[];

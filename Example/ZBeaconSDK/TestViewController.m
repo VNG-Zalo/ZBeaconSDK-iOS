@@ -51,7 +51,7 @@
     }
     NSMutableArray *beaconDatas = [NSMutableArray new];
     for (NSString *uuidString in uuids) {
-        ZBeaconData *beaconData = [[ZBeaconData alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
+        ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
         [beaconDatas addObject:beaconData];
     }
     [_zBeaconSDK setListBeacons:beaconDatas];
