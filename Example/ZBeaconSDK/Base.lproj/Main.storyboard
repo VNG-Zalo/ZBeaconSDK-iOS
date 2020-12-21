@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3V0-x9-OoW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3V0-x9-OoW">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -294,18 +294,29 @@
                                     <action selector="buttonStopPressed:" destination="3V0-x9-OoW" eventType="touchUpInside" id="HZe-Y7-kGx"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ppg-FB-Oq8">
+                                <rect key="frame" x="87.5" y="167" width="200" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="gZh-6s-seJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Ppg-FB-Oq8" firstAttribute="centerX" secondItem="Xgm-hU-CeJ" secondAttribute="centerX" id="9Oe-ae-M9S"/>
                             <constraint firstItem="H50-DC-jwR" firstAttribute="centerX" secondItem="Xgm-hU-CeJ" secondAttribute="centerX" id="E02-Dr-9QI"/>
                             <constraint firstItem="8aq-Yp-GdC" firstAttribute="centerX" secondItem="Xgm-hU-CeJ" secondAttribute="centerX" id="NC5-4K-A7s"/>
                             <constraint firstItem="H50-DC-jwR" firstAttribute="top" secondItem="8aq-Yp-GdC" secondAttribute="bottom" constant="20" id="QnE-aD-J9w"/>
+                            <constraint firstItem="8aq-Yp-GdC" firstAttribute="top" secondItem="Ppg-FB-Oq8" secondAttribute="bottom" constant="67.5" id="r9T-jS-KkV"/>
                             <constraint firstItem="H50-DC-jwR" firstAttribute="centerY" secondItem="Xgm-hU-CeJ" secondAttribute="centerY" id="xkR-n4-ayV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btnStart" destination="8aq-Yp-GdC" id="kMg-ZE-pLJ"/>
                         <outlet property="btnStop" destination="H50-DC-jwR" id="Bqr-uJ-tFl"/>
+                        <outlet property="txtNumberBeacons" destination="Ppg-FB-Oq8" id="NkQ-EE-28j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yGA-bb-mFg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) ZBeaconSDK *zBeaconSDK;
 @property (weak, nonatomic) IBOutlet UIButton *btnStart;
 @property (weak, nonatomic) IBOutlet UIButton *btnStop;
+@property (weak, nonatomic) IBOutlet UITextField *txtNumberBeacons;
 
 @end
 
@@ -38,6 +39,8 @@
 }
 
 - (void)startTest {
+    NSInteger endIndex = [self.txtNumberBeacons.text integerValue];
+    
     _btnStart.enabled = NO;
     _btnStop.enabled = NO;
     
@@ -45,7 +48,7 @@
     NSMutableArray *uuids = [NSMutableArray new];
     [uuids addObjectsFromArray:[self realUUIDs]];
     NSInteger startIndex = uuids.count;
-    NSInteger endIndex = 2000;
+    
     for (NSInteger i = startIndex; i < endIndex; i++) {
         [uuids addObject:[NSUUID UUID].UUIDString];
     }
@@ -56,8 +59,10 @@
     }
     [_zBeaconSDK setListBeacons:beaconDatas];
     NSLog(@"startTest: START init %lu beacon", (unsigned long)uuids.count);
+    NSDate *startTime = [NSDate date];
     [_zBeaconSDK startBeaconsWithCompletion:^{
-        NSLog(@"startTest: END init %lu beacon", (unsigned long)uuids.count);
+        NSDate *endTime = [NSDate date];
+        NSLog(@"startTest: END init %lu beacon in %.3f", (unsigned long)uuids.count, [endTime timeIntervalSinceDate:startTime]);
         _btnStart.enabled = NO;
         _btnStop.enabled = YES;
     }];
