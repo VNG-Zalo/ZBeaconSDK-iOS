@@ -191,8 +191,10 @@
                [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
            }
            // Add master to ranging
-           ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
-           [beaconDatas addObject:beaconData];
+           if (uuidString && uuidString.length > 0) {
+               ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
+               [beaconDatas addObject:beaconData];
+           }
            
            _emptyMessageForTableView = emptyMessage;
            [_tableView reloadData];

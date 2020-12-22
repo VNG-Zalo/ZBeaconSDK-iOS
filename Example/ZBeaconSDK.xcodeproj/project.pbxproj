@@ -358,7 +358,7 @@
 				ORGANIZATIONNAME = VNG;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = CVB6BX97VM;
+						DevelopmentTeam = 97RUCGSX36;
 					};
 					6003F5AD195388D20070C39A = {
 						DevelopmentTeam = CVB6BX97VM;
@@ -649,7 +649,7 @@
 			baseConfigurationReference = CFB1A257F81EED6F6B784C6E /* Pods-ZBeaconSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CVB6BX97VM;
+				DEVELOPMENT_TEAM = 97RUCGSX36;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZBeaconSDK/ZBeaconSDK-Prefix.pch";
 				INFOPLIST_FILE = "ZBeaconSDK/ZBeaconSDK-Info.plist";
@@ -666,7 +666,7 @@
 			baseConfigurationReference = 86BC0D7460D62EB0C1953D77 /* Pods-ZBeaconSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CVB6BX97VM;
+				DEVELOPMENT_TEAM = 97RUCGSX36;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZBeaconSDK/ZBeaconSDK-Prefix.pch";
 				INFOPLIST_FILE = "ZBeaconSDK/ZBeaconSDK-Info.plist";
