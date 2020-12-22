@@ -27,11 +27,13 @@
 @property (strong, nonatomic) ZBeaconSDK *zBeaconSDK;
 @property (strong, nonatomic) NSArray<NSString*> *masterUUIDs;
 @property (strong, nonatomic) ZBeacon *currentConnectedMasterBeacon;
+@property (strong, nonatomic) ZBeacon *nearestBeacon;
 @property (strong, nonatomic) NSMutableArray<ZBeacon*> *activeClientBeacons;
 @property (strong, nonatomic) NSArray<BeaconModel*> *beaconModels;
 @property (strong, nonatomic) NSTimer *collectClientBeaconsForTheFirstTimeConnectedTimer;
 @property (strong, nonatomic) NSTimer *submitMonitorBeaconToServerTimer;
 @property (strong, nonatomic) NSTimer *timeoutRestartMasterBeaconTimer;
+@property (strong, nonatomic) NSTimer *timeoutClientBeaconTimer;
 @property (assign, nonatomic) NSTimeInterval submitMonitorBeaconsToServerInterval;
 @property (strong, nonatomic) NSMutableArray *monitorBeaconsTracker;
 @property (assign, nonatomic) BOOL isSubmitingMonitorBeaconsToServer;
@@ -60,7 +62,7 @@
     _zBeaconSDK.enableBeaconTimeout = YES;
     _zBeaconSDK.beaconTimeOutInterval = 10;
     
-    [self getMasterBeaconUUIDsFromAPI];
+    [self getClientBeaconFromAPI:nil];
     
     [self initNavigationBar];
     
@@ -146,6 +148,65 @@
     }];
 }
 
+- (void)getClientBeaconFromAPI:(NSString *)uuidString {
+   [[NetworkHelper sharedInstance] getBeaconListForMasterBeaconUUID:uuidString
+                                          callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSTimeInterval timeout, NSString * _Nullable nameOfMasterBeacon, NSError * _Nullable error) {
+       _submitMonitorBeaconsToServerInterval = monitorInterval;
+       _beaconModels = beaconModels;
+       _currentMasterName = nameOfMasterBeacon;
+       
+       CacheHelper *cacheHelper = [CacheHelper sharedInstance];
+       if (_beaconModels == nil || _beaconModels.count == 0) {
+           _beaconModels = [cacheHelper getClientBeaconModelsOfMasterUUID:uuidString];
+           _submitMonitorBeaconsToServerInterval = [cacheHelper getMonitorInterval];
+           _currentMasterName = [cacheHelper getNameOfBeaconUUID:uuidString];
+           NSLog(@"getBeaconListForMasterBeaconUUID error, get from cache");
+       } else {
+           [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:uuidString];
+           [cacheHelper saveMonitorInterval:_submitMonitorBeaconsToServerInterval];
+           [cacheHelper saveExpiredTimeOfClientBeacon:expired];
+           [cacheHelper saveTimeOutOfClientBeacon:timeout];
+           [cacheHelper saveName: _currentMasterName ofBeaconUUID:uuidString];
+       }
+       
+       NSTimeInterval timeoutOfClient = [cacheHelper getTimeOutOfClientBeacon];
+       if (timeoutOfClient > 0) {
+           if (_timeoutClientBeaconTimer) {
+               [_timeoutClientBeaconTimer invalidate];
+           }
+           _timeoutClientBeaconTimer = [NSTimer scheduledTimerWithTimeInterval:timeoutOfClient target:self selector:@selector(timeoutClientBeaconHanlde:) userInfo:nil repeats:NO];
+       }
+       
+       if (_beaconModels == nil || _beaconModels.count == 0) {
+           NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", uuidString, error);
+       } else {
+           
+           NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, uuidString);
+           NSMutableArray *beaconDatas = [NSMutableArray new];
+           NSMutableString *emptyMessage = [NSMutableString new];
+           [emptyMessage appendString:@"Listening CILENT UUIDs:"];
+           for (BeaconModel *beaconModel in _beaconModels) {
+               ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:beaconModel.identifier]];
+               [beaconDatas addObject:beaconData];
+               [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
+           }
+           // Add master to ranging
+           ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:uuidString]];
+           [beaconDatas addObject:beaconData];
+           
+           _emptyMessageForTableView = emptyMessage;
+           [_tableView reloadData];
+           [_zBeaconSDK stopBeacons];
+           NSLog(@"Stop master beacons\nStart init client beacons.");
+           _isSubmitMonitorBeaconsForTheFirstTime = NO;
+           [_zBeaconSDK setListBeacons:beaconDatas];
+           [_zBeaconSDK startBeaconsWithCompletion:^{
+               NSLog(@"Init client beacons DONE");
+           }];
+       }
+   }];
+}
+
 - (void)handleMasterBeaconUUIDs:(NSArray *) uuids {
     _masterUUIDs = uuids;
     NSLog(@"Start init master beacon uuids: \n     %@", uuids);
@@ -180,53 +241,9 @@
     
     // Get client beacon list
     NetworkHelper *networkHelper = [NetworkHelper sharedInstance];
-    [networkHelper getBeaconListForMasterBeaconUUID:_currentConnectedMasterBeacon.UUID.UUIDString
-                                           callback:^(NSArray<BeaconModel *> * _Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSTimeInterval timeout, NSString * _Nullable nameOfMasterBeacon, NSError * _Nullable error) {
-        _submitMonitorBeaconsToServerInterval = monitorInterval;
-        _beaconModels = beaconModels;
-        _currentMasterName = nameOfMasterBeacon;
-        [self createNotificatonWithIdentifier:_currentMasterUUID title:[NSString stringWithFormat:@"Welcome to %@", _currentMasterName] message:nil];
-        CacheHelper *cacheHelper = [CacheHelper sharedInstance];
-        if (_beaconModels == nil || _beaconModels.count == 0) {
-            _beaconModels = [cacheHelper getClientBeaconModelsOfMasterUUID:_currentMasterUUID];
-            _submitMonitorBeaconsToServerInterval = [cacheHelper getMonitorInterval];
-            _currentMasterName = [cacheHelper getNameOfBeaconUUID:_currentMasterUUID];
-            NSLog(@"getBeaconListForMasterBeaconUUID error, get from cache");
-        } else {
-            [cacheHelper saveClientBeaconModels:_beaconModels ofMasterUUID:_currentMasterUUID];
-            [cacheHelper saveMonitorInterval:_submitMonitorBeaconsToServerInterval];
-            [cacheHelper saveExpiredTimeOfClientBeacon:expired];
-            [cacheHelper saveTimeOutOfClientBeacon:timeout];
-            [cacheHelper saveName: _currentMasterName ofBeaconUUID:_currentMasterUUID];
-        }
-        if (_beaconModels == nil || _beaconModels.count == 0) {
-            NSLog(@"ERROR: client for master %@ is empty. Error: %@\nEND FLOW--------", _currentMasterUUID, error);
-        } else {
-            
-            NSLog(@"Receive from API %ld client beacons of master %@", (long)_beaconModels.count, _currentMasterUUID);
-            NSMutableArray *beaconDatas = [NSMutableArray new];
-            NSMutableString *emptyMessage = [NSMutableString new];
-            [emptyMessage appendString:@"Listening CILENT UUIDs:"];
-            for (BeaconModel *beaconModel in _beaconModels) {
-                ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:beaconModel.identifier]];
-                [beaconDatas addObject:beaconData];
-                [emptyMessage appendFormat:@"\n%@", beaconModel.identifier];
-            }
-            // Add master to ranging
-            ZRegion *beaconData = [[ZRegion alloc] initWithUUID:[[NSUUID alloc] initWithUUIDString:_currentMasterUUID]];
-            [beaconDatas addObject:beaconData];
-            
-            _emptyMessageForTableView = emptyMessage;
-            [_tableView reloadData];
-            [_zBeaconSDK stopBeacons];
-            NSLog(@"Stop master beacons\nStart init client beacons.");
-            _isSubmitMonitorBeaconsForTheFirstTime = NO;
-            [_zBeaconSDK setListBeacons:beaconDatas];
-            [_zBeaconSDK startBeaconsWithCompletion:^{
-                NSLog(@"Init client beacons DONE");
-            }];
-        }
-    }];
+    
+    [self createNotificatonWithIdentifier:_currentMasterUUID title:[NSString stringWithFormat:@"Welcome to %@", _currentMasterName] message:nil];
+    [self getClientBeaconFromAPI:_currentMasterUUID];
     
     [networkHelper submitConnectedBeacons:@[_currentConnectedMasterBeacon]
                                  callback:^(NSError * _Nullable error) {
@@ -488,6 +505,14 @@
     }
 }
 
+- (void)timeoutClientBeaconHanlde:(id) sender {
+    if (_timeoutClientBeaconTimer) {
+        [_timeoutClientBeaconTimer invalidate];
+        _timeoutClientBeaconTimer = nil;
+    }
+    [self getClientBeaconFromAPI:(_nearestBeacon ? _nearestBeacon.UUID.UUIDString : nil)];
+}
+
 - (void)restartMasterBeacon:(id) sender {
     if (_timeoutRestartMasterBeaconTimer) {
         [_timeoutRestartMasterBeaconTimer invalidate];
@@ -509,6 +534,8 @@
     if (_activeClientBeacons) {
         [_activeClientBeacons removeObject:beacon];
     }
+    
+    return;
     
     if (_activeClientBeacons.count > 0) {
         NSLog(@"Disconnected to client beacon. But still %ld active client beacons → Do nothing .Client beacon:%@", (long)_activeClientBeacons.count, [beacon debugDescription]);
@@ -563,7 +590,11 @@
 - (void)onRangeBeacons:(NSArray<ZBeacon *> *)beacons {
     for (ZBeacon *beacon in beacons) {
         [self addBeaconToTracker: beacon];
+        if (!_nearestBeacon || beacon.distance < _nearestBeacon.distance) {
+            _nearestBeacon = beacon;
+        }
     }
+    
     [_tableView reloadData];
 }
 
@@ -605,15 +636,15 @@
     return  cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (_currentConnectedMasterBeacon == nil && (!_currentMasterUUID || _currentMasterUUID.length == 0) && _activeClientBeacons.count == 0) {
-        return nil;
-    }
-    if (section == 0) {
-        return @"Master beacons";
-    }
-    return @"Client beacons";
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    if (_currentConnectedMasterBeacon == nil && (!_currentMasterUUID || _currentMasterUUID.length == 0) && _activeClientBeacons.count == 0) {
+//        return nil;
+//    }
+//    if (section == 0) {
+//        return @"Master beacons";
+//    }
+//    return @"Client beacons";
+//}
 
 #pragma mark DZNEmptyDataSetSource
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {

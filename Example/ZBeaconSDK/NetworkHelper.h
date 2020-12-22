@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 
 - (void)getMasterBeaconUUIDList:(void(^)(NSArray<NSString *> *_Nullable uuids, NSError *_Nullable error))callback;
-- (void)getBeaconListForMasterBeaconUUID:(NSString *)uuidString
+- (void)getBeaconListForMasterBeaconUUID:(NSString *_Nullable)uuidString
                                 callback:(void(^)(NSArray<BeaconModel*> *_Nullable beaconModels, NSTimeInterval monitorInterval, NSTimeInterval expired, NSTimeInterval timeout, NSString *_Nullable nameOfMasterBeacon, NSError *_Nullable error)) callback;
 - (void)getPromotionForBeaconUUID:(NSString *)uuidString
                          callback:(void(^)(PromotionModel *_Nullable promotionModel, NSError *_Nullable error)) callback;

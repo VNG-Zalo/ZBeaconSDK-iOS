@@ -90,7 +90,9 @@
                                 callback:(void (^)(NSArray<BeaconModel *> * _Nullable, NSTimeInterval, NSTimeInterval, NSTimeInterval, NSString * _Nullable, NSError * _Nullable))callback {
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseParams]];
-    params[@"bcid"] = uuidString;
+    if (uuidString && uuidString.length > 0) {
+        params[@"bcid"] = uuidString;
+    }
     
     [_sessionManager GET:@"getAroundHere"
               parameters:params
