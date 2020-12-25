@@ -17,8 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, ZBeaconSDKErrorCode) {
     ZBeaconSDKErrorCodeSuccess = 0,
     ZBeaconSDKErrorCodeLocationNotAvaiable = -1,
-    ZBeaconSDKErrorCodeLocationDenied = -2,
-    ZBeaconSDKErrorCodeBluetoothNotAvaiable = -3
+    ZBeaconSDKErrorCodeLocationDenied = -2
 };
 
 @interface ZBeaconSDK : NSObject
