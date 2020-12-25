@@ -56,7 +56,7 @@
     self.title = @"ZBeacon";
 	
     _zBeaconSDK = [ZBeaconSDK sharedInstance];
-    [_zBeaconSDK stopBeacons];
+    
     _zBeaconSDK.delegate = self;
     _zBeaconSDK.enableExtendBackgroundRunningTime = YES;
     _zBeaconSDK.enableBeaconTimeout = YES;

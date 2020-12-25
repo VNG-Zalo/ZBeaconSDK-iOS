@@ -30,7 +30,7 @@
 - (void)onBeaconConnected:(ZBeacon *)beacon;
 
 /**
- * onBeaconConnected:
+ * onBeaconDisconnected:
  *
  * Discussion:
  *   Invoked when the device disconnects to a beacon.

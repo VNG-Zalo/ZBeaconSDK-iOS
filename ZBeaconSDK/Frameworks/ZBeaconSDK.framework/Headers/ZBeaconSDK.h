@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Set log level of SDK.
+/// 
 /// @param logLevel ZBeaconLogLevel.
 + (void) setLogLevel: (ZBeaconLogLevel) logLevel;
 
@@ -45,9 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getVersion;
 
 
-/// Set UUID list.
-/// @param beacons data list.
-- (void)setListBeacons:(NSArray<ZRegion*> *) beacons;
+/// Set ZRegion list.
+/// @param regions region list.
+- (void)setListBeacons:(NSArray<ZRegion*> *) regions;
 
 /// Start monitoring and ranging beacons what are created from UUID list in setListBeacons method.
 /// @param callback completed callback.

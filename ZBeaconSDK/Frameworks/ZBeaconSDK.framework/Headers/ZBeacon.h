@@ -41,25 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (readonly, nonatomic, copy) NSNumber *minor;
 
-/*
- *  proximity
- *
- *  Discussion:
- *    Proximity of the beacon from the device.
- *
- */
-@property (readonly, nonatomic) CLProximity proximity;
-
-/*
- *  accuracy
- *
- *  Discussion:
- *    Represents an one sigma horizontal accuracy in meters where the measuring device's location is
- *    referenced at the beaconing device. This value is heavily subject to variations in an RF environment.
- *    A negative accuracy value indicates the proximity is unknown.
- *
- */
-@property (readonly, nonatomic) CLLocationAccuracy accuracy;
 
 /*
  *  distance
@@ -89,33 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  */
 @property (readonly, nonatomic, copy, nullable) NSDate *lastTimeReceiveSignal;
-
-/*
- *  locationString
- *
- *  Discussion:
- *    From proximity and accuracy value, display in human value for easy to reading when debug or logging.
- *
- */
-- (NSString* )locationString;
-
-/*
- *  nameForProximity
- *
- *  Discussion:
- *    From proximity value, convert to string value. Using for debug or logging.
- *
- */
-- (NSString* )nameForProximity;
-
-/*
- *  debugDescription
- *
- *  Discussion:
- *    Debug description of object.
- *
- */
-- (NSString* )debugDescription;
 
 @end
 

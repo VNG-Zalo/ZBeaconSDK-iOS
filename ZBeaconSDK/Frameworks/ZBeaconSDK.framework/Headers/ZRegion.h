@@ -39,15 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithUUID:(NSUUID *)uuid major:(NSNumber *_Nullable)major minor:(NSNumber *_Nullable)minor;
 
-/*
- *  asRegion:
- *
- *  Discussion:
- *    Create a CLBeaconRegion from UUID, major and minor.
- *
- */
-- (CLBeaconRegion*)asRegion;
-
 @end
 
 NS_ASSUME_NONNULL_END

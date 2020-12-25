@@ -109,7 +109,7 @@
     
     for (NSInteger i = 0; i < beacons.count; i++) {
         ZBeacon *beacon = [beacons objectAtIndex:i];
-        NSLog(@"%s: %ld %@ %@", __func__, (long)i, beacon.UUID.UUIDString,  [beacon locationString]);
+        NSLog(@"%s: %ld %@ Distance: (approx. %.2f m)", __func__, (long)i, beacon.UUID.UUIDString,  beacon.distance);
     }
 }
 

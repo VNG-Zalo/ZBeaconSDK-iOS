@@ -48,7 +48,7 @@
 - (void)refreshInformation {
     
     if (_beacon) {
-        _lblLocation.text = [_beacon locationString];
+        _lblLocation.text = [NSString stringWithFormat:@"Distance: (approx. %.2f m)", _beacon.distance];
         _lblRSSI.text = [@(_beacon.rssi) stringValue];
     } else {
         if (_currentBeaconUUID && _currentBeaconUUID.length > 0) {
