@@ -202,8 +202,8 @@
            NSLog(@"Stop master beacons\nStart init client beacons.");
            _isSubmitMonitorBeaconsForTheFirstTime = NO;
            [_zBeaconSDK setListBeacons:beaconDatas];
-           [_zBeaconSDK startBeaconsWithCompletion:^{
-               NSLog(@"Init client beacons DONE");
+           [_zBeaconSDK startBeaconsWithCompletion:^(NSInteger errorCode, NSString * _Nullable errorMessage) {
+               NSLog(@"Init %ld client beacons DONE with errorCode: %ld errorMessage: %@", (unsigned long)beaconDatas.count, (long)errorCode, errorMessage);
            }];
        }
    }];
@@ -231,8 +231,8 @@
     _emptyMessageForTableView = message;
     [_tableView reloadData];
     
-    [_zBeaconSDK startBeaconsWithCompletion:^{
-        NSLog(@"Init master beacon uuids DONE");
+    [_zBeaconSDK startBeaconsWithCompletion:^(NSInteger errorCode, NSString * _Nullable errorMessage) {
+        NSLog(@"Init %ld client beacons DONE with errorCode: %ld errorMessage: %@", (unsigned long)beaconDatas.count, (long)errorCode, errorMessage);
     }];
 }
 
@@ -598,6 +598,10 @@
     }
     
     [_tableView reloadData];
+}
+
+- (void)onErrorWithErrorCode:(NSInteger)errorCode errorMessage:(NSString *)errorMessage {
+    NSLog(@"%s %ld %@", __func__, (unsigned long)errorCode, errorMessage);
 }
 
 #pragma mark UITableViewDataSource

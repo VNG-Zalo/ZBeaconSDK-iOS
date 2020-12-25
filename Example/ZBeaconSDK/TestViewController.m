@@ -60,9 +60,9 @@
     [_zBeaconSDK setListBeacons:beaconDatas];
     NSLog(@"startTest: START init %lu beacon", (unsigned long)uuids.count);
     NSDate *startTime = [NSDate date];
-    [_zBeaconSDK startBeaconsWithCompletion:^{
+    [_zBeaconSDK startBeaconsWithCompletion:^(NSInteger errorCode, NSString * _Nullable errorMessage) {
         NSDate *endTime = [NSDate date];
-        NSLog(@"startTest: END init %lu beacon in %.3f", (unsigned long)uuids.count, [endTime timeIntervalSinceDate:startTime]);
+        NSLog(@"startTest: END init %lu beacon in %.3f with errorCode: %ld errorMessage: %@", (unsigned long)uuids.count, [endTime timeIntervalSinceDate:startTime], (long)errorCode, errorMessage);
         _btnStart.enabled = NO;
         _btnStop.enabled = YES;
     }];
@@ -111,6 +111,10 @@
         ZBeacon *beacon = [beacons objectAtIndex:i];
         NSLog(@"%s: %ld %@ Distance: (approx. %.2f m)", __func__, (long)i, beacon.UUID.UUIDString,  beacon.distance);
     }
+}
+
+- (void)onErrorWithErrorCode:(NSInteger)errorCode errorMessage:(NSString *)errorMessage {
+    NSLog(@"%s %ld %@", __func__, (unsigned long)errorCode, errorMessage);
 }
 
 @end

@@ -14,11 +14,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, ZBeaconSDKErrorCode) {
+    ZBeaconSDKErrorCodeSuccess = 0,
+    ZBeaconSDKErrorCodeLocationNotAvaiable = -1,
+    ZBeaconSDKErrorCodeLocationDenied = -2,
+    ZBeaconSDKErrorCodeBluetoothNotAvaiable = -3
+};
+
 @interface ZBeaconSDK : NSObject
 
 
 /// Set log level of SDK.
-/// 
 /// @param logLevel ZBeaconLogLevel.
 + (void) setLogLevel: (ZBeaconLogLevel) logLevel;
 
@@ -26,10 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Singleton object of SDK.
 +(instancetype)sharedInstance;
 
-
 /// Delegate of SDK.
 @property(weak, nonatomic, nullable) id<ZBeaconSDKDelegate> delegate;
-
 
 
 ///Using to extend your app’s background execution time. Default value is NO.
@@ -52,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Start monitoring and ranging beacons what are created from UUID list in setListBeacons method.
 /// @param callback completed callback.
-- (void)startBeaconsWithCompletion:(void(^)(void))callback;
+- (void)startBeaconsWithCompletion:(void(^)(NSInteger errorCode, NSString *_Nullable errorMessage))callback;
 
 /// Stop monitoring and ranging all beacons.
 - (void)stopBeacons;
